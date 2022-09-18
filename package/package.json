@@ -1,0 +1,22 @@
+{
+  "name": "docdundee",
+  "version": "0.0.1",
+  "description": "Helper commands for Docdundee",
+  "repository": "https://github.com/synw/docdundee",
+  "license": "MIT",
+  "scripts": {
+    "dundee_docs": "nodejs bin/dundee_docs",
+    "dundee_ex": "nodejs bin/dundee_examples"
+  },
+  "keywords": [
+    "documentation"
+  ],
+  "files": [
+    "bin"
+  ],
+  "bin": {
+    "dundee_docs": "bin/dundee_docs.js",
+    "dundee_ex": "bin/dundee_examples.js"
+  },
+  "preferGlobal": true
+}
