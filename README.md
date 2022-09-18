@@ -1,4 +1,4 @@
-# Docs Dundee
+# Doc Dundee
 
 Documentation website templates for code libraries. Features:
 
@@ -8,7 +8,7 @@ Documentation website templates for code libraries. Features:
 
  ## Install
 
-Degit or clone:
+[Degit](https://github.com/Rich-Harris/degit) or clone:
 
  ```bash
 cd mylib
