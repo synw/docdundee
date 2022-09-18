@@ -12,8 +12,8 @@ Degit or clone:
 
  ```bash
 cd mylib
-mkdir docs
-cd docs
+mkdir docsite
+cd docsite
 degit https://github.com/synw/docdundee/python
 # degit https://github.com/synw/docdundee/javascript
 # degit https://github.com/synw/docdundee/other
@@ -51,4 +51,19 @@ npm run dev
 ```
 
 Open localhost:3000
+
+## Build for Github pages
+
+Create a `docs` folder at the root of the project:
+
+```bash
+cd mylib
+mkdir docs
+cd docsite
+yarn build_to_gh
+# or
+npm run build_to_gh
+```
+
+The build will land into the `docs` folder
 
