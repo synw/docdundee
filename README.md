@@ -21,8 +21,8 @@ degit https://github.com/synw/docdundee/python
 
 ## Usage
 
-Place the markdown documentation files in `docs/public/apidoc` and the examples files
-in `docs/public/examples`. Then generate the folder listings
+Place the markdown documentation files in `docsite/public/apidoc` and the examples files
+in `docsite/public/examples`. Then generate the folder listings
 
 ### Generate docs listing
 
