@@ -1,5 +1,5 @@
 <template>
-  <div v-html="content"></div>
+  <div v-html="content" class="prose md-content dark:prose-invert"></div>
 </template>
 
 <script setup lang="ts">
@@ -39,17 +39,7 @@ const content = computed(() => {
 })
 </script>
 
-<style lang="sass">
-  h1
-    @apply text-4xl mb-3
-  h2
-    @apply text-3xl mt-5 mb-3
-  h3
-    @apply text-2xl mt-5 mb-3
-  h4
-    @apply text-xl mt-5 mb-3
-  h5
-    @apply text-lg mt-5 mb-3
-  p
-    @apply mb-3 mt-3
+<style lang="sass" scoped>
+  .md-content
+    max-width: 100ch
 </style>
