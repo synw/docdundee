@@ -1,6 +1,8 @@
 import hljs from 'highlight.js/lib/core';
 import typescript from 'highlight.js/lib/languages/typescript';
+import javascript from 'highlight.js/lib/languages/javascript';
 hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('javascript', javascript);
 
 const libName = "Mylib";
 

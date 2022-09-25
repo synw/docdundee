@@ -14,11 +14,14 @@ Documentation website templates for code libraries. Features:
 cd mylib
 mkdir docsite
 cd docsite
-degit https://github.com/synw/docdundee/python
-# degit https://github.com/synw/docdundee/javascript
-# degit https://github.com/synw/docdundee/other
+degit https://github.com/synw/docdundee/default
  ```
 
+for python:
+
+ ```bash
+degit https://github.com/synw/docdundee/python
+ ```
 ## Usage
 
 Place the markdown documentation files in `docsite/public/apidoc` and the examples files

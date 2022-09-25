@@ -11,15 +11,12 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { CodeEditor } from "vuecodit";
-//import CodeEditor from "@/packages/CodeEditor.vue";
 import "vuecodit/style.css";
 import "highlight.js/styles/stackoverflow-light.css";
 import { api } from '@/state';
+import { hljs } from "@/conf"
 import router from "@/router";
 import { examplesExtension } from '@/conf';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-hljs.registerLanguage('javascript', javascript);
 
 const isReady = ref(false);
 let initialCode = ref("");
