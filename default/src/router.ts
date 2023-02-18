@@ -39,7 +39,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "Examples"
     }
-  }
+  },
+  {
+    path: "/:filepath+",
+    component: () => import("./views/RenderMdView.vue"),
+    meta: {
+      title: ""
+    },
+    props: true
+  },
 ]
 
 const router = createRouter({

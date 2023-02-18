@@ -1,27 +1,19 @@
-# Doc Dundee
-
-Documentation website templates for code libraries. Features:
-
- - Markdown rendering of api docs with code syntax highlighting
- - Interactive examples for Python and Javascript
- - Responsive and dark mode support
-
- ## Install
+# Install
 
 [Degit](https://github.com/Rich-Harris/degit) or clone:
 
- ```bash
+```bash
 cd mylib
 mkdir docsite
 cd docsite
 degit https://github.com/synw/docdundee/default
- ```
-
-for python:
-
- ```bash
+# or
 degit https://github.com/synw/docdundee/python
- ```
+# install
+yarn
+# or 
+npm install
+```
 
 ### Configure
 
@@ -51,4 +43,5 @@ npm run build_to_gh
 ```
 
 The build will land into the `docs` folder
+
 

@@ -1,9 +1,9 @@
 <template>
-  <div v-html="content"></div>
+  <div class="md-content prosed" v-html="content"></div>
 </template>
 
 <script setup lang="ts">
-import hljs from 'highlight.js/lib/core';
+import _hljs from 'highlight.js/lib/core';
 import { computed } from 'vue';
 import MarkdownIt from 'markdown-it';
 
@@ -13,7 +13,7 @@ const props = defineProps({
     required: true,
   },
   hljs: {
-    type: Object as () => typeof hljs,
+    type: Object as () => typeof _hljs,
     required: true
   }
 });
@@ -21,9 +21,8 @@ const md = new MarkdownIt({
   html: true,
   highlight: function (str, lang) {
     if (lang && props.hljs.getLanguage(lang)) {
-
       try {
-        return hljs.highlight(str, { language: lang }).value;
+        return props.hljs.highlight(str, { language: lang }).value;
       } catch (e) {
         throw new Error(`Code parse error ${e}`)
       }
@@ -38,3 +37,9 @@ const content = computed(() => {
   return res
 })
 </script>
+
+<style lang="sass">
+.md-content.prosed
+  & pre
+    @apply bg-gray-100 text-black dark:bg-black dark:text-neutral-200 p-3 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
+</style>

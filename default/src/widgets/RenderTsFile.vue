@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <render-md v-if="isReady" :source="code" :hljs="hljs"></render-md>
+  <div class="not-prose">
+    <render-ts :code="code" v-if="isReady"></render-ts>
     <loading-spinner v-else class="flex items-center justify-center p-5 text-2xl"></loading-spinner>
   </div>
 </template>
 
 <script setup lang="ts">
-import "highlight.js/styles/stackoverflow-dark.css";
-import RenderMd from '@/widgets/RenderMd.vue';
-import { api } from "@/state";
-import { ref, watchEffect } from "vue";
-import _hljs from 'highlight.js/lib/core';
+import RenderTs from "./RenderTs.vue";
+import { onBeforeMount, ref } from 'vue';
+import { api } from '@/state';
 import LoadingSpinner from "./LoadingSpinner.vue";
 
 const props = defineProps({
@@ -18,20 +16,19 @@ const props = defineProps({
     type: String,
     required: true
   },
-  hljs: {
-    type: Object as () => typeof _hljs,
-    required: true
-  }
 })
 
-const code = ref("");
 const isReady = ref(false);
+let code = ref("");
 
 async function load() {
-  isReady.value = false;
   code.value = await api.get<string>(props.fileUrl);
+  if (code.value.startsWith("// @ts-nocheck")) {
+    code.value = code.value.replace("// @ts-nocheck\n", "")
+  }
+  //console.log("CODE", code.value)
   isReady.value = true;
 }
 
-watchEffect(() => load())
+onBeforeMount(() => load())
 </script>
