@@ -3,8 +3,9 @@
     @togglemenu="isMenuVisible = !isMenuVisible">
     <template #branding>
       <a @click="$router.push('/')">
-        <div class="ml-5 text-2xl cursor-pointer">
-          <i-noto:crocodile class="text-3xl"></i-noto:crocodile>&nbsp;{{ libName }}
+        <div class="flex flex-row items-center ml-5 space-x-2 text-2xl cursor-pointer">
+          <div v-html="logo"></div>
+          <div>{{ libName }}</div>
         </div>
       </a>
     </template>
@@ -44,6 +45,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import logo from "@/assets/logo.svg?raw";
 import { SwHeader, SwMobileMenu } from "@snowind/header";
 import { PyStatus } from "vuepython"
 import { user, py } from "@/state";
