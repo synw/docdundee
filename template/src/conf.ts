@@ -1,16 +1,11 @@
-const libName = "Docdundee";
+const libName = "Doc";
 
 const links: Array<{ href: string; name: string }> = [
-  { href: "/apidoc", name: "Api doc" },
-  { href: "/examples", name: "Examples" },
+  //{ href: "/apidoc", name: "Api doc" },
 ];
 
-const sidebar = [
-  { "Python api": "api" }
-]
-
 // python runtime
-const pipPackages = ["http:localhost:5173/docdundee-0.0.1-py3-none-any.whl"];
+const pipPackages = [];
 const pyodidePackages = [];
 const examplesExtension = "py";
 
@@ -22,4 +17,4 @@ async function loadHljsTheme(isDark: boolean) {
   }
 }
 
-export { libName, pipPackages, examplesExtension, pyodidePackages, sidebar, links, loadHljsTheme }
+export { libName, pipPackages, examplesExtension, pyodidePackages, links, loadHljsTheme }

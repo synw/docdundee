@@ -1,0 +1,152 @@
+{
+  "parse_class": {
+    "funcdef": "def parse_class(mod: str, cls: str, private=False) -> MethodsDict",
+    "description": "Parse a class to a methods dict\n",
+    "long_description": "All the methods of the class will be parsed\nand the docstrings returned in a dict\n",
+    "example": {
+      "code": "from docdundee.docparser import parse_class, parse_docstrings\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\nparsed_methods: MethodsDict = parse_class(\"mypackage.myfile\", \"MyClassName\")\ndocs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)",
+      "is_executable": false
+    },
+    "params": {
+      "mod": {
+        "description": "module import path\n",
+        "type": "str\n",
+        "default": null
+      },
+      "cls": {
+        "description": "class name\n",
+        "type": "str\n",
+        "default": null
+      },
+      "private": {
+        "description": "parse private function that start with _, defaults to False\n",
+        "type": "bool\n",
+        "default": "False\n"
+      }
+    },
+    "raises": [],
+    "returns": {
+      "name": null,
+      "type": "MethodsDict\n"
+    },
+    "extra_examples": [
+      {
+        "code": "from typing import Dict\nimport json\nfrom docdundee.docparser import parse_class, parse_docstrings\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\n\"\"\"\nParse the datetime date methods\n\"\"\"\n# try replacing date by tzinfo\nparsed_methods: MethodsDict = parse_class(\"datetime\", \"date\")\ndocs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)\nf\"<pre>{json.dumps(docs, indent=4)}</pre>\"\n",
+        "is_executable": true
+      }
+    ],
+    "extra_md": "See also: MethodsDict"
+  },
+  "parse_functions": {
+    "funcdef": "def parse_functions(mod: str, private=False) -> MethodsDict",
+    "description": "Parse a module's functions to a methods dict\n",
+    "long_description": "All the functions in the file will be parsed\nexcept the ones that start with and underscore.\nThe docstrings are returned in a dict\n",
+    "example": {
+      "code": "from docdundee.docparser import parse_functions, parse_docstrings\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\nparsed_funcs: MethodsDict = parse_functions(\"mypackage.myfile\")\ndocs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_funcs)",
+      "is_executable": false
+    },
+    "params": {
+      "mod": {
+        "description": "module import path\n",
+        "type": "str\n",
+        "default": null
+      },
+      "private": {
+        "description": "parse private function starting with _, defaults to False\n",
+        "type": "bool\n",
+        "default": "False\n"
+      }
+    },
+    "raises": [],
+    "returns": {
+      "name": null,
+      "type": "MethodsDict\n"
+    },
+    "extra_examples": [
+      {
+        "code": "from typing import Dict\nimport json\nfrom docdundee.docparser import parse_functions, parse_docstrings\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\n\"\"\"\nParse the datetime package functions\n\"\"\"\nparsed_methods: MethodsDict = parse_functions(\"datetime\", private=True)\ndocs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)\nf\"<pre>{json.dumps(docs, indent=4)}</pre>\"",
+        "is_executable": true
+      }
+    ]
+  },
+  "get_func_sources": {
+    "funcdef": "def get_func_sources(file: str) -> FileSourcesDict",
+    "description": "Get source code of all functions in a file\n",
+    "long_description": "",
+    "example": {
+      "code": "from docdundee.interfaces import FileSourcesDict\n\nsources: FileSourcesDict = get_func_sources(\"some/path/file.py\")",
+      "is_executable": false
+    },
+    "params": {
+      "file": {
+        "description": "the file path\n",
+        "type": "str\n",
+        "default": null
+      }
+    },
+    "raises": [
+      {
+        "description": "source not found",
+        "type": "ModuleNotFoundError"
+      }
+    ],
+    "returns": {
+      "name": null,
+      "type": "FileSourcesDict\n"
+    }
+  },
+  "parse_docstrings": {
+    "funcdef": "def parse_docstrings(\n    methods: MethodsDict, exec_examples=False\n) -> Dict[str, ParsedDocstring]",
+    "description": "Parse a list of preprocessed MethodsDict docstring\n",
+    "long_description": "",
+    "example": {
+      "code": "from docdundee.docparser import parse_functions, parse_docstrings\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\nparsed_ds: MethodsDict = parse_functions(\"mypackage.myfile\")\ndocs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_ds)",
+      "is_executable": false
+    },
+    "params": {
+      "methods": {
+        "description": "the parsed methods\n",
+        "type": "MethodsDict\n",
+        "default": null
+      },
+      "exec_examples": {
+        "description": "set the examples as executable by default, defaults to False\n",
+        "type": "bool\n",
+        "default": "False\n"
+      }
+    },
+    "raises": [],
+    "returns": {
+      "name": null,
+      "type": "Dict[str, ParsedDocstring]\n"
+    }
+  },
+  "write_docstrings": {
+    "funcdef": "def write_docstrings(\n    filepath: str, docstrings: Dict[str, ParsedDocstring], indent: int | None = None\n)",
+    "description": "Write the docstrings json to a file\n",
+    "long_description": "",
+    "example": {
+      "code": "from docdundee.docparser import (\nparse_functions,\nparse_docstrings,\nwrite_docstrings\n)\nfrom docdundee.interfaces import MethodsDict, ParsedDocstring\n\nparsed_funcs: MethodsDict = parse_functions(\"mypackage.myfile\")\ndocs: ParsedDocstring = parse_docstrings(parsed_funcs)\nwrite_docstrings(\"../../docsite/src/assets/doc/api/index.json\", doc, 4)",
+      "is_executable": false
+    },
+    "params": {
+      "filepath": {
+        "description": "the file path\n",
+        "type": "str\n",
+        "default": null
+      },
+      "json_data": {
+        "description": "the json data\n",
+        "type": "Dict[str, Any] | Array[Any]\n",
+        "default": null
+      },
+      "indent": {
+        "description": "the indentation level, defaults to None\n",
+        "type": null,
+        "default": "None\n"
+      }
+    },
+    "raises": [],
+    "returns": null
+  }
+}

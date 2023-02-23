@@ -4,7 +4,6 @@ import json
 import ast
 import inspect
 from importlib import import_module
-from dataclasses import asdict
 
 from docutils.core import publish_parts
 from docstring_parser import parse
@@ -24,6 +23,9 @@ def parse_class(mod: str, cls: str, private=False) -> MethodsDict:
     and the docstrings returned in a dict
 
     .. code-block:: python
+
+      from docdundee.docparser import parse_class, parse_docstrings
+      from docdundee.interfaces import MethodsDict, ParsedDocstring
 
       parsed_methods: MethodsDict = parse_class("mypackage.myfile", "MyClassName")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)
@@ -52,6 +54,9 @@ def parse_functions(mod: str, private=False) -> MethodsDict:
 
     .. code-block:: python
 
+      from docdundee.docparser import parse_functions, parse_docstrings
+      from docdundee.interfaces import MethodsDict, ParsedDocstring
+
       parsed_funcs: MethodsDict = parse_functions("mypackage.myfile")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_funcs)
 
@@ -71,6 +76,8 @@ def get_func_sources(file: str) -> FileSourcesDict:
     """Get source code of all functions in a file
 
     .. code-block:: python
+
+      from docdundee.interfaces import FileSourcesDict
 
       sources: FileSourcesDict = get_func_sources("some/path/file.py")
 
@@ -114,6 +121,9 @@ def parse_docstrings(
     """Parse a list of preprocessed MethodsDict docstring
 
     .. code-block:: python
+
+      from docdundee.docparser import parse_functions, parse_docstrings
+      from docdundee.interfaces import MethodsDict, ParsedDocstring
 
       parsed_ds: MethodsDict = parse_functions("mypackage.myfile")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_ds)
@@ -191,6 +201,13 @@ def write_docstrings(
     """Write the docstrings json to a file
 
     .. code-block:: python
+
+      from docdundee.docparser import (
+        parse_functions,
+        parse_docstrings,
+        write_docstrings
+      )
+      from docdundee.interfaces import MethodsDict, ParsedDocstring
 
       parsed_funcs: MethodsDict = parse_functions("mypackage.myfile")
       docs: ParsedDocstring = parse_docstrings(parsed_funcs)

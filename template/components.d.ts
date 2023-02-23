@@ -9,8 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ApidocsList: typeof import('./src/components/ApidocsList.vue')['default']
     copy: typeof import('./src/components/DispatchRoute copy.vue')['default']
-    DispatchRoute: typeof import('./src/components/python/DispatchRoute.vue')['default']
-    DispatchRoutePy: typeof import('./src/components/python/DispatchRoutePy.vue')['default']
+    DispatchRoute: typeof import('./src/components/DispatchRoute.vue')['default']
     ExamplesList: typeof import('./src/components/ExamplesList.vue')['default']
     'IEmojione:crocodile': typeof import('~icons/emojione/crocodile')['default']
     'IEva:arrowBackOutline': typeof import('~icons/eva/arrow-back-outline')['default']

@@ -6,6 +6,14 @@ MethodsDict = TypedDict("name", {"funcdef": str, "docstring": Docstring})
 FileSourcesDict = TypedDict("name", {"source": str})
 
 
+class DocstringsDict(TypedDict):
+    """A
+
+    :param TypedDict: _description_
+    :type TypedDict: _type_
+    """
+
+
 class CodeBlockRaises(TypedDict):
     """An exception raises parameter"""
 

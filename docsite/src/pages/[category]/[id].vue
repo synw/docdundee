@@ -1,7 +1,7 @@
 <template>
-  <dispatch-route></dispatch-route>
+  <dispatch-route-py></dispatch-route-py>
 </template>
 
 <script setup lang="ts">
-import DispatchRoute from '@/components/DispatchRoute.vue';
+import DispatchRoutePy from '@/components/python/DispatchRoutePy.vue';
 </script>

@@ -1,6 +1,6 @@
-# Doc Dundee
+# Docdundee
 
-Documentation website templates for code libraries. Features:
+Documentation website template for code `python`, `typescript` and `javascript` libraries. Features:
 
  - Markdown rendering of api docs with code syntax highlighting
  - Interactive examples for Python and Javascript
