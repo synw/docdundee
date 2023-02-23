@@ -19,7 +19,7 @@
       </div>
     </template>
     <template #menu>
-      <div class="flex flex-row items-center justify-end h-full space-x-1">
+      <div class="flex flex-row items-center justify-end h-full space-x-5">
         <py-status :py="py"></py-status>
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>

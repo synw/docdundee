@@ -169,6 +169,7 @@ def parse_docstrings(
                 rt = _rst_to_html(rt)
             r["name"] = rn
             r["type"] = rt
+        # print("EX", k, method["docstring"].examples)
         desc, example, is_executable = _parse_long_description(
             method["docstring"].long_description, exec_examples
         )

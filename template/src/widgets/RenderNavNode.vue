@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="nav.isReady.value === true">
     <template v-if="node.md.length > 0">
       <div v-for="doc in node.md">
         <button class="px-1 text-left truncate cursor-pointer btn" v-html="doc.title" @click="onClick(doc.name)"></button>
@@ -10,12 +10,12 @@
         <button class="px-1 truncate cursor-pointer btn" v-html="ds.title" @click="onClick(ds.name)"></button>
       </div>
     </template>
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { DirNavListing } from '@/interfaces';
+import { nav } from '@/state';
 import { useRouter } from 'vue-router';
 
 const props = defineProps({

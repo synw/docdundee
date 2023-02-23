@@ -27,7 +27,7 @@
         "raises": [],
         "returns": {
             "name": null,
-            "type": "MethodsDict\n"
+            "type": "MethodsDict\nExample:\n<pre class=\"literal-block\">\nparsed_methods: MethodsDict = parse_class(&quot;mypackage.myfile&quot;, &quot;MyClassName&quot;)\n</pre>\n"
         }
     },
     "parse_functions": {
