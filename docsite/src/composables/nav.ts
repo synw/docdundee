@@ -1,5 +1,6 @@
 import { reactive, ref, Ref } from "vue";
 import { RouteLocationNormalizedLoaded } from "vue-router";
+import { useApi } from "restmix";
 import { DirNavListing, ParsedDocstring, RouteDataPayload } from "@/interfaces";
 import { useDocloader } from "@/composables/loader";
 
@@ -23,22 +24,25 @@ function getRouteParams(route: Ref<RouteLocationNormalizedLoaded>): {
   }
 }
 
-const useNav = (_docloader: typeof useDocloader) => {
-  const docloader = _docloader();
+const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<typeof useApi>) => {
   const isReady = ref(false);
+  let setReady: (value: unknown) => void;
+  let onReady = new Promise((r) => setReady = r);
   let tree = reactive({
     root: {} as DirNavListing,
     sections: {} as Record<string, DirNavListing>,
   });
 
   const _listFromDir = async (cat?: string): Promise<DirNavListing> => {
-    let url = "../assets/doc/index.json";
+    let url = "/doc/index.json";
     if (cat) {
-      url = `../assets/doc/${cat}/index.json`
+      url = `/doc/${cat}/index.json`
     }
-    const data = await import(url,  /* @vite-ignore */);
-    //console.log("DATA", data.default)
-    return data.default
+    const res = await api.get<DirNavListing>(url);
+    if (res.ok) {
+      return res.data
+    }
+    throw new Error(`${res.status}: ${res.data}`)
   }
 
   const init = async () => {
@@ -50,15 +54,20 @@ const useNav = (_docloader: typeof useDocloader) => {
     }
     tree.root = root;
     tree.sections = sections;
+    setReady(true);
     isReady.value = true;
   };
 
   const loadFromRoute = async (route: Ref<RouteLocationNormalizedLoaded>): Promise<RouteDataPayload> => {
+    await onReady;
     const { cat, name } = getRouteParams(route);
     //console.log("ROUTEp", cat, name)
     let node = tree.root
     if (cat) {
       node = tree.sections[cat]
+      if (!node) {
+        throw new Error(`section ${cat} does not exist on node ${node}`)
+      }
     }
     let hasMarkdown = false;
     let hasDocstring = false;

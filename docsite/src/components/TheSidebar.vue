@@ -21,6 +21,5 @@ watchEffect(() => {
   } else {
     sidebar.value = "default";
   }
-  console.log("Sidebar", sidebar.value)
 })
 </script>

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect, ref, reactive, toRaw } from 'vue';
+import { watchEffect, ref, reactive } from 'vue';
 import RenderPyDocstring from '@/components/python/RenderPyDocstring.vue';
 import RenderMdPy from '@/components/python/RenderMdPy.vue';
 import { useRouter } from "vue-router";

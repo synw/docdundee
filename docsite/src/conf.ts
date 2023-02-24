@@ -9,9 +9,9 @@ const sidebar = [
   { "Python api": "api" }
 ]
 
-const lib = new URL(`../docdundee-0.0.2-py3-none-any.whl`, import.meta.url).href;
+// const lib = new URL("../docdundee/docdundee-0.0.2-py3-none-any.whl", import.meta.url).href;
 // python runtime
-const pipPackages = [lib];
+const pipPackages = ["docdundee"];
 const pyodidePackages = [];
 const examplesExtension = "py";
 
