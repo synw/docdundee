@@ -12,6 +12,16 @@ import TheHeader from "./components/TheHeader.vue";
 import TheSidebar from "./components/TheSidebar.vue";
 import { libName, links } from "@/conf";
 import { initState } from "./state";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function openLink(url: string) {
+  router.push(url)
+}
+
+// global helper for markdown links to open them with router
+window["openLink"] = openLink;
 
 onBeforeMount(() => initState())
 </script>

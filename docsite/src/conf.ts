@@ -1,16 +1,17 @@
 const libName = "Docdundee";
 
 const links: Array<{ href: string; name: string }> = [
-  { href: "/apidoc", name: "Api doc" },
-  { href: "/examples", name: "Examples" },
+  { href: "/frontend", name: "Frontend" },
+  { href: "/python", name: "Python api" },
 ];
 
 const sidebar = [
   { "Python api": "api" }
 ]
 
+const lib = new URL(`../docdundee-0.0.2-py3-none-any.whl`, import.meta.url).href;
 // python runtime
-const pipPackages = ["http:localhost:5173/docdundee-0.0.1-py3-none-any.whl"];
+const pipPackages = [lib];
 const pyodidePackages = [];
 const examplesExtension = "py";
 

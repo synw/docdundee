@@ -18,7 +18,7 @@ from docdundee.interfaces import (
 
 
 def parse_class(mod: str, cls: str, private=False, verbose=False) -> DocstringsDict:
-    """Parse a class to a methods dict
+    """Parse a class to a dictionnary of docstrings
 
     All the methods of the class will be parsed
     and the docstrings returned in a dict
@@ -273,6 +273,11 @@ def _parse_nodes(
                     nodedef += f" -> {ast.unparse(node.returns)}"
                 if verbose is True:
                     print(nodedef)
+            else:
+                clsargs = []
+                for base in node.bases:
+                    clsargs.append(ast.unparse(base))
+                nodedef = f"class {node.name}({', '.join(clsargs)})"
             methods[node.name] = {
                 "funcdef": nodedef,
                 "docstring": parse(ast.get_docstring(node) or ""),
@@ -290,7 +295,11 @@ def _parse_long_description(
     if len(sl) < 2:
         return (desc, None, False)
     _desc = sl[0]
-    _ex = sl[1].replace("  ", "")
+    _exp = sl[1]
+    _lines = []
+    for line in _exp.split("\n"):
+        _lines.append(line.replace("  ", "", 1))
+    _ex = "\n".join(_lines)
     execute = exec_examples
     if _ex.startswith("# exec"):
         execute = True

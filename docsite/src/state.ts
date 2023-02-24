@@ -8,9 +8,10 @@ import { useNav } from "./composables/nav";
 const user = new User();
 const py = usePython();
 const nav = useNav(useDocloader);
-nav.init().then(() => {
+nav.init()
+/*.then(() => {
   console.log("NAV", JSON.stringify(nav.tree, null, "  "));
-})
+})*/
 
 
 async function initPy() {

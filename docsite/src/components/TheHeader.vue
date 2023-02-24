@@ -20,10 +20,10 @@
     </template>
     <template #menu>
       <div class="flex flex-row items-center justify-end h-full space-x-1">
-        <py-status :py="py"></py-status>
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>
-        <div class="pr-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
+        <py-status :py="py"></py-status>
+        <div class="px-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
           <i-fa-solid:moon v-if="!user.isDarkMode.value"></i-fa-solid:moon>
           <i-fa-solid:sun v-else></i-fa-solid:sun>
         </div>

@@ -23,6 +23,7 @@ const router = createRouter({
 });
 
 router.afterEach((to, from) => {
+  window.scrollTo(0, 0);
   if ("id" in to.params) {
     let buf = new Array<string>();
     if ("category" in to.params) {

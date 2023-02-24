@@ -12,8 +12,20 @@ import TheHeader from "./components/TheHeader.vue";
 import TheSidebar from "./components/TheSidebar.vue";
 import { libName, links } from "@/conf";
 import { initState } from "./state";
+import { useRouter } from "vue-router";
 
-onBeforeMount(() => initState())
+const router = useRouter();
+
+function openLink(url: string) {
+  router.push(url)
+}
+
+// global helper for markdown links
+// use these links format in markdown files:
+// <a href="javascript:openLink('/category/name')">My link</a>
+window["openLink"] = openLink;
+
+onBeforeMount(() => initState());
 </script>
 
 <style lang="sass">
