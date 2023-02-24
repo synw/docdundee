@@ -1,0 +1,1 @@
+import{_ as o}from"./DispatchRoutePy.vue_vue_type_script_setup_true_lang-1b096332.js";import{d as e,o as r,f as t}from"./index-01e880b4.js";import"./_plugin-vue_export-helper-c27b6911.js";const p=e({__name:"[id]",setup(a){return(_,n)=>(r(),t(o))}});export{p as default};

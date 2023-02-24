@@ -1,0 +1,1 @@
+{"name":"python_api","title":"Python api","dirs":[],"md":[],"docstrings":[{"name":"parse_class","title":"Parse class"},{"name":"parse_functions","title":"Parse functions"},{"name":"get_func_sources","title":"Get func sources"},{"name":"parse_docstrings","title":"Parse docstrings"},{"name":"write_docstrings","title":"Write docstrings"}]}

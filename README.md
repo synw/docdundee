@@ -6,5 +6,5 @@ Compose documentation websites in Vuejs. Features:
  - **Docstrings**: parse python docstrings and generate api doc
  - **Interactive** executable examples for Python, Typescript and Javascript
 
-Read the [documentation]()
+Read the [documentation](https://synw.github.io/docdundee/)
 

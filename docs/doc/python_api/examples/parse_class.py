@@ -1,4 +1,4 @@
-const s=`# exec
+# exec
 from typing import Dict
 import json
 from docdundee.docparser import parse_class, parse_docstrings
@@ -11,4 +11,3 @@ Parse the datetime date methods
 parsed_methods: DocstringsDict = parse_class("datetime", "date")
 docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)
 f"<pre>{json.dumps(docs, indent=4)}</pre>"
-`;export{s as default};
