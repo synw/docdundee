@@ -8,17 +8,17 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="docdundee",
+    name="mylib",
     packages=find_packages(),
     version=version,
-    description="Parse docstrings into json",
+    description="An example dummy library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="synw",
-    author_email="synwe@yahoo.com",
-    url="https://github.com/synw/docdundee/package/pdocdundee",
-    download_url="https://github.com/synw/docdundee/releases/tag/" + version,
-    keywords=["documentation", "docstrings"],
+    author="me",
+    author_email="me@example.com",
+    url="https://github.com/me/mylib",
+    download_url="https://github.com/me/mylib/releases/tag/" + version,
+    keywords=[],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

@@ -1,11 +1,15 @@
-const libName = "Doc";
+const libName = "Example Doc";
+
 
 const links: Array<{ href: string; name: string }> = [
-  //{ href: "/apidoc", name: "Api doc" },
+  { href: "/mylib", name: "My lib" },
+  { href: "/requests", name: "Requests" },
+  { href: "/dataframe", name: "DataFrame" },
 ];
 
+const mylib = new URL(`../mylib-0.0.1-py3-none-any.whl`, import.meta.url).href;
 // python runtime
-const pipPackages = []; // standard pip packages not provided by Pyodide
+const pipPackages = ["requests", mylib];
 const pyodidePackages = []; // https://pyodide.org/en/stable/usage/packages-in-pyodide.html#packages-in-pyodide
 const examplesExtension = "py";
 

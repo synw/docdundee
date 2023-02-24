@@ -1,3 +1,4 @@
+from ctypes import ArgumentError
 from os import path, makedirs
 from typing import Dict, List, Tuple
 import json
@@ -11,12 +12,12 @@ from docstring_parser import parse
 from docdundee.interfaces import (
     ExampleParam,
     ParsedDocstring,
-    MethodsDict,
+    DocstringsDict,
     FileSourcesDict,
 )
 
 
-def parse_class(mod: str, cls: str, private=False) -> MethodsDict:
+def parse_class(mod: str, cls: str, private=False, verbose=False) -> DocstringsDict:
     """Parse a class to a methods dict
 
     All the methods of the class will be parsed
@@ -25,9 +26,9 @@ def parse_class(mod: str, cls: str, private=False) -> MethodsDict:
     .. code-block:: python
 
       from docdundee.docparser import parse_class, parse_docstrings
-      from docdundee.interfaces import MethodsDict, ParsedDocstring
+      from docdundee.interfaces import DocstringsDict, ParsedDocstring
 
-      parsed_methods: MethodsDict = parse_class("mypackage.myfile", "MyClassName")
+      parsed_methods: DocstringsDict = parse_class("mypackage.myfile", "MyClassName")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)
 
     :param mod: module import path
@@ -37,15 +38,17 @@ def parse_class(mod: str, cls: str, private=False) -> MethodsDict:
     :param private: parse private function that start with _, defaults to False
     :type private: bool
     :return: a dict of methods
-    :rtype: MethodsDict
+    :rtype: DocstringsDict
     """
     source = inspect.getsource(getattr(import_module(mod), cls))
     _mod = ast.parse(source)
     _cls = _mod.body[0]
-    return _parse_nodes(source, _cls.body, private=private)  # type: ignore
+    if not isinstance(_cls, ast.ClassDef):
+        raise ArgumentError("Node is not a class")
+    return _parse_nodes(source, _cls.body, private=private, verbose=verbose)  # type: ignore
 
 
-def parse_functions(mod: str, private=False) -> MethodsDict:
+def parse_functions(mod: str, private=False, verbose=False) -> DocstringsDict:
     """Parse a module's functions to a methods dict
 
     All the functions in the file will be parsed
@@ -55,9 +58,9 @@ def parse_functions(mod: str, private=False) -> MethodsDict:
     .. code-block:: python
 
       from docdundee.docparser import parse_functions, parse_docstrings
-      from docdundee.interfaces import MethodsDict, ParsedDocstring
+      from docdundee.interfaces import DocstringsDict, ParsedDocstring
 
-      parsed_funcs: MethodsDict = parse_functions("mypackage.myfile")
+      parsed_funcs: DocstringsDict = parse_functions("mypackage.myfile")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_funcs)
 
     :param mod: module import path
@@ -65,11 +68,11 @@ def parse_functions(mod: str, private=False) -> MethodsDict:
     :param private: parse private function starting with _, defaults to False
     :type private: bool
     :return: a dict of methods
-    :rtype: MethodsDict
+    :rtype: DocstringsDict
     """
     source = inspect.getsource(import_module(mod))
     _mod = ast.parse(source)
-    return _parse_nodes(source, _mod.body, private=private)  # type: ignore
+    return _parse_nodes(source, _mod.body, private=private, verbose=verbose)  # type: ignore
 
 
 def get_func_sources(file: str) -> FileSourcesDict:
@@ -116,20 +119,20 @@ def get_func_sources(file: str) -> FileSourcesDict:
 
 
 def parse_docstrings(
-    methods: MethodsDict, exec_examples=False
+    methods: DocstringsDict, exec_examples=False, parse_rst=False
 ) -> Dict[str, ParsedDocstring]:
-    """Parse a list of preprocessed MethodsDict docstring
+    """Parse a list of preprocessed DocstringsDict docstring
 
     .. code-block:: python
 
       from docdundee.docparser import parse_functions, parse_docstrings
-      from docdundee.interfaces import MethodsDict, ParsedDocstring
+      from docdundee.interfaces import DocstringsDict, ParsedDocstring
 
-      parsed_ds: MethodsDict = parse_functions("mypackage.myfile")
+      parsed_ds: DocstringsDict = parse_functions("mypackage.myfile")
       docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_ds)
 
     :param methods: the parsed methods
-    :type methods: MethodsDict
+    :type methods: DocstringsDict
     :param exec_examples: set the examples as executable by default, defaults to False
     :type exec_examples: bool
     :return: a dict of parsed docstrings
@@ -145,11 +148,11 @@ def parse_docstrings(
             ptype = param.type_name
             pdefault = param.default
             if pdesc is not None:
-                pdesc = _rst_to_html(pdesc)
+                pdesc = _to_html(pdesc, parse_rst)
             if ptype is not None:
-                ptype = _rst_to_html(ptype)
+                ptype = _to_html(ptype, parse_rst)
             if pdefault is not None:
-                pdefault = _rst_to_html(pdefault)
+                pdefault = _to_html(pdefault, parse_rst)
             params[param.arg_name] = {
                 "description": pdesc,
                 "type": ptype,
@@ -163,10 +166,10 @@ def parse_docstrings(
             r = {"name": "", "type": ""}
             rn = method["docstring"].returns.return_name
             if rn is not None:
-                rn = _rst_to_html(rn)
+                rn = _to_html(rn, parse_rst)
             rt = method["docstring"].returns.type_name
             if rt is not None:
-                rt = _rst_to_html(rt)
+                rt = _to_html(rt, parse_rst)
             r["name"] = rn
             r["type"] = rt
         # print("EX", k, method["docstring"].examples)
@@ -174,10 +177,10 @@ def parse_docstrings(
             method["docstring"].long_description, exec_examples
         )
         if desc is not None:
-            desc = _rst_to_html(desc)
+            desc = _to_html(desc, parse_rst)
         shortdesc = method["docstring"].short_description
         if shortdesc is not None:
-            shortdesc = _rst_to_html(shortdesc)
+            shortdesc = _to_html(shortdesc, parse_rst)
         _example: ExampleParam | None = None
         if example is not None:
             _example = {
@@ -208,9 +211,9 @@ def write_docstrings(
         parse_docstrings,
         write_docstrings
       )
-      from docdundee.interfaces import MethodsDict, ParsedDocstring
+      from docdundee.interfaces import DocstringsDict, ParsedDocstring
 
-      parsed_funcs: MethodsDict = parse_functions("mypackage.myfile")
+      parsed_funcs: DocstringsDict = parse_functions("mypackage.myfile")
       docs: ParsedDocstring = parse_docstrings(parsed_funcs)
       write_docstrings("../../docsite/src/assets/doc/api/index.json", doc, 4)
 
@@ -226,21 +229,21 @@ def write_docstrings(
         filetowrite.write(json.dumps(docstrings, indent=indent))
 
 
-def _rst_to_html(txt: str) -> str:
-    return (
-        publish_parts(
-            txt,
-            settings_overrides={"output_encoding": "unicode"},
-            writer_name="html",
-        )["body"]
-        .replace("<p>", "")
-        .replace("</p>", "")
-    )
+def _to_html(txt: str, parse_rst: bool) -> str:
+    if not parse_rst:
+        return txt.replace("\n", "<br />")
+    return publish_parts(
+        txt,
+        settings_overrides={"output_encoding": "unicode"},
+        writer_name="html",
+    )["body"]
 
 
-def _parse_nodes(source: str, nodes: List[ast.AST], private=False) -> MethodsDict:
+def _parse_nodes(
+    source: str, nodes: List[ast.AST], private=False, verbose=False
+) -> DocstringsDict:
     i = 0
-    methods: MethodsDict = {}  # type: ignore
+    methods: DocstringsDict = {}  # type: ignore
     for node in nodes:
         if (
             isinstance(node, ast.FunctionDef)
@@ -250,11 +253,28 @@ def _parse_nodes(source: str, nodes: List[ast.AST], private=False) -> MethodsDic
             if private is False:
                 if node.name.startswith("_"):
                     continue
-            s = ast.get_source_segment(source, node)
-            # print("\n---", str(s).split('"""', 1)[0])
-            d = str(s).split('"""', 1)[0].strip()
+            nodedef = ""
+            if not isinstance(node, ast.ClassDef):
+                if isinstance(node, ast.AsyncFunctionDef):
+                    nodedef = "async def"
+                elif isinstance(node, ast.FunctionDef):
+                    nodedef = "def"
+                nodedef += f" {node.name}"
+                args_li = []
+                for arg in node.args.args:
+                    args_li.append(ast.unparse(arg))
+                if node.args.vararg:
+                    args_li.append("*" + ast.unparse(node.args.vararg))
+                if node.args.kwarg:
+                    args_li.append("**" + ast.unparse(node.args.kwarg))
+                args = ",\n\t".join(args_li)
+                nodedef += f"(\n\t{args}\n)"
+                if node.returns:
+                    nodedef += f" -> {ast.unparse(node.returns)}"
+                if verbose is True:
+                    print(nodedef)
             methods[node.name] = {
-                "funcdef": d[:-1],
+                "funcdef": nodedef,
                 "docstring": parse(ast.get_docstring(node) or ""),
             }
         i += 1

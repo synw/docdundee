@@ -2,30 +2,41 @@ from typing import Dict, List, TypedDict
 from docstring_parser import Docstring
 
 
-MethodsDict = TypedDict("name", {"funcdef": str, "docstring": Docstring})
-FileSourcesDict = TypedDict("name", {"source": str})
-
-
 class DocstringsDict(TypedDict):
-    """A
+    """A named code block docstrings dict
 
-    :param TypedDict: _description_
-    :type TypedDict: _type_
+    :param funcdef: the code definition block
+    :type funcdef: str
+    :param docstring: the parsed docstring object
+    :type docstring: Docstring
     """
+
+    funcdef: str
+    docstring: Docstring
+
+
+class FileSourcesDict(TypedDict):
+    """A files sources dict
+
+    :param source: the source code
+    :type source: str
+    """
+
+    source: str
 
 
 class CodeBlockRaises(TypedDict):
     """An exception raises parameter"""
 
     description: str
-    ptype: str
+    type: str
 
 
 class CodeBlockParam(TypedDict):
     """A parameter in a code block, like a function"""
 
     description: str
-    ptype: str
+    type: str
     default: str | None
 
 
