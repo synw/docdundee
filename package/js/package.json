@@ -7,6 +7,9 @@
   "scripts": {
     "docnav": "nodejs bin/docnav"
   },
+  "dependencies": {
+    "directory-tree": "^3.5.1"
+  },
   "keywords": [
     "documentation"
   ],

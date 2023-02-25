@@ -12,10 +12,9 @@ const api = useApi({
 });
 const docloader = useDocloader(api);
 const nav = useNav(docloader, api);
-nav.init()
-/*.then(() => {
+nav.init().then(() => {
   console.log("NAV", JSON.stringify(nav.tree, null, "  "));
-})*/
+})
 
 
 async function initPy() {

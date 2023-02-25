@@ -1,43 +1,31 @@
-import { reactive, ref, Ref } from "vue";
-import { RouteLocationNormalizedLoaded } from "vue-router";
+import { ref } from "vue";
 import { useApi } from "restmix";
 import { DirNavListing, ParsedDocstring, RouteDataPayload } from "@/interfaces";
 import { useDocloader } from "@/composables/loader";
 
 
-function getRouteParams(route: Ref<RouteLocationNormalizedLoaded>): {
-  cat: string | null;
-  name: string;
-} {
-  let name: string;
-  let cat: string | null = null;
-  if (!("id" in route.value.params)) {
-    throw new Error("No id in route, can not load data")
+function _routePathAsArray(routePath: string): Array<string> {
+  const _routePathArray = new Array<string>();
+  if (routePath.includes("/")) {
+    if (routePath.startsWith("/")) {
+      _routePathArray.push(...routePath.split("/").slice(1))
+    } else {
+      _routePathArray.push(...routePath.split("/"))
+    }
+  } else {
+    _routePathArray.push(routePath)
   }
-  name = route.value.params["id"].toString();
-  if ("category" in route.value.params) {
-    cat = route.value.params["category"].toString();
-  }
-  return {
-    cat,
-    name
-  }
+  return _routePathArray
 }
 
 const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<typeof useApi>) => {
   const isReady = ref(false);
   let setReady: (value: unknown) => void;
   let onReady = new Promise((r) => setReady = r);
-  let tree = reactive({
-    root: {} as DirNavListing,
-    sections: {} as Record<string, DirNavListing>,
-  });
+  let tree = {} as DirNavListing;
 
-  const _listFromDir = async (cat?: string): Promise<DirNavListing> => {
-    let url = "/doc/index.json";
-    if (cat) {
-      url = `/doc/${cat}/index.json`
-    }
+  const _loadNav = async (): Promise<DirNavListing> => {
+    let url = `/doc/nav.json`;
     const res = await api.get<DirNavListing>(url);
     if (res.ok) {
       return res.data
@@ -46,62 +34,90 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
   }
 
   const init = async () => {
-    const root = await _listFromDir();
-    const sections: Record<string, DirNavListing> = {};
-    for (const dir of root.dirs) {
-      const cat = await _listFromDir(dir.name);
-      sections[dir.name] = cat
-    }
-    tree.root = root;
-    tree.sections = sections;
+    tree = await _loadNav();
     setReady(true);
     isReady.value = true;
   };
 
-  const loadFromRoute = async (route: Ref<RouteLocationNormalizedLoaded>): Promise<RouteDataPayload> => {
+  const _findNodeFromRoutePathArray = (_routePathArray: string[]): DirNavListing => {
+    let node = tree;
+    let children = tree.children;
+    // console.log("Route", routePath, children);
+    let i = 1;
+    for (const segment of _routePathArray) {
+      if (children) {
+        const newnode = children?.find((c) => c.name == segment);
+        if (!newnode) {
+          return node
+          //throw new Error(`Route path error: no ${segment} segment`)
+        }
+        // console.log("SET NODE", newnode)
+        node = newnode;
+        children = node?.children;
+      } else {
+        if (i == _routePathArray.length) {
+          return node
+        }
+        throw new Error(`Route path error: children for ${segment} not found`)
+      }
+      ++i
+    }
+    return node
+  };
+
+  const findNode = (routePath: string): DirNavListing => _findNodeFromRoutePathArray(_routePathAsArray(routePath));
+
+  const loadFromRoutePath = async (routePath: string): Promise<RouteDataPayload> => {
     await onReady;
-    const { cat, name } = getRouteParams(route);
-    //console.log("ROUTEp", cat, name)
-    let node = tree.root
-    if (cat) {
-      node = tree.sections[cat]
-      if (!node) {
-        throw new Error(`section ${cat} does not exist on node ${node}`)
+    const _routePathArray = _routePathAsArray(routePath)
+    const node = _findNodeFromRoutePathArray(_routePathArray);
+    const lastSegment = _routePathArray.slice(-1)[0];
+    const _routePathWithoutLastSegment = _routePathArray.slice(0, -1).join("/");
+    if (lastSegment == node.name) {
+      // this is a directory url, fetch the markdown index
+      const indexMd = await docloader.loadMarkdown(routePath, "index.md");
+      return {
+        name: lastSegment,
+        hasMarkdown: true,
+        hasDocstring: false,
+        markdown: indexMd,
+        docstring: {} as ParsedDocstring,
       }
     }
     let hasMarkdown = false;
     let hasDocstring = false;
     let markdown = "";
     if (node.md.length > 0) {
-      let mdNode = node.md.find(n => n.name == name);
+      let mdNode = node.md.find(n => n.name == lastSegment);
       //let filename = name + ".md";
       if (mdNode) {
         hasMarkdown = true;
-        markdown = await docloader.loadMarkdown(cat, mdNode.filename);
+        markdown = await docloader.loadMarkdown(_routePathWithoutLastSegment, mdNode.filename);
       }
     }
     let docstring = {} as ParsedDocstring;
     if (node.docstrings.length > 0) {
-      const _docstring = await docloader.loadDocstrings(cat);
-      const _ds = _docstring[name];
+      const _docstring = await docloader.loadDocstrings(_routePathWithoutLastSegment);
+      const _ds = _docstring[lastSegment];
       if (_ds) {
         hasDocstring = true;
         docstring = _ds;
       }
     }
     return {
-      name: name,
+      name: lastSegment,
       hasMarkdown: hasMarkdown,
       hasDocstring: hasDocstring,
       markdown: markdown,
       docstring: docstring,
     }
-  };
+  }
 
   return {
     init,
     tree,
-    loadFromRoute,
+    loadFromRoutePath,
+    findNode,
     isReady,
   }
 }

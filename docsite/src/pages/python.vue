@@ -5,11 +5,11 @@
       files from docstrings
     </div>
     <div class="my-3 text-xl cursor-pointer">Python api</div>
-    <render-nav-node :node="nav.tree.sections.python_doc"></render-nav-node>
+    <render-nav-node :node="nav.findNode('python_doc')"></render-nav-node>
     <div class="my-3 text-lg cursor-pointer">Functions</div>
-    <render-nav-node :node="nav.tree.sections.python_api"></render-nav-node>
+    <render-nav-node :node="nav.findNode('python_api')"></render-nav-node>
     <div class="my-3 text-lg cursor-pointer">Types</div>
-    <render-nav-node :node="nav.tree.sections.python_types"></render-nav-node>
+    <render-nav-node :node="nav.findNode('python_types')"></render-nav-node>
   </div>
 </template>
 

@@ -23,7 +23,10 @@ interface ParsedDocstring {
   raises: Array<CodeBlockRaises>;
   returns: Record<string, string> | null;
   extra_examples?: Array<ExampleParam>;
-  extra_md?: string;
+  extra_md?: {
+    header: string,
+    footer: string
+  }
 }
 
 interface DirNavItem {
@@ -36,9 +39,9 @@ interface MdNavItem extends DirNavItem {
 }
 
 interface DirNavListing extends DirNavItem {
-  dirs: Array<DirNavItem>;
   md: Array<MdNavItem>;
   docstrings: Array<DirNavItem>;
+  children?: Array<DirNavListing>;
 }
 
 interface RouteDataPayload {

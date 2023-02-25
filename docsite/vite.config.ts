@@ -6,7 +6,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Pages from 'vite-plugin-pages'
 import { libName } from "./src/conf";
-import { parseDir } from '../package/js/bin/lib'
+import { parseDirTree } from '../package/js/bin/lib'
 
 export default defineConfig({
   plugins: [
@@ -27,13 +27,13 @@ export default defineConfig({
       handleHotUpdate({ file }) {
         if (file.includes("src/assets/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
           //const dirpath = file.split("/").slice(0, -1).join("/");
-          parseDir(path.resolve("./src/assets/doc"))
+          parseDirTree(path.resolve("./src/assets/doc"))
         }
       },
     }
   ],
   assetsInclude: ["**/*.md"],
-  base: process.env.NODE_ENV === 'production' ? `/${libName.toLowerCase()}/` : './',
+  base: process.env.NODE_ENV === 'production' ? `/${libName.toLowerCase()}` : './',
   resolve: {
     alias: [
       { find: '@/', replacement: '/src/' },

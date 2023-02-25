@@ -1,5 +1,6 @@
 import { default as path } from "path";
 import { default as fs } from "fs";
+import { default as dirTree } from "directory-tree";
 
 
 function _getMdRawFilename(name) {
@@ -15,14 +16,12 @@ function _getTitle(name) {
   return s
 }
 
-function _readFilesInDir(dir) {
+function _readFilesInDir(dir, url) {
   const md = [];
-  const dirs = [];
   let hasDocstrings = false;
   let hasExamples = false;
   let hasExtraMd = false;
-  const name = dir.split("/").pop();
-  let title = _getTitle(name);
+  let hasMdIndex = false;
   //console.log("DIR", dir)
   fs.readdirSync(dir).forEach((filename) => {
     // console.log(file);
@@ -33,11 +32,6 @@ function _readFilesInDir(dir) {
       if (filename != "examples") {
         if (filename == "md") {
           hasExtraMd = true;
-        } else {
-          dirs.push({
-            name: filename,
-            title: _getTitle(filename),
-          });
         }
       } else {
         hasExamples = true
@@ -45,12 +39,17 @@ function _readFilesInDir(dir) {
     } else {
       const isMarkdown = filename.endsWith(".md");
       if (isMarkdown) {
-        const n = _getMdRawFilename(filename);
-        md.push({
-          name: n,
-          title: _getTitle(n),
-          filename: filename,
-        })
+        if (filename == "index.md") {
+          hasMdIndex = true
+        } else {
+          const n = _getMdRawFilename(filename);
+          md.push({
+            name: n,
+            title: _getTitle(n),
+            filename: filename,
+            url: `${url}/${n}`
+          })
+        }
       } else {
         if (filename == "docstrings.json") {
           hasDocstrings = true
@@ -58,10 +57,10 @@ function _readFilesInDir(dir) {
       }
     }
   });
-  return { name, title, dirs, md, hasDocstrings, hasExamples, hasExtraMd }
+  return { md, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex }
 }
 
-function listDocstrings(dir) {
+function listDocstrings(dir, url) {
   const rawdata = fs.readFileSync(dir + '/docstrings.json');
   const data = JSON.parse(rawdata);
   const dsnames = Object.keys(data)
@@ -69,17 +68,12 @@ function listDocstrings(dir) {
   dsnames.forEach((d) => {
     ds.push({
       name: d,
-      title: _getTitle(d)
+      title: _getTitle(d),
+      url: `${url}/${d}`,
     });
     // check examples
   });
   return ds
-}
-
-function saveIndex(dirpath, data) {
-  const filename = dirpath + "/index.json";
-  fs.writeFileSync(filename, data);
-  console.log("Saved", filename)
 }
 
 function _parseExample(ex) {
@@ -99,7 +93,7 @@ function updateDocstringsWithExtraMd(dirpath) {
   fs.readdirSync(dirpath + "/md").forEach((filename) => {
     const rawcode = fs.readFileSync(dirpath + "/md/" + filename, "utf-8");
     md.push({
-      name: filename.split(".").slice(-2)[0],
+      filename: filename,
       content: rawcode,
     });
   });
@@ -109,9 +103,24 @@ function updateDocstringsWithExtraMd(dirpath) {
   //console.log("DS", ds)
   for (const _md of md) {
     //console.log("e", ex.name, ds[ex.name]);
-    ds[_md.name]["extra_md"] = _md.content
+    let name = "";
+    let isFooter = true;
+    if (_md.filename.startsWith("h.")) {
+      name = _getMdRawFilename(_md.filename);
+      isFooter = false
+    } else {
+      name = _md.filename.split(".").slice(-2)[0];
+    }
+    if (!("extra_md" in ds[name])) {
+      ds[name]["extra_md"] = { header: "", footer: "" }
+    }
+    if (isFooter) {
+      ds[name].extra_md.footer = _md.content;
+    } else {
+      ds[name].extra_md.header = _md.content;
+    }
   }
-  fs.writeFileSync(dirpath + "/docstrings.json", JSON.stringify(ds, null, "  "))
+  fs.writeFileSync(dirpath + "/docstrings.json", JSON.stringify(ds), { encoding: 'utf8', flag: 'w' })
   console.log("Updated", dirpath + "/docstrings.json", "with extra markdown")
 }
 
@@ -137,22 +146,20 @@ function updateDocstringsWithExtraExamples(dirpath) {
       is_executable: ex.isExecutable
     }];
   }
-  fs.writeFileSync(dirpath + "/docstrings.json", JSON.stringify(ds, null, "  "))
+  fs.writeFileSync(dirpath + "/docstrings.json", JSON.stringify(ds, null, "  "), { encoding: 'utf8', flag: 'w' })
   console.log("Updated", dirpath + "/docstrings.json", "with extra examples")
 }
 
-function parseDir(dirpath) {
+function parseDir(dirpath, url) {
   //console.log("Parsing dir", dir);
-  let { name, title, dirs, md, hasDocstrings, hasExamples, hasExtraMd } = _readFilesInDir(dirpath);
+  let { md, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex } = _readFilesInDir(dirpath, url);
   let data = {
-    name: name,
-    title: title,
-    dirs: dirs,
     md: md,
-    docstrings: []
+    docstrings: [],
+    hasMdIndex: hasMdIndex,
   }
   if (hasDocstrings) {
-    data.docstrings = listDocstrings(dirpath)
+    data.docstrings = listDocstrings(dirpath, url)
     // check extra examples
     if (hasExamples) {
       updateDocstringsWithExtraExamples(dirpath)
@@ -161,11 +168,43 @@ function parseDir(dirpath) {
       updateDocstringsWithExtraMd(dirpath)
     }
   }
-  //console.log("DATa", data)
-  saveIndex(dirpath, JSON.stringify(data));
-  for (const d of dirs) {
-    parseDir(dirpath + "/" + d.name)
-  }
+  return data
 }
 
-export { parseDir }
+function saveNav(dirpath, data) {
+  const filename = dirpath + "/nav.json";
+  fs.writeFileSync(filename, JSON.stringify(data), { encoding: 'utf8', flag: 'w' });
+  console.log("Saved", filename)
+}
+
+const onParseDirectory = (
+  item,
+  basePath,
+) => {
+  if (item.type == "directory") {
+    item.title = _getTitle(item.name);
+    const url = item.path.replace(basePath, "");
+    const dirData = parseDir(item.path, url);
+    item.md = dirData.md;
+    item.docstrings = dirData.docstrings;
+    item.url = url;
+    item.hasMdIndex = dirData.hasMdIndex;
+  }
+  delete item.path
+  delete item.type
+};
+
+function parseDirTree(basePath) {
+  return dirTree(
+    basePath,
+    {
+      extensions: /\.()$/,
+      attributes: ["type"],
+      exclude: /(md|examples)$/,
+    },
+    (item, path) => onParseDirectory(item, basePath),
+    (item, path) => onParseDirectory(item, basePath)
+  );
+}
+
+export { saveNav, parseDirTree }
