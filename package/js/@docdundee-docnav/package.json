@@ -1,7 +1,7 @@
 {
-  "name": "docdundee",
-  "version": "0.0.2",
-  "description": "Helper commands for Docdundee",
+  "name": "@docdundee/docnav",
+  "version": "0.0.1",
+  "description": "Build the navigation for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "license": "MIT",
   "scripts": {
@@ -20,5 +20,9 @@
     "docnav": "bin/docnav.js"
   },
   "type": "module",
-  "preferGlobal": true
+  "preferGlobal": true,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
