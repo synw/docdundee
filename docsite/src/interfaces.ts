@@ -32,6 +32,7 @@ interface ParsedDocstring {
 interface DirNavItem {
   name: string;
   title: string;
+  url: string;
 }
 
 interface MdNavItem extends DirNavItem {

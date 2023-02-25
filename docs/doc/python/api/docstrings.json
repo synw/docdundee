@@ -35,7 +35,10 @@
         "is_executable": true
       }
     ],
-    "extra_md": "See also: the <a href=\"javascript:openLink('/python_types/DocstringsDict')\">DocstringsDict</a> and\nthe <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> types"
+    "extra_md": {
+      "header": "",
+      "footer": "See also: the <a href=\"javascript:openLink('/python_types/DocstringsDict')\">DocstringsDict</a> and\nthe <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> types"
+    }
   },
   "parse_functions": {
     "funcdef": "def parse_functions(\n\tmod: str,\n\tprivate,\n\tverbose\n) -> DocstringsDict",
@@ -68,7 +71,10 @@
         "is_executable": true
       }
     ],
-    "extra_md": "See also: the <a href=\"javascript:openLink('/python_types/DocstringsDict')\">DocstringsDict</a> and\nthe <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> types"
+    "extra_md": {
+      "header": "",
+      "footer": "See also: the <a href=\"javascript:openLink('/python_types/DocstringsDict')\">DocstringsDict</a> and\nthe <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> types"
+    }
   },
   "get_func_sources": {
     "funcdef": "def get_func_sources(\n\tfile: str\n) -> FileSourcesDict",
@@ -121,7 +127,10 @@
       "name": null,
       "type": "Dict[str, ParsedDocstring]"
     },
-    "extra_md": "See also: the <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> type"
+    "extra_md": {
+      "header": "",
+      "footer": "See also: the <a href=\"javascript:openLink('/python_types/ParsedDocstring')\">ParsedDocstring</a> type"
+    }
   },
   "write_docstrings": {
     "funcdef": "def write_docstrings(\n\tfilepath: str,\n\tdocstrings: Dict[str, ParsedDocstring],\n\tindent: int | None\n)",
