@@ -1,5 +1,5 @@
 <template>
-  <div class="prosed" v-if="nav.isReady.value === true">
+  <div class="prosed" v-if="isNavReady">
     <h1>Docdundee</h1>
     <div class="pt-3">Compose documentation websites in Vuejs: components, markdown documents and auto docstrings</div>
     <div class="flex flex-row space-x-5">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { nav } from '@/state';
+import { nav, isNavReady } from "@/state";
 import RenderNavNode from '@/widgets/RenderNavNode.vue';
 import { onMounted } from 'vue';
 

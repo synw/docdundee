@@ -1,5 +1,5 @@
-import { ParsedDocstring } from "@/interfaces";
 import { useApi } from "restmix";
+import { ParsedDocstring } from "./interfaces";
 
 
 const useDocloader = (api: ReturnType<typeof useApi>) => {

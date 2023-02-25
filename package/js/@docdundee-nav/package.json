@@ -1,0 +1,32 @@
+{
+  "name": "@docdundee/nav",
+  "version": "0.0.1",
+  "description": "Navigation composables for Docdundee",
+  "repository": "https://github.com/synw/docdundee",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "restmix": "^0.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.2",
+    "typescript": "^4.6.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT"
+}

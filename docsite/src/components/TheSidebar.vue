@@ -1,5 +1,5 @@
 <template>
-  <div v-if="nav.isReady.value == true">
+  <div v-if="isNavReady">
     <default-sidebar v-if="sidebar == 'default'"></default-sidebar>
     <python-sidebar v-else-if="sidebar == 'python'"></python-sidebar>
   </div>
@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { nav } from "@/state";
+import { isNavReady } from "@/state";
 import DefaultSidebar from "@/components/sidebars/DefaultSidebar.vue";
 import PythonSidebar from "@/components/sidebars/PythonSidebar.vue";
 

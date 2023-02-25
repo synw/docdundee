@@ -1,7 +1,6 @@
-import { ref } from "vue";
 import { useApi } from "restmix";
-import { DirNavListing, ParsedDocstring, RouteDataPayload } from "@/interfaces";
-import { useDocloader } from "@/composables/loader";
+import { DirNavListing, ParsedDocstring, RouteDataPayload } from "./interfaces";
+import { useDocloader } from "./loader";
 
 
 function _routePathAsArray(routePath: string): Array<string> {
@@ -19,7 +18,6 @@ function _routePathAsArray(routePath: string): Array<string> {
 }
 
 const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<typeof useApi>) => {
-  const isReady = ref(false);
   let setReady: (value: unknown) => void;
   let onReady = new Promise((r) => setReady = r);
   let tree = {} as DirNavListing;
@@ -36,7 +34,6 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
   const init = async () => {
     tree = await _loadNav();
     setReady(true);
-    isReady.value = true;
   };
 
   const _findNodeFromRoutePathArray = (_routePathArray: string[]): DirNavListing => {
@@ -118,7 +115,6 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
     tree,
     loadFromRoutePath,
     findNode,
-    isReady,
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="prosed" v-if="nav.isReady.value === true">
+  <div class="prosed" v-if="isNavReady">
     <h1>Python package</h1>
     <div class="my-3">The docdundee Python package is used to generate static json
       files from docstrings
@@ -14,6 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { nav } from "@/state";
+import { nav, isNavReady } from "@/state";
 import RenderNavNode from '@/widgets/RenderNavNode.vue';
 </script>

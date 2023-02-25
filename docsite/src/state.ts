@@ -1,9 +1,9 @@
+import { ref } from "vue";
 import { usePython } from "usepython";
 import { useApi } from "restmix";
 import { User } from "@snowind/state";
 import { pipPackages, pyodidePackages, loadHljsTheme } from "@/conf";
-import { useDocloader } from "./composables/loader";
-import { useNav } from "./composables/nav";
+import { useNav, useDocloader } from "@docdundee/nav";
 
 const user = new User();
 const py = usePython();
@@ -12,8 +12,9 @@ const api = useApi({
 });
 const docloader = useDocloader(api);
 const nav = useNav(docloader, api);
+const isNavReady = ref(false);
 nav.init().then(() => {
-  console.log("NAV", JSON.stringify(nav.tree, null, "  "));
+  isNavReady.value = true;
 })
 
 
@@ -27,4 +28,4 @@ function initState() {
 }
 
 
-export { py, user, nav, api, initPy, initState }
+export { py, user, nav, api, initPy, initState, isNavReady }

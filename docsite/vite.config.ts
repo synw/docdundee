@@ -6,7 +6,8 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Pages from 'vite-plugin-pages'
 import { libName } from "./src/conf";
-import { parseDirTree } from '../package/js/bin/lib'
+var nav;
+import('./node_modules/@docdundee/docnav/bin/lib').then((x) => nav = x)
 
 export default defineConfig({
   plugins: [
@@ -25,9 +26,9 @@ export default defineConfig({
     {
       name: 'watch-doc',
       handleHotUpdate({ file }) {
-        if (file.includes("src/assets/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
+        if (file.includes("public/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
           //const dirpath = file.split("/").slice(0, -1).join("/");
-          parseDirTree(path.resolve("./src/assets/doc"))
+          nav.parseDirTree(path.resolve("./public/doc"))
         }
       },
     }
