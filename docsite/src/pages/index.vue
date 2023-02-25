@@ -9,7 +9,7 @@
       </div>
       <div>
         <h2 class="pt-3">Python</h2>
-        <render-nav-node :node="nav.findNode('python_doc')"></render-nav-node>
+        <render-nav-node :node="nav.findNode('python/doc')"></render-nav-node>
         <!-- render-nav-node :node="nav.findNode('python_api')"></render-nav-node -->
       </div>
     </div>
