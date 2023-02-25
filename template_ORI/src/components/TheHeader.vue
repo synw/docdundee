@@ -3,8 +3,9 @@
     @togglemenu="isMenuVisible = !isMenuVisible">
     <template #branding>
       <a @click="$router.push('/')">
-        <div class="ml-5 text-2xl cursor-pointer">
-          <i-noto:crocodile class="text-3xl"></i-noto:crocodile>&nbsp;{{ libName }}
+        <div class="flex flex-row items-center ml-5 space-x-2 text-2xl cursor-pointer">
+          <div v-html="logo"></div>
+          <div>{{ libName }}</div>
         </div>
       </a>
     </template>
@@ -19,11 +20,11 @@
       </div>
     </template>
     <template #menu>
-      <div class="flex flex-row items-center justify-end h-full space-x-1">
+      <div class="flex flex-row items-center justify-end h-full space-x-5">
+        <py-status :py="py"></py-status>
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>
-        <py-status :py="py"></py-status>
-        <div class="px-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
+        <div class="pr-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
           <i-fa-solid:moon v-if="!user.isDarkMode.value"></i-fa-solid:moon>
           <i-fa-solid:sun v-else></i-fa-solid:sun>
         </div>
@@ -44,6 +45,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import logo from "@/assets/logo.svg?raw";
 import { SwHeader, SwMobileMenu } from "@snowind/header";
 import { PyStatus } from "vuepython"
 import { user, py } from "@/state";

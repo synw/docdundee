@@ -20,12 +20,10 @@ function openLink(url: string) {
   router.push(url)
 }
 
-// global helper for markdown links
-// use these links format in markdown files:
-// <a href="javascript:openLink('/category/name')">My link</a>
+// global helper for markdown links to open them with router
 window["openLink"] = openLink;
 
-onBeforeMount(() => initState());
+onBeforeMount(() => initState())
 </script>
 
 <style lang="sass">

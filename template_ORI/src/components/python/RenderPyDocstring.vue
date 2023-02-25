@@ -2,8 +2,7 @@
   <div>
     <div class="prosed">
       <h1 v-if="title">{{ title }}</h1>
-      <slot></slot>
-      <div v-html="docstring.description"></div>
+      <div v-html="docstring.description"> </div>
     </div>
     <pre class="py-2 mt-5 w-max"><code v-html="parsedCode" style="white-space: pre"></code></pre>
     <div class="mt-5 prosed">

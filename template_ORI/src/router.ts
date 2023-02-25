@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-//import HomeView from "./pages/HomeView.vue"
+import HomeView from "./views/HomeView.vue"
 import { libName } from "./conf"
 // @ts-ignore
 import { default as autoRoutes } from '~pages'
@@ -7,18 +7,14 @@ import { default as autoRoutes } from '~pages'
 const baseTitle = libName;
 
 const routes: Array<RouteRecordRaw> = [
-  /*{
+  {
     path: "/",
     component: HomeView,
     meta: {
       title: "Home"
     }
-  },*/
-  ...autoRoutes,
-  /*{
-    path: "/path+",
-    component: () => import("./views/PageView.vue"),
-  }*/
+  },
+  ...autoRoutes
 ]
 
 const router = createRouter({
@@ -27,7 +23,6 @@ const router = createRouter({
 });
 
 router.afterEach((to, from) => {
-  window.scrollTo(0, 0);
   if ("id" in to.params) {
     let buf = new Array<string>();
     if ("category" in to.params) {

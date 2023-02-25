@@ -6,8 +6,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Pages from 'vite-plugin-pages'
 import { libName } from "./src/conf";
-var nav;
-import('./node_modules/@docdundee/docnav/bin/lib').then((x) => nav = x)
+import { parseDir } from '../package/js/bin/lib'
 
 export default defineConfig({
   plugins: [
@@ -26,15 +25,15 @@ export default defineConfig({
     {
       name: 'watch-doc',
       handleHotUpdate({ file }) {
-        if (file.includes("public/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
+        if (file.includes("src/assets/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
           //const dirpath = file.split("/").slice(0, -1).join("/");
-          nav.parseDirTree(path.resolve("./public/doc"))
+          parseDir(path.resolve("./src/assets/doc"))
         }
       },
     }
   ],
   assetsInclude: ["**/*.md"],
-  base: process.env.NODE_ENV === 'production' ? `/${libName.toLowerCase()}` : './',
+  base: process.env.NODE_ENV === 'production' ? `/${libName.toLowerCase()}/` : './',
   resolve: {
     alias: [
       { find: '@/', replacement: '/src/' },
