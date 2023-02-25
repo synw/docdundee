@@ -1,7 +1,7 @@
 <template>
   <div class="prosed">
     <h1 class="mb-3">Dataframe</h1>
-    <render-nav-node :node="nav.tree.sections.dataframe" :root="false"></render-nav-node>
+    <render-nav-node :node="nav.findNode('dataframe')" :root="false"></render-nav-node>
   </div>
 </template>
 

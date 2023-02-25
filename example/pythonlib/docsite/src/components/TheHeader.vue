@@ -3,9 +3,8 @@
     @togglemenu="isMenuVisible = !isMenuVisible">
     <template #branding>
       <a @click="$router.push('/')">
-        <div class="flex flex-row items-center ml-5 space-x-2 text-2xl cursor-pointer">
-          <div v-html="logo"></div>
-          <div>{{ libName }}</div>
+        <div class="ml-5 text-2xl cursor-pointer">
+          <i-noto:crocodile class="text-3xl"></i-noto:crocodile>&nbsp;{{ libName }}
         </div>
       </a>
     </template>
@@ -20,11 +19,11 @@
       </div>
     </template>
     <template #menu>
-      <div class="flex flex-row items-center justify-end h-full space-x-5">
+      <div class="flex flex-row items-center justify-end h-full space-x-1">
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>
         <py-status :py="py"></py-status>
-        <div class="pr-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
+        <div class="px-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
           <i-fa-solid:moon v-if="!user.isDarkMode.value"></i-fa-solid:moon>
           <i-fa-solid:sun v-else></i-fa-solid:sun>
         </div>
@@ -50,7 +49,6 @@ import { PyStatus } from "vuepython"
 import { user, py } from "@/state";
 import { libName } from "@/conf";
 import { useRouter } from "vue-router";
-import logo from "@/assets/logo.svg?raw";
 
 defineProps({
   css: {

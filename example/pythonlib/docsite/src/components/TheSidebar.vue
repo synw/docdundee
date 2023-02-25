@@ -1,5 +1,5 @@
 <template>
-  <div v-if="nav.isReady.value == true">
+  <div v-if="isNavReady">
     <default-sidebar v-if="sidebar == 'default'"></default-sidebar>
     <mylib-sidebar v-else-if="sidebar == 'mylib'"></mylib-sidebar>
     <requests-sidebar v-else-if="sidebar == 'requests'"></requests-sidebar>
@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { nav } from "@/state";
+import { nav, isNavReady } from "@/state";
 import DefaultSidebar from "@/components/sidebars/DefaultSidebar.vue";
 import MylibSidebar from "@/components/sidebars/MylibSidebar.vue";
 import RequestsSidebar from "@/components/sidebars/RequestsSidebar.vue";
