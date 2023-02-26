@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { parseDirTree, saveNav } from "./lib.js";
+import { parseDirTree, saveNav } from "./lib.mjs";
 
 (async () => {
   const args = process.argv.slice(2);

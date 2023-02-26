@@ -5,11 +5,11 @@
     <div class="flex flex-row space-x-5">
       <div>
         <h2 class="pt-3">Frontend</h2>
-        <render-nav-node :node="nav.findNode('frontend')" :root="false"></render-nav-node>
+        <render-nav-node :node="nav.findNode('frontend/get_started')" :root="false"></render-nav-node>
       </div>
       <div>
         <h2 class="pt-3">Python</h2>
-        <render-nav-node :node="nav.findNode('python/doc')"></render-nav-node>
+        <render-nav-node :node="nav.findNode('python/get_started')"></render-nav-node>
         <!-- render-nav-node :node="nav.findNode('python_api')"></render-nav-node -->
       </div>
     </div>

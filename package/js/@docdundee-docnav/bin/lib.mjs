@@ -188,7 +188,7 @@ const onParseDirectory = (
     item.md = dirData.md;
     item.docstrings = dirData.docstrings;
     item.url = url;
-    item.hasMdIndex = dirData.hasMdIndex;
+    item.has_md_index = dirData.hasMdIndex;
   }
   delete item.path
   delete item.type

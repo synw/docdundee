@@ -7,7 +7,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Pages from 'vite-plugin-pages'
 import { libName } from "./src/conf";
 var nav;
-import('./node_modules/@docdundee/docnav/bin/lib').then((x) => nav = x)
+import('./node_modules/@docdundee/docnav/bin/lib.mjs').then((x) => nav = x)
 
 export default defineConfig({
   plugins: [

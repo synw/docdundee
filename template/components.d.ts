@@ -13,6 +13,8 @@ declare module '@vue/runtime-core' {
     'IFaSolid:moon': typeof import('~icons/fa-solid/moon')['default']
     'IFaSolid:sun': typeof import('~icons/fa-solid/sun')['default']
     'INoto:crocodile': typeof import('~icons/noto/crocodile')['default']
+    'IPh:caretDownBold': typeof import('~icons/ph/caret-down-bold')['default']
+    'IPh:caretRightBold': typeof import('~icons/ph/caret-right-bold')['default']
     PythonSidebar: typeof import('./src/components/sidebars/PythonSidebar.vue')['default']
     RenderMd: typeof import('./src/components/markdown/RenderMd.vue')['default']
     RenderMdPy: typeof import('./src/components/python/RenderMdPy.vue')['default']

@@ -35,8 +35,8 @@ module.exports = {
       semanticColors: {
         secondary: {
           light: {
-            bg: colors.cyan[500],
-            txt: colors.white
+            bg: colors.neutral[300],
+            txt: colors.neutral[800]
           },
           dark: {
             bg: colors.stone[900],

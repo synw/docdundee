@@ -20,7 +20,7 @@ function _routePathAsArray(routePath: string): Array<string> {
 const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<typeof useApi>) => {
   let setReady: (value: unknown) => void;
   let onReady = new Promise((r) => setReady = r);
-  let tree = {} as DirNavListing;
+  let _tree = {} as DirNavListing;
 
   const _loadNav = async (): Promise<DirNavListing> => {
     let url = `/doc/nav.json`;
@@ -32,13 +32,13 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
   }
 
   const init = async () => {
-    tree = await _loadNav();
+    _tree = await _loadNav();
     setReady(true);
   };
 
   const _findNodeFromRoutePathArray = (_routePathArray: string[]): DirNavListing => {
-    let node = tree;
-    let children = tree.children;
+    let node = _tree;
+    let children = _tree.children;
     // console.log("Route", routePath, children);
     let i = 1;
     for (const segment of _routePathArray) {
@@ -111,8 +111,8 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
   }
 
   return {
+    get tree() { return _tree },
     init,
-    tree,
     loadFromRoutePath,
     findNode,
   }
