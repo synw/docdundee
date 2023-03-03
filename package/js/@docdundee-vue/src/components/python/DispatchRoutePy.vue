@@ -1,7 +1,7 @@
 <template>
   <div v-if="isReady">
-    <render-py-docstring v-if="page.data.hasDocstring === true" class="max-w-[105ch]" :docstring="page.data.docstring"
-      :title="page.data.name">
+    <render-py-docstring :py="py" v-if="page.data.hasDocstring === true" class="max-w-[105ch]"
+      :docstring="page.data.docstring" :title="page.data.name">
       <template v-if="page.data.docstring.extra_md?.header">
         <render-md-py :code="page.data.docstring.extra_md.header"
           :class="page.data.hasDocstring ? 'mb-3' : ''"></render-md-py>
@@ -15,22 +15,32 @@
 
 <script setup lang="ts">
 import { watchEffect, ref, reactive } from 'vue';
-import RenderPyDocstring from '@/components/python/RenderPyDocstring.vue';
-import RenderMdPy from '@/components/python/RenderMdPy.vue';
-import { useRouter } from "vue-router";
-import { nav } from "@/state";
-import { RouteDataPayload } from '@docdundee/nav';
+import { RouteDataPayload, useNav } from '@docdundee/nav';
+import { usePython } from "usepython";
+import RenderPyDocstring from './RenderPyDocstring.vue';
+import RenderMdPy from './RenderMdPy.vue';
 
-const router = useRouter();
+const props = defineProps({
+  nav: {
+    type: Object as () => ReturnType<typeof useNav>,
+    required: true
+  },
+  py: {
+    type: Object as () => ReturnType<typeof usePython>,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  }
+});
+
 const page = reactive<{ data: RouteDataPayload }>({ data: {} as RouteDataPayload });
 const isReady = ref(false);
 
 watchEffect(async () => {
-  const routePath = router.currentRoute.value.path;
-  //console.log("ROUTE", routePath)
   isReady.value = false;
-  page.data = await nav.loadFromRoutePath(routePath);
-  //console.log("DATA", toRaw(page.data));
+  page.data = await props.nav.loadFromRoutePath(props.url);
   isReady.value = true;
 })
 </script>

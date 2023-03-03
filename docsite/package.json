@@ -1,6 +1,6 @@
 {
   "name": "docdundee_docsite",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@docdundee/nav": "^0.0.4",
+    "@docdundee/vue": "^0.0.3",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",

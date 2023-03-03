@@ -4,8 +4,6 @@ import { useApi } from "restmix";
 import { User } from "@snowind/state";
 import { pipPackages, pyodidePackages, loadHljsTheme } from "@/conf";
 import { useNav, useDocloader } from "@docdundee/nav";
-//import { useNav } from "@/packages/nav/nav";
-//import { useDocloader } from "@/packages/nav/loader";
 
 const user = new User();
 const py = usePython();

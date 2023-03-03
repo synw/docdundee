@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div v-for="node in nodes">
-      <auto-nav-node :node="node" :start-state="startState"></auto-nav-node>
+      <auto-nav-node :node="node" :start-state="startState" :on-open="onOpen"></auto-nav-node>
     </div>
   </div>
 </template>
@@ -18,6 +18,10 @@ defineProps({
   startState: {
     type: String as () => "collapsed" | "all" | "one",
     default: "one"
+  },
+  onOpen: {
+    type: Function,
+    required: true
   }
 })
 </script>

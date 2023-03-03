@@ -4,5 +4,5 @@
 
 <script setup lang="ts">
 import { nav } from "@/state";
-import AutoNav from "@/widgets/AutoNav.vue";
+import { AutoNav } from "@docdundee/vue";
 </script>

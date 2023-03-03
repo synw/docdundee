@@ -3,8 +3,14 @@
     <button class="flex items-center w-full btn navnode-header"
       :class="collapse ? ['navnode-closed'] : ['navnode-opened']" @click="onToggle()">
       <div>
-        <i-ph:caret-right-bold v-if="collapse === true"></i-ph:caret-right-bold>
-        <i-ph:caret-down-bold v-else-if="collapse === false"></i-ph:caret-down-bold>
+        <svg v-if="collapse === true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256">
+          <path fill="currentColor"
+            d="M96 220a12.2 12.2 0 0 1-8.5-3.5a12 12 0 0 1 0-17L159 128L87.5 56.5a12 12 0 0 1 17-17l80 80a12 12 0 0 1 0 17l-80 80A12.2 12.2 0 0 1 96 220Z" />
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256">
+          <path fill="currentColor"
+            d="M128 188a12.2 12.2 0 0 1-8.5-3.5l-80-80a12 12 0 0 1 17-17L128 159l71.5-71.5a12 12 0 0 1 17 17l-80 80a12.2 12.2 0 0 1-8.5 3.5Z" />
+        </svg>
       </div>
       <div class="ml-2">{{ node.title }}</div>
     </button>
@@ -15,20 +21,19 @@
     ]" class="duration-100 slide-y navnode-content">
       <div v-if="(node?.children ?? []).length > 0">
         <div v-for="child in node.children">
-          <AutoNavNode :node="child" :level="level + 1" :start-state="startState"></AutoNavNode>
+          <AutoNavNode :on-open="onOpen" :node="child" :level="level + 1" :start-state="startState"></AutoNavNode>
         </div>
       </div>
       <div v-else>
         <div v-if="(node.content ?? []).length > 0">
           <div v-for="md in node.content" class="nav-item-hspace">
-            <button class="py-1 focus:ring-0 btn navnode-item navnode-md"
-              @click="$router.push(md.url)">{{ md.title }}</button>
+            <button class="py-1 focus:ring-0 btn navnode-item navnode-md" @click="onOpen(md.url)">{{ md.title }}</button>
           </div>
         </div>
         <div v-if="(node.docstrings ?? []).length > 0">
           <div v-for="docstring in node.docstrings" class="nav-item-hspace">
             <button class="py-1 focus:ring-0 btn navnode-item navnode-docstring"
-              @click="$router.push(docstring.url)">{{ docstring.name }}</button>
+              @click="onOpen(docstring.url)">{{ docstring.name }}</button>
           </div>
         </div>
       </div>
@@ -52,6 +57,10 @@ const props = defineProps({
   startState: {
     type: String as () => "collapsed" | "all" | "one",
     default: "one"
+  },
+  onOpen: {
+    type: Function,
+    required: true
   }
 });
 

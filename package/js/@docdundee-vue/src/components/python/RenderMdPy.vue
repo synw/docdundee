@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import RenderMd from '@/components/markdown/RenderMd.vue';
+import RenderMd from '../markdown/RenderMd.vue';
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
 import bash from 'highlight.js/lib/languages/bash';

@@ -5,11 +5,12 @@
     <div class="flex flex-row space-x-5">
       <div>
         <h2 class="pt-3">Frontend</h2>
-        <render-nav-node :node="nav.findNode('frontend/get_started')" :root="false"></render-nav-node>
+        <render-nav-node :node="nav.findNode('frontend/get_started')" :root="false"
+          :on-open="$router.push"></render-nav-node>
       </div>
       <div>
         <h2 class="pt-3">Python</h2>
-        <render-nav-node :node="nav.findNode('python/get_started')"></render-nav-node>
+        <render-nav-node :node="nav.findNode('python/get_started')" :on-open="$router.push"></render-nav-node>
         <!-- render-nav-node :node="nav.findNode('python_api')"></render-nav-node -->
       </div>
     </div>
@@ -22,7 +23,7 @@
 
 <script setup lang="ts">
 import { nav, isNavReady } from "@/state";
-import RenderNavNode from '@/widgets/RenderNavNode.vue';
+import { RenderNavNode } from '@docdundee/vue';
 import { onMounted } from 'vue';
 
 onMounted(() => {

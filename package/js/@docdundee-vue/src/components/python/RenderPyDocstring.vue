@@ -36,7 +36,7 @@
       <div class="mt-3" v-if="docstring.example.is_executable">
         <h2>Executable example</h2>
         <py-code-block class="not-prose" :controls="true" :id="'example_0'" :py="py" :code="docstring.example.code"
-          :theme="user.isDarkMode.value == true ? 'dark' : 'light'" width="52rem">
+          :theme="darkMode ? 'dark' : 'light'" width="52rem">
         </py-code-block>
       </div>
       <div class="mt-3" v-else>
@@ -49,7 +49,7 @@
         <div class="mt-3" v-if="example.is_executable">
           <h2>Executable example</h2>
           <py-code-block class="not-prose" :controls="true" :id="'example_' + Date()" :py="py" :code="example.code"
-            :theme="user.isDarkMode.value == true ? 'dark' : 'light'">
+            :theme="darkMode ? 'dark' : 'light'">
           </py-code-block>
         </div>
         <div class="mt-3" v-else>
@@ -62,13 +62,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue';
+import { ParsedDocstring } from '@docdundee/nav';
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
+import { usePython } from "usepython";
 import { PyCodeBlock } from "vuepython";
 import StaticCodeBlock from './StaticPyCodeBlock.vue';
-import { ref, watchEffect } from 'vue';
-import { py, user } from '@/state';
-import { ParsedDocstring } from '@docdundee/nav';
 
 const props = defineProps({
   docstring: {
@@ -78,6 +78,14 @@ const props = defineProps({
   title: {
     type: String,
     required: true
+  },
+  py: {
+    type: Object as () => ReturnType<typeof usePython>,
+    required: true
+  },
+  darkMode: {
+    type: Boolean,
+    default: false
   }
 });
 

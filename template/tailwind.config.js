@@ -7,6 +7,7 @@ module.exports = {
     './node_modules/@snowind/**/*.{vue,js,ts}',
     './node_modules/vuepython/**/*.{vue,js,ts}',
     './node_modules/vuecodit/**/*.{vue,js,ts}',
+    //'./node_modules/@docdundee/vue/**/*.{vue,js,ts}',
   ],
   darkMode: 'class',
   plugins: [
