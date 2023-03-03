@@ -6,8 +6,3 @@
     <button class="btn" @click="$router.push('/dataframe')">Dataframe</button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { nav } from "@/state";
-import RenderNavNode from '@/widgets/RenderNavNode.vue';
-</script>

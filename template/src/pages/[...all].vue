@@ -1,5 +1,5 @@
 <template>
-  <dispatch-route-py :py="py" :nav="nav" :url="$route.path"></dispatch-route-py>
+  <dispatch-route-py :py="py" :nav="nav" :url="$route.path" :on-open="$router.push"></dispatch-route-py>
 </template>
 
 <script setup lang="ts">

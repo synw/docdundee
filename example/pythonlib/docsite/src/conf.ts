@@ -1,6 +1,5 @@
 const libName = "Example Doc";
 
-
 const links: Array<{ href: string; name: string }> = [
   { href: "/mylib", name: "My lib" },
   { href: "/requests", name: "Requests" },

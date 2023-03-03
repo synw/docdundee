@@ -17,7 +17,6 @@ nav.init().then(() => {
   isNavReady.value = true;
 })
 
-
 async function initPy() {
   await py.load(pyodidePackages, pipPackages)
 }
@@ -26,6 +25,5 @@ function initState() {
   loadHljsTheme(user.isDarkMode.value);
   initPy();
 }
-
 
 export { py, user, nav, api, initPy, initState, isNavReady }

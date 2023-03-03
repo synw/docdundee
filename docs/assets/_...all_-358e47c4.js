@@ -1,1 +1,0 @@
-import{d as n,o as r,f as o,u as a,p,n as s,g as t}from"./index-fd6db31a.js";const _=n({__name:"[...all]",setup(u){return(e,l)=>(r(),o(a(t),{py:a(p),nav:a(s),url:e.$route.path},null,8,["py","nav","url"]))}});export{_ as default};

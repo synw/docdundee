@@ -7,6 +7,7 @@ module.exports = {
     './node_modules/@snowind/**/*.{vue,js,ts}',
     './node_modules/vuepython/**/*.{vue,js,ts}',
     './node_modules/vuecodit/**/*.{vue,js,ts}',
+    //'./node_modules/@docdundee/vue/**/*.{vue,js,ts}',
   ],
   darkMode: 'class',
   plugins: [
@@ -35,8 +36,8 @@ module.exports = {
       semanticColors: {
         secondary: {
           light: {
-            bg: colors.cyan[500],
-            txt: colors.white
+            bg: colors.neutral[300],
+            txt: colors.neutral[800]
           },
           dark: {
             bg: colors.stone[900],
