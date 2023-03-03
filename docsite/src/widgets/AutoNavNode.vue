@@ -19,8 +19,8 @@
         </div>
       </div>
       <div v-else>
-        <div v-if="(node.md ?? []).length > 0">
-          <div v-for="md in node.md" class="nav-item-hspace">
+        <div v-if="(node.content ?? []).length > 0">
+          <div v-for="md in node.content" class="nav-item-hspace">
             <button class="py-1 focus:ring-0 btn navnode-item navnode-md"
               @click="$router.push(md.url)">{{ md.title }}</button>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <template v-if="node.md.length > 0">
-      <div v-for="doc in node.md">
+    <template v-if="node.content.length > 0">
+      <div v-for="doc in node.content">
         <button class="px-1 text-left truncate cursor-pointer btn" v-html="doc.title" @click="onClick(doc.url)"></button>
       </div>
     </template>
@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import { DirNavListing } from '@/interfaces';
+import { DirNavListing } from '@docdundee/nav';
 import { useRouter } from 'vue-router';
 
-const props = defineProps({
+defineProps({
   node: {
     type: Object as () => DirNavListing,
     required: true

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3 text-xl font-semibold txt-light">Python api</div>
-  <render-nav-node :node="nav.findNode('python/doc')"></render-nav-node>
+  <!-- render-nav-node :node="nav.findNode('python/doc')"></render-nav-node -->
   <auto-nav :nodes="nodes" class="space-y-1 nav-panel"></auto-nav>
 </template>
 

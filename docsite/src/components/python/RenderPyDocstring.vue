@@ -68,7 +68,7 @@ import { PyCodeBlock } from "vuepython";
 import StaticCodeBlock from './StaticPyCodeBlock.vue';
 import { ref, watchEffect } from 'vue';
 import { py, user } from '@/state';
-import { ParsedDocstring } from '@/interfaces';
+import { ParsedDocstring } from '@docdundee/nav';
 
 const props = defineProps({
   docstring: {

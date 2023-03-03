@@ -2,10 +2,15 @@ import { default as path } from "path";
 import { default as fs } from "fs";
 import { default as dirTree } from "directory-tree";
 
+/** Remove the number prefix from a name */
+function _unumName(name) {
+  let re = /^\d+\./;
+  return name.replace(re, "");
+}
 
-function _getMdRawFilename(name) {
-  // remove extensions
-  return name.split(".")[1];
+function _unumNameUrl(url) {
+  let re = /[\d+\.]/g;
+  return url.replace(re, "");
 }
 
 function _getTitle(name) {
@@ -16,8 +21,8 @@ function _getTitle(name) {
   return s
 }
 
-function _readFilesInDir(dir, url) {
-  const md = [];
+function _readFilesInDir(dir, url, docpath) {
+  const content = [];
   let hasDocstrings = false;
   let hasExamples = false;
   let hasExtraMd = false;
@@ -42,22 +47,36 @@ function _readFilesInDir(dir, url) {
         if (filename == "index.md") {
           hasMdIndex = true
         } else {
-          const n = _getMdRawFilename(filename);
-          md.push({
+          const n = _unumName(filename).replace(".md", "");
+          content.push({
             name: n,
             title: _getTitle(n),
             filename: filename,
-            url: `${url}/${n}`
+            url: `${_unumNameUrl(url)}/${n}`,
+            docpath: `${docpath}/${filename}`,
+            type: "markdown"
           })
         }
       } else {
         if (filename == "docstrings.json") {
           hasDocstrings = true
         }
+        const isVue = filename.endsWith(".vue");
+        if (isVue) {
+          const n = _unumName(filename).replace(".vue", "");
+          content.push({
+            name: n,
+            title: _getTitle(n),
+            filename: filename,
+            url: `${_unumNameUrl(url)}/${n}`,
+            docpath: `${docpath}/${filename}`,
+            type: "component"
+          })
+        }
       }
     }
   });
-  return { md, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex }
+  return { content, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex }
 }
 
 function listDocstrings(dir, url) {
@@ -106,7 +125,7 @@ function updateDocstringsWithExtraMd(dirpath) {
     let name = "";
     let isFooter = true;
     if (_md.filename.startsWith("h.")) {
-      name = _getMdRawFilename(_md.filename);
+      name = _unumName(_md.filename);
       isFooter = false
     } else {
       name = _md.filename.split(".").slice(-2)[0];
@@ -150,11 +169,11 @@ function updateDocstringsWithExtraExamples(dirpath) {
   console.log("Updated", dirpath + "/docstrings.json", "with extra examples")
 }
 
-function parseDir(dirpath, url) {
-  //console.log("Parsing dir", dir);
-  let { md, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex } = _readFilesInDir(dirpath, url);
+function parseDir(dirpath, url, docpath) {
+  console.log("Parsing dir", dirpath, url);
+  let { content, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex } = _readFilesInDir(dirpath, url, docpath);
   let data = {
-    md: md,
+    content: content,
     docstrings: [],
     hasMdIndex: hasMdIndex,
   }
@@ -182,19 +201,23 @@ const onParseDirectory = (
   basePath,
 ) => {
   if (item.type == "directory") {
+    item.name = _unumName(item.name);
     item.title = _getTitle(item.name);
-    const url = item.path.replace(basePath, "");
-    const dirData = parseDir(item.path, url);
-    item.md = dirData.md;
+    const docpath = item.path.replace(basePath, "");
+    const url = _unumNameUrl(docpath);
+    const dirData = parseDir(item.path, url, docpath);
+    item.content = dirData.content;
     item.docstrings = dirData.docstrings;
     item.url = url;
     item.has_md_index = dirData.hasMdIndex;
   }
+  item.docpath = item.path.replace(basePath, "");
   delete item.path
   delete item.type
 };
 
 function parseDirTree(basePath) {
+  console.log("Parse tree", basePath);
   return dirTree(
     basePath,
     {

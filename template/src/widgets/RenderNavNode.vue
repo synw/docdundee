@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { DirNavListing } from '@/interfaces';
+import { DirNavListing } from '@docdundee/nav';
 import { useRouter } from 'vue-router';
 
 const props = defineProps({

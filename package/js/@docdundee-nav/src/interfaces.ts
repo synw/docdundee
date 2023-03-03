@@ -33,14 +33,15 @@ interface DirNavItem {
   name: string;
   title: string;
   url: string;
+  docpath: string;
 }
 
-interface MdNavItem extends DirNavItem {
-  filename: string;
+interface NavItem extends DirNavItem {
+  type: "markdown" | "component"
 }
 
 interface DirNavListing extends DirNavItem {
-  md: Array<MdNavItem>;
+  content: Array<NavItem>;
   docstrings: Array<DirNavItem>;
   children?: Array<DirNavListing>;
 }
@@ -59,7 +60,7 @@ export {
   ExampleParam,
   ParsedDocstring,
   DirNavItem,
-  MdNavItem,
+  NavItem,
   DirNavListing,
   RouteDataPayload,
 }

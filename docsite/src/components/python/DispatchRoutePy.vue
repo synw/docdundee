@@ -19,7 +19,7 @@ import RenderPyDocstring from '@/components/python/RenderPyDocstring.vue';
 import RenderMdPy from '@/components/python/RenderMdPy.vue';
 import { useRouter } from "vue-router";
 import { nav } from "@/state";
-import { RouteDataPayload } from '@/interfaces';
+import { RouteDataPayload } from '@docdundee/nav';
 
 const router = useRouter();
 const page = reactive<{ data: RouteDataPayload }>({ data: {} as RouteDataPayload });
