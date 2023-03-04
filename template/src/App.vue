@@ -28,15 +28,3 @@ window["openLink"] = openLink;
 onBeforeMount(() => initState());
 </script>
 
-<style lang="sass">
-.maxw-100
-    max-width: 100ch
-.prosed:not(.not-prose)
-  @apply prose dark:prose-invert max-w-none prose-h1:txt-light prose-h2:txt-light prose-h3:txt-light
-  @apply prose-h1:mb-3 prose-h2:mt-2 prose-h3:mt-3
-  em
-    @apply font-semibold txt-light not-italic
-kbd
-  @apply px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
-</style>
-

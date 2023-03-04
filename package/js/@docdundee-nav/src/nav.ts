@@ -39,7 +39,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
   const _findNodeFromRoutePathArray = (_routePathArray: string[]): DirNavListing => {
     let node = _tree;
     let children = _tree.children;
-    // console.log("Route", routePath, children);
+    //console.log("Route path array", _routePathArray, children);
     let i = 1;
     for (const segment of _routePathArray) {
       if (children) {
@@ -69,10 +69,11 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
     const _routePathArray = _routePathAsArray(routePath)
     const node = _findNodeFromRoutePathArray(_routePathArray);
     const lastSegment = _routePathArray.slice(-1)[0];
-    const _routePathWithoutLastSegment = _routePathArray.slice(0, -1).join("/");
+    //const _routePathWithoutLastSegment = _routePathArray.slice(0, -1).join("/");
+    const cleanRoute = "/" + _routePathArray.join("/")
     if (lastSegment == node.name) {
       // this is a directory url, fetch the markdown index
-      const indexMd = await docloader.loadMarkdown(routePath + "/index.md");
+      const indexMd = await docloader.loadMarkdown(cleanRoute + "/index.md");
       return {
         name: lastSegment,
         hasMarkdown: true,

@@ -1,1 +1,0 @@
-import{d as e,o,f as p,u as n,p as r,n as s,g as u}from"./index-72a36991.js";const f=e({__name:"[...all]",setup(t){return(a,l)=>(o(),p(n(u),{py:n(r),nav:n(s),url:a.$route.path,"on-open":a.$router.push},null,8,["py","nav","url","on-open"]))}});export{f as default};

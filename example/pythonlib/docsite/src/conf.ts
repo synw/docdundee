@@ -20,4 +20,16 @@ async function loadHljsTheme(isDark: boolean) {
   }
 }
 
-export { libName, pipPackages, examplesExtension, pyodidePackages, links, loadHljsTheme }
+/** Import the languages you need for highlighting */
+import hljs from 'highlight.js/lib/core';
+import python from 'highlight.js/lib/languages/python';
+//import bash from 'highlight.js/lib/languages/bash';
+//import typescript from 'highlight.js/lib/languages/typescript';
+//import xml from 'highlight.js/lib/languages/xml';
+hljs.registerLanguage('python', python);
+//hljs.registerLanguage('typescript', typescript);
+//hljs.registerLanguage('bash', bash);
+//hljs.registerLanguage('html', xml);
+
+
+export { libName, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }

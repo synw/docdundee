@@ -1,6 +1,6 @@
 {
   "name": "@docdundee/vue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Vuejs components for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "scripts": {
@@ -8,10 +8,11 @@
     "compile": "vite build",
     "emit": "vue-tsc --declaration --emitDeclarationOnly",
     "css": "npx tailwindcss build -i ./dist/style.css -o ./dist/twstyle.css --minify",
-    "build": "run-s compile emit css"
+    "cpcss": "rm -f ./dist/style.css && mv ./dist/twstyle.css ./dist/style.css && rm -f ./dist/twstyle.css",
+    "build": "run-s compile emit css cpcss"
   },
   "dependencies": {
-    "@docdundee/nav": "^0.0.4",
+    "@docdundee/nav": "^0.0.5",
     "highlight.js": "^11.6.0",
     "markdown-it": "^13.0.1",
     "vuepython": "^0.0.12"
@@ -20,6 +21,9 @@
     "vue": "^3.2.31"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@tailwindcss/forms": "^0.5.0",
+    "@snowind/plugin": "0.4.0",
     "@types/highlight.js": "^10.1.0",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^16.10.2",
@@ -49,8 +53,7 @@
     ".": {
       "import": "./dist/vue.mjs"
     },
-    "./style.css": "./dist/style.css",
-    "./twstyle.css": "./dist/twstyle.css"
+    "./style.css": "./dist/style.css"
   },
   "publishConfig": {
     "access": "public",

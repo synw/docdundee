@@ -34,7 +34,7 @@ function _readFilesInDir(dir, url, docpath) {
     const isDir = fs.statSync(filepath).isDirectory();
     //console.log(isDir, filename);
     if (isDir) {
-      if (filename != "examples") {
+      if (filename != "ex") {
         if (filename == "md") {
           hasExtraMd = true;
         }
@@ -61,9 +61,9 @@ function _readFilesInDir(dir, url, docpath) {
         if (filename == "docstrings.json") {
           hasDocstrings = true
         }
-        const isVue = filename.endsWith(".vue");
+        const isVue = filename.endsWith(".cmp");
         if (isVue) {
-          const n = _unumName(filename).replace(".vue", "");
+          const n = _unumName(filename).replace(".cmp", "");
           content.push({
             name: n,
             title: _getTitle(n),
@@ -145,7 +145,7 @@ function updateDocstringsWithExtraMd(dirpath) {
 
 function updateDocstringsWithExtraExamples(dirpath) {
   const examples = [];
-  fs.readdirSync(dirpath + "/examples").forEach((filename) => {
+  fs.readdirSync(dirpath + "/ex").forEach((filename) => {
     const rawcode = fs.readFileSync(dirpath + "/examples/" + filename, "utf-8");
     const { isExecutable, code } = _parseExample(rawcode);
     examples.push({
