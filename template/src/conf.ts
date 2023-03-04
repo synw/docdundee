@@ -1,4 +1,6 @@
-const libName = "My lib";
+const libName = "mylib";
+const libTitle = "My lib";
+const repoUrl = "https://github.com/me/mylib";
 
 const links: Array<{ href: string; name: string }> = [
   // { href: "/python", name: "Python api" },
@@ -29,4 +31,4 @@ hljs.registerLanguage('python', python);
 //hljs.registerLanguage('html', xml);
 
 
-export { libName, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }
+export { libName, libTitle, repoUrl, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }

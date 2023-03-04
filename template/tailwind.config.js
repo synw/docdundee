@@ -34,9 +34,19 @@ module.exports = {
         },
       }),
       semanticColors: {
+        primary: {
+          light: {
+            bg: colors.slate[400],
+            txt: colors.white
+          },
+          dark: {
+            bg: colors.slate[900],
+            txt: colors.neutral[100]
+          }
+        },
         secondary: {
           light: {
-            bg: colors.neutral[300],
+            bg: colors.slate[200],
             txt: colors.neutral[800]
           },
           dark: {
