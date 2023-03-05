@@ -22,9 +22,7 @@
       <div class="flex flex-row items-center justify-end h-full space-x-1">
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>
-        <a class="text-2xl btn" :href="repoUrl">
-          <i-fa6-brands:github></i-fa6-brands:github>
-        </a>
+        <py-status :py="py"></py-status>
         <div class="px-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
           <i-fa-solid:moon v-if="!user.isDarkMode.value"></i-fa-solid:moon>
           <i-fa-solid:sun v-else></i-fa-solid:sun>
@@ -47,8 +45,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { SwHeader, SwMobileMenu } from "@snowind/header";
-import { user } from "@/state";
-import { libTitle, repoUrl } from "@/conf";
+import { PyStatus } from "vuepython"
+import { user, py } from "@/state";
+import { libTitle } from "@/conf";
 import { useRouter } from "vue-router";
 
 defineProps({
@@ -60,7 +59,7 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  libName: {
+  libTitle: {
     type: String,
     required: true,
   },
