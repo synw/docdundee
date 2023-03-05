@@ -9,19 +9,18 @@
     "wdoc": "yarn docnav"
   },
   "dependencies": {
-    "@docdundee/nav": "^0.0.4",
-    "@docdundee/vue": "^0.0.4",
+    "@docdundee/nav": "^0.0.5",
+    "@docdundee/vue": "^0.0.5",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",
     "markdown-it": "^13.0.1",
     "restmix": "^0.0.7",
     "vue": "^3.2.31",
-    "vue-router": "^4.1.5",
-    "vuepython": "0.0.12"
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
-    "@docdundee/docnav": "^0.0.5",
+    "@docdundee/docnav": "^0.0.6",
     "@iconify/json": "^2.1.26",
     "@snowind/plugin": "0.4.0",
     "@tailwindcss/forms": "^0.5.0",

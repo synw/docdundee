@@ -6,6 +6,7 @@ import DispatchRoute from "./components/DispatchRoute.vue";
 import DispatchRoutePy from "./components/python/DispatchRoutePy.vue";
 import RenderPyDocstring from "./components/python/RenderPyDocstring.vue";
 import StaticCodeBlock from "./components/StaticCodeBlock.vue";
+import MainCss from "./components/MainCss.vue";
 
 export {
   AutoNav,
@@ -16,4 +17,5 @@ export {
   DispatchRoutePy,
   RenderPyDocstring,
   StaticCodeBlock,
+  MainCss
 }

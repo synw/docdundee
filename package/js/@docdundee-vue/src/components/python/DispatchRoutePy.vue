@@ -20,7 +20,7 @@ import RenderPyDocstring from './RenderPyDocstring.vue';
 import RenderMd from '../markdown/RenderMd.vue';
 import DispatchRoute from '../DispatchRoute.vue';
 
-const props = defineProps({
+defineProps({
   nav: {
     type: Object as () => ReturnType<typeof useNav>,
     required: true

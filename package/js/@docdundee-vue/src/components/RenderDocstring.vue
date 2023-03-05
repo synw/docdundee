@@ -1,5 +1,5 @@
 <template>
-  <div class="prosed">
+  <div class="docstring prosed">
     <h1 v-if="title">{{ title }}</h1>
     <slot></slot>
     <p v-html="docstring.description"></p>
@@ -93,18 +93,3 @@ function load() {
 
 watchEffect(() => load())
 </script>
-
-<style lang="sass">
-.prosed:not(.not-prose)
-  @apply prose dark:prose-invert max-w-none prose-h1:txt-light prose-h2:txt-light prose-h3:txt-light
-  em
-    @apply font-semibold txt-light not-italic
-  & .codedef
-    @apply ml-8
-  kbd
-    @apply px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
-  .code-editor
-    @apply bg-gray-100 dark:bg-black dark:text-neutral-200 pb-0 p-3 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
-  .static-code
-    @apply bg-gray-100 dark:bg-black dark:text-neutral-200 p-3 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
-</style>

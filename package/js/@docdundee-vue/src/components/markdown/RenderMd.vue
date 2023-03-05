@@ -39,9 +39,3 @@ const content = computed(() => {
   return res
 })
 </script>
-
-<style lang="sass">
-.md-content.prosed
-  & pre
-    @apply bg-gray-100 text-black dark:bg-black dark:text-neutral-200 p-3 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
-</style>

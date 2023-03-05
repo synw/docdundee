@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx,vue}',
@@ -28,18 +26,6 @@ module.exports = {
           },
         },
       }),
-      semanticColors: {
-        secondary: {
-          light: {
-            bg: colors.neutral[300],
-            txt: colors.neutral[800]
-          },
-          dark: {
-            bg: colors.stone[900],
-            txt: colors.neutral[100]
-          }
-        }
-      }
     }
   }
 }
