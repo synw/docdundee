@@ -1,5 +1,5 @@
 <template>
-  <the-header :lib-name="libName" :links="links"></the-header>
+  <the-header :lib-title="libTitle" :links="links"></the-header>
   <div class="p-5 pb-16 mt-16 md:ml-64">
     <router-view></router-view>
   </div>
@@ -10,7 +10,7 @@
 import { onBeforeMount } from "vue";
 import TheHeader from "./components/TheHeader.vue";
 import TheSidebar from "./components/TheSidebar.vue";
-import { libName, links } from "@/conf";
+import { libTitle, links } from "@/conf";
 import { initState } from "./state";
 import { useRouter } from "vue-router";
 
