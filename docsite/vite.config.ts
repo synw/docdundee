@@ -25,15 +25,17 @@ export default defineConfig({
     Pages(),
     {
       name: 'watch-doc',
-      handleHotUpdate({ file }) {
-        if (file.includes("public/doc") && !file.endsWith("index.json") && !file.endsWith("docstrings.json")) {
-          //const dirpath = file.split("/").slice(0, -1).join("/");
-          nav.parseDirTree(path.resolve("./public/doc"))
+      handleHotUpdate({ file, server }) {
+        if (file.includes("public/doc")) {
+          //nav.parseDirTree(path.resolve("./public/doc"))
+          server.ws.send({
+            type: 'full-reload',
+            path: '*'
+          });
         }
       },
     }
   ],
-  assetsInclude: ["**/*.md"],
   base: process.env.NODE_ENV === 'production' ? `/${libName.toLowerCase()}` : './',
   resolve: {
     alias: [

@@ -1,9 +1,11 @@
 <template>
-  <dispatch-route-py :hljs="hljs" :py="py" :nav="nav" :url="$route.path" :on-open="$router.push"></dispatch-route-py>
+  <dispatch-route-py :hljs="hljs" :py="py" :nav="nav" :url="$route.path" :on-open="$router.push"
+    :base-title="libTitle"></dispatch-route-py>
 </template>
 
 <script setup lang="ts">
 import { DispatchRoutePy } from '@docdundee/vue';
+//import DispatchRoutePy from '@/packages/DispatchRoute.vue';
 import { py, nav } from "@/state";
-import { hljs } from "@/conf";
+import { hljs, libTitle } from "@/conf";
 </script>

@@ -1,13 +1,13 @@
 {
   "name": "@docdundee/nav",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "Navigation composables for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "restmix": "^0.0.7"
+    "restmix": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.10.2",

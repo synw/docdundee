@@ -92,6 +92,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
       if (mdNode) {
         hasMarkdown = true;
         title = mdNode.title;
+        console.log("MDT", title)
         markdown = await docloader.loadMarkdown(mdNode.docpath);
       }
     }
@@ -104,6 +105,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
         docstring = _ds;
       }
     }
+    console.log("T", title)
     return {
       name: lastSegment,
       title: title,

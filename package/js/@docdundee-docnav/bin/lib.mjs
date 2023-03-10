@@ -146,7 +146,7 @@ function updateDocstringsWithExtraMd(dirpath) {
 function updateDocstringsWithExtraExamples(dirpath) {
   const examples = [];
   fs.readdirSync(dirpath + "/ex").forEach((filename) => {
-    const rawcode = fs.readFileSync(dirpath + "/examples/" + filename, "utf-8");
+    const rawcode = fs.readFileSync(dirpath + "/ex/" + filename, "utf-8");
     const { isExecutable, code } = _parseExample(rawcode);
     examples.push({
       name: filename.split(".").slice(-2)[0],

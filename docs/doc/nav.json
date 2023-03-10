@@ -1,1 +1,215 @@
-{"name":"doc","children":[{"name":"frontend","children":[{"name":"get_started","children":[],"title":"Get started","content":[{"name":"install","title":"Install","filename":"1.install.md","url":"/frontend/get_started/install","docpath":"/frontend/1.get_started/1.install.md","type":"markdown"},{"name":"overview","title":"Overview","filename":"2.overview.md","url":"/frontend/get_started/overview","docpath":"/frontend/1.get_started/2.overview.md","type":"markdown"},{"name":"configure_and_run","title":"Configure and run","filename":"3.configure_and_run.md","url":"/frontend/get_started/configure_and_run","docpath":"/frontend/1.get_started/3.configure_and_run.md","type":"markdown"},{"name":"markdown","title":"Markdown","filename":"4.markdown.md","url":"/frontend/get_started/markdown","docpath":"/frontend/1.get_started/4.markdown.md","type":"markdown"},{"name":"build","title":"Build","filename":"5.build.md","url":"/frontend/get_started/build","docpath":"/frontend/1.get_started/5.build.md","type":"markdown"}],"docstrings":[],"url":"/frontend/get_started","has_md_index":false,"docpath":"/frontend/1.get_started"}],"title":"Frontend","content":[],"docstrings":[],"url":"/frontend","has_md_index":false,"docpath":"/frontend"},{"name":"python","children":[{"name":"get_started","children":[],"title":"Get started","content":[{"name":"install","title":"Install","filename":"1.install.md","url":"/python/get_started/install","docpath":"/python/1.get_started/1.install.md","type":"markdown"},{"name":"parse_docstrings","title":"Parse docstrings","filename":"2.parse_docstrings.md","url":"/python/get_started/parse_docstrings","docpath":"/python/1.get_started/2.parse_docstrings.md","type":"markdown"}],"docstrings":[],"url":"/python/get_started","has_md_index":false,"docpath":"/python/1.get_started"},{"name":"api","children":[],"title":"Api","content":[],"docstrings":[{"name":"parse_class","title":"Parse class","url":"/python/api/parse_class"},{"name":"parse_functions","title":"Parse functions","url":"/python/api/parse_functions"},{"name":"get_func_sources","title":"Get func sources","url":"/python/api/get_func_sources"},{"name":"parse_docstrings","title":"Parse docstrings","url":"/python/api/parse_docstrings"},{"name":"write_docstrings","title":"Write docstrings","url":"/python/api/write_docstrings"}],"url":"/python/api","has_md_index":false,"docpath":"/python/2.api"},{"name":"types","children":[],"title":"Types","content":[],"docstrings":[{"name":"DocstringsDict","title":"DocstringsDict","url":"/python/types/DocstringsDict"},{"name":"FileSourcesDict","title":"FileSourcesDict","url":"/python/types/FileSourcesDict"},{"name":"CodeBlockRaises","title":"CodeBlockRaises","url":"/python/types/CodeBlockRaises"},{"name":"CodeBlockParam","title":"CodeBlockParam","url":"/python/types/CodeBlockParam"},{"name":"ExampleParam","title":"ExampleParam","url":"/python/types/ExampleParam"},{"name":"ParsedDocstring","title":"ParsedDocstring","url":"/python/types/ParsedDocstring"}],"url":"/python/types","has_md_index":false,"docpath":"/python/3.types"}],"title":"Python","content":[],"docstrings":[],"url":"/python","has_md_index":false,"docpath":"/python"}],"title":"Doc","content":[],"docstrings":[],"url":"","has_md_index":false,"docpath":""}
+{
+  "name": "doc",
+  "children": [
+    {
+      "name": "frontend",
+      "children": [
+        {
+          "name": "get_started",
+          "children": [],
+          "title": "Get started",
+          "content": [
+            {
+              "name": "install",
+              "title": "Install",
+              "filename": "1.install.md",
+              "url": "/frontend/get_started/install",
+              "docpath": "/frontend/1.get_started/1.install.md",
+              "type": "markdown"
+            },
+            {
+              "name": "overview",
+              "title": "Overview",
+              "filename": "2.overview.md",
+              "url": "/frontend/get_started/overview",
+              "docpath": "/frontend/1.get_started/2.overview.md",
+              "type": "markdown"
+            },
+            {
+              "name": "configure_and_run",
+              "title": "Configure and run",
+              "filename": "3.configure_and_run.md",
+              "url": "/frontend/get_started/configure_and_run",
+              "docpath": "/frontend/1.get_started/3.configure_and_run.md",
+              "type": "markdown"
+            },
+            {
+              "name": "markdown",
+              "title": "Markdown",
+              "filename": "4.markdown.md",
+              "url": "/frontend/get_started/markdown",
+              "docpath": "/frontend/1.get_started/4.markdown.md",
+              "type": "markdown"
+            },
+            {
+              "name": "build",
+              "title": "Build",
+              "filename": "5.build.md",
+              "url": "/frontend/get_started/build",
+              "docpath": "/frontend/1.get_started/5.build.md",
+              "type": "markdown"
+            }
+          ],
+          "docstrings": [],
+          "url": "/frontend/get_started",
+          "has_md_index": false,
+          "docpath": "/frontend/1.get_started"
+        },
+        {
+          "name": "navigation",
+          "children": [],
+          "title": "Navigation",
+          "content": [
+            {
+              "name": "the_nav_tree",
+              "title": "The nav tree",
+              "filename": "1.the_nav_tree.md",
+              "url": "/frontend/navigation/the_nav_tree",
+              "docpath": "/frontend/navigation/1.the_nav_tree.md",
+              "type": "markdown"
+            },
+            {
+              "name": "routing",
+              "title": "Routing",
+              "filename": "2.routing.md",
+              "url": "/frontend/navigation/routing",
+              "docpath": "/frontend/navigation/2.routing.md",
+              "type": "markdown"
+            }
+          ],
+          "docstrings": [],
+          "url": "/frontend/navigation",
+          "has_md_index": false,
+          "docpath": "/frontend/navigation"
+        }
+      ],
+      "title": "Frontend",
+      "content": [],
+      "docstrings": [],
+      "url": "/frontend",
+      "has_md_index": false,
+      "docpath": "/frontend"
+    },
+    {
+      "name": "python",
+      "children": [
+        {
+          "name": "get_started",
+          "children": [],
+          "title": "Get started",
+          "content": [
+            {
+              "name": "install",
+              "title": "Install",
+              "filename": "1.install.md",
+              "url": "/python/get_started/install",
+              "docpath": "/python/1.get_started/1.install.md",
+              "type": "markdown"
+            },
+            {
+              "name": "parse_docstrings",
+              "title": "Parse docstrings",
+              "filename": "2.parse_docstrings.md",
+              "url": "/python/get_started/parse_docstrings",
+              "docpath": "/python/1.get_started/2.parse_docstrings.md",
+              "type": "markdown"
+            }
+          ],
+          "docstrings": [],
+          "url": "/python/get_started",
+          "has_md_index": false,
+          "docpath": "/python/1.get_started"
+        },
+        {
+          "name": "api",
+          "children": [],
+          "title": "Api",
+          "content": [],
+          "docstrings": [
+            {
+              "name": "parse_class",
+              "title": "Parse class",
+              "url": "/python/api/parse_class"
+            },
+            {
+              "name": "parse_functions",
+              "title": "Parse functions",
+              "url": "/python/api/parse_functions"
+            },
+            {
+              "name": "get_func_sources",
+              "title": "Get func sources",
+              "url": "/python/api/get_func_sources"
+            },
+            {
+              "name": "parse_docstrings",
+              "title": "Parse docstrings",
+              "url": "/python/api/parse_docstrings"
+            },
+            {
+              "name": "write_docstrings",
+              "title": "Write docstrings",
+              "url": "/python/api/write_docstrings"
+            }
+          ],
+          "url": "/python/api",
+          "has_md_index": false,
+          "docpath": "/python/2.api"
+        },
+        {
+          "name": "types",
+          "children": [],
+          "title": "Types",
+          "content": [],
+          "docstrings": [
+            {
+              "name": "DocstringsDict",
+              "title": "DocstringsDict",
+              "url": "/python/types/DocstringsDict"
+            },
+            {
+              "name": "FileSourcesDict",
+              "title": "FileSourcesDict",
+              "url": "/python/types/FileSourcesDict"
+            },
+            {
+              "name": "CodeBlockRaises",
+              "title": "CodeBlockRaises",
+              "url": "/python/types/CodeBlockRaises"
+            },
+            {
+              "name": "CodeBlockParam",
+              "title": "CodeBlockParam",
+              "url": "/python/types/CodeBlockParam"
+            },
+            {
+              "name": "ExampleParam",
+              "title": "ExampleParam",
+              "url": "/python/types/ExampleParam"
+            },
+            {
+              "name": "ParsedDocstring",
+              "title": "ParsedDocstring",
+              "url": "/python/types/ParsedDocstring"
+            }
+          ],
+          "url": "/python/types",
+          "has_md_index": false,
+          "docpath": "/python/3.types"
+        }
+      ],
+      "title": "Python",
+      "content": [],
+      "docstrings": [],
+      "url": "/python",
+      "has_md_index": false,
+      "docpath": "/python"
+    }
+  ],
+  "title": "Doc",
+  "content": [],
+  "docstrings": [],
+  "url": "",
+  "has_md_index": false,
+  "docpath": ""
+}

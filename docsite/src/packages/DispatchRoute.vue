@@ -11,6 +11,7 @@
 import { watchEffect, ref, reactive } from 'vue';
 import _hljs from 'highlight.js/lib/core';
 import { RouteDataPayload, useNav } from '@docdundee/nav';
+//import { RouteDataPayload, useNav } from '@/packages/nav/src/main';
 import RenderMd from './markdown/RenderMd.vue';
 
 const props = defineProps({

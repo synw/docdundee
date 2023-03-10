@@ -1,6 +1,6 @@
 {
   "name": "docdundee_template",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "wdoc": "yarn docnav"
   },
   "dependencies": {
-    "@docdundee/vue": "^0.0.6",
+    "@docdundee/vue": "^0.0.8",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",
