@@ -37,7 +37,7 @@ interface DirNavItem {
 }
 
 interface NavItem extends DirNavItem {
-  type: "markdown" | "component"
+  type: "markdown" | "component" | "directory"
 }
 
 interface DirNavListing extends DirNavItem {

@@ -1,6 +1,6 @@
 {
   "name": "@docdundee/docnav",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Build the navigation for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "license": "MIT",

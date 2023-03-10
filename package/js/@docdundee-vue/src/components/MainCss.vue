@@ -18,8 +18,6 @@ kbd
 // nav
 .nav-item-hspace
   @apply ml-8
-.nav-header-hspace
-  @apply ml-5
 .nav-panel
   & .navnode-0
     > .navnode-header

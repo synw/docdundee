@@ -1,5 +1,5 @@
 <template>
-  <div :class="level > 0 ? ['nav-header-hspace', `navnode-${level}`] : [`navnode-${level}`]">
+  <div :class="`navnode-${level}`">
     <button class="flex items-center w-full btn navnode-header"
       :class="collapse ? ['navnode-closed'] : ['navnode-opened']" @click="onToggle()">
       <div>
@@ -19,15 +19,20 @@
     ] : [
       'slidedown', 'navnode-opened'
     ]" class="duration-100 slide-y navnode-content">
-      <div v-if="(node?.children ?? []).length > 0">
+      <!--div v-if="(node?.children ?? []).length > 0">
         <div v-for="child in node.children">
           <AutoNavNode :on-open="onOpen" :node="child" :level="level + 1" :start-state="startState"></AutoNavNode>
         </div>
-      </div>
-      <div v-else>
+      </div-->
+      <div>
         <div v-if="(node.content ?? []).length > 0">
-          <div v-for="md in node.content" class="nav-item-hspace">
-            <button class="py-1 focus:ring-0 btn navnode-item navnode-md" @click="onOpen(md.url)">{{ md.title }}</button>
+          <div v-for="item in node.content" class="nav-item-hspace">
+            <button v-if="item.type != 'directory'" class="focus:ring-0 btn navnode-item navnode-md"
+              @click="onOpen(item.url)">{{ item.title }}</button>
+            <!-- div v-else>{{ item.name }} / {{ node.children?.find(n => n.name = item.name) }}</div -->
+            <AutoNavNode v-else :on-open="onOpen" :node="findDirNode(node, item.name)" :level="level + 1"
+              :start-state="startState">
+            </AutoNavNode>
           </div>
         </div>
         <div v-if="(node.docstrings ?? []).length > 0">
@@ -69,6 +74,11 @@ const collapse = ref(true);
 function onToggle() {
   collapse.value = !collapse.value;
   //console.log("Toggle to", collapse.value)
+}
+
+function findDirNode(node: DirNavListing, name: string): DirNavListing {
+  const n = node.children?.find(n => n.name = name)
+  return n ?? {} as DirNavListing
 }
 
 onBeforeMount(() => {

@@ -42,6 +42,18 @@ function _readFilesInDir(dir, url, docpath) {
         hasExamples = true
       }
     } else {
+      const isDir = filename.endsWith(".dir");
+      if (isDir) {
+        const n = _unumName(filename).replace(".dir", "");
+        content.push({
+          name: n,
+          title: _getTitle(n),
+          filename: filename,
+          url: `${_unumNameUrl(url)}/${n}`,
+          docpath: `${docpath}/${filename}`,
+          type: "directory"
+        })
+      }
       const isMarkdown = filename.endsWith(".md");
       if (isMarkdown) {
         if (filename == "index.md") {
