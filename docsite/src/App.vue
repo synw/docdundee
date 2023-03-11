@@ -3,7 +3,7 @@
   <div class="p-5 pb-16 mt-16 md:ml-64">
     <router-view></router-view>
   </div>
-  <the-sidebar class="fixed left-0 hidden w-64 h-screen p-3 top-16 sm:block secondary"></the-sidebar>
+  <the-sidebar class="fixed left-0 hidden w-64 h-screen p-3 overflow-y-auto top-16 sm:block secondary"></the-sidebar>
 </template>
 
 <script setup lang="ts">

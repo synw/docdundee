@@ -19,20 +19,17 @@
     ] : [
       'slidedown', 'navnode-opened'
     ]" class="duration-100 slide-y navnode-content">
-      <!--div v-if="(node?.children ?? []).length > 0">
-        <div v-for="child in node.children">
-          <AutoNavNode :on-open="onOpen" :node="child" :level="level + 1" :start-state="startState"></AutoNavNode>
-        </div>
-      </div-->
       <div>
         <div v-if="(node.content ?? []).length > 0">
           <div v-for="item in node.content" class="nav-item-hspace">
             <button v-if="item.type != 'directory'" class="focus:ring-0 btn navnode-item navnode-md"
               @click="onOpen(item.url)">{{ item.title }}</button>
-            <!-- div v-else>{{ item.name }} / {{ node.children?.find(n => n.name = item.name) }}</div -->
-            <AutoNavNode v-else :on-open="onOpen" :node="findDirNode(node, item.name)" :level="level + 1"
-              :start-state="startState">
-            </AutoNavNode>
+            <template v-else>
+              <AutoNavNode :on-open="onOpen" :node="findDirNode(node.children ?? [], item.name)" :level="level + 1"
+                :start-state="startState">
+              </AutoNavNode>
+            </template>
+
           </div>
         </div>
         <div v-if="(node.docstrings ?? []).length > 0">
@@ -76,9 +73,17 @@ function onToggle() {
   //console.log("Toggle to", collapse.value)
 }
 
-function findDirNode(node: DirNavListing, name: string): DirNavListing {
-  const n = node.children?.find(n => n.name = name)
-  return n ?? {} as DirNavListing
+function findDirNode(children: Array<DirNavListing>, name: string): DirNavListing {
+  //console.log("Finding", name, "in", children);
+  let n = {} as DirNavListing;
+  for (const child of children) {
+    if (child.name == name) {
+      n = child
+      break
+    }
+  }
+  //console.log("NODE", JSON.stringify(n, null, "  "));
+  return n
 }
 
 onBeforeMount(() => {

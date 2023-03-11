@@ -3,10 +3,13 @@
 
 <style lang="sass">
 .prosed:not(.not-prose)
-  @apply prose dark:prose-invert max-w-none prose-h1:txt-light prose-h2:txt-light prose-h3:txt-light
+  @apply prose dark:prose-invert max-w-none prose-h1:txt-light prose-h2:txt-light prose-h3:txt-light prose-h2:mt-3
+  @apply max-w-[52rem] xl:min-w-[52rem]
 .md-content.prosed:not(.not-prose)
+  & p
+    @apply text-justify
   & pre
-    @apply bg-gray-100 text-black dark:bg-black dark:text-neutral-200 p-3 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
+    @apply bg-gray-100 text-black dark:bg-black dark:text-neutral-200 p-3 rounded-md overflow-x-auto border border-gray-200 dark:border-neutral-800
 em
   @apply font-semibold txt-light not-italic
 .codedef
@@ -14,7 +17,7 @@ em
 kbd
   @apply px-2 py-1 font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
 .static-code:not(.raw)
-  @apply p-3 bg-gray-100 dark:bg-black dark:text-neutral-200 rounded-md max-w-[100ch] xl:min-w-[100ch] overflow-x-auto border border-gray-200 dark:border-neutral-800
+  @apply p-3 bg-gray-100 dark:bg-black dark:text-neutral-200 rounded-md overflow-x-auto border border-gray-200 dark:border-neutral-800
 // nav
 .nav-item-hspace
   @apply ml-8

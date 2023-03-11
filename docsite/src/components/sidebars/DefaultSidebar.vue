@@ -4,6 +4,8 @@
     :on-open="$router.push"></auto-nav>
   <auto-nav :nodes="[nav.findNode('frontend/navigation')] ?? []" class="mt-2 space-y-1 nav-panel"
     :on-open="$router.push"></auto-nav>
+  <auto-nav :nodes="[nav.findNode('frontend/renderers')] ?? []" class="mt-2 space-y-1 nav-panel"
+    :on-open="$router.push"></auto-nav>
 </template>
 
 <script setup lang="ts">

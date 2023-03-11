@@ -6,7 +6,7 @@ Compose documentation websites in Vuejs. Features:
  - **Docstrings**: parse python docstrings and generate api doc
  - **Interactive** executable examples for Python, Typescript and Javascript
 
-Read the [documentation](https://synw.github.io/docdundee/)
+:books: Read the [documentation](https://synw.github.io/docdundee/)
 
 ## Packages
 
@@ -23,3 +23,44 @@ Read the [documentation](https://synw.github.io/docdundee/)
 | Version | Name | Description |
 | --- | --- | --- |
 | [![pub package](https://img.shields.io/pypi/v/docdundee)](https://pypi.org/project/docdundee/) | [docdundee](https://pypi.org/project/docdundee/) | The Python docstrings parser |
+
+## Documentation
+
+ - [Frontend](https://synw.github.io/docdundee/frontend)
+     - [Get started](https://synw.github.io/docdundee/frontend/get_started)
+        - [Install](https://synw.github.io/docdundee/frontend/get_started/install)
+        - [Overview](https://synw.github.io/docdundee/frontend/get_started/overview)
+        - [Configure and run](https://synw.github.io/docdundee/frontend/get_started/configure_and_run)
+        - [Markdown](https://synw.github.io/docdundee/frontend/get_started/markdown)
+        - [Build](https://synw.github.io/docdundee/frontend/get_started/build)
+     - [Navigation](https://synw.github.io/docdundee/frontend/navigation)
+        - [The nav tree](https://synw.github.io/docdundee/frontend/navigation/the_nav_tree)
+        - [Routing](https://synw.github.io/docdundee/frontend/navigation/routing)
+        - [Composables](https://synw.github.io/docdundee/frontend/navigation/composables)
+        - [Components](https://synw.github.io/docdundee/frontend/navigation/components)
+         - [Components](https://synw.github.io/docdundee/frontend/navigation/components)
+            - [Auto nav](https://synw.github.io/docdundee/frontend/navigation/components/auto_nav)
+            - [Auto nav node](https://synw.github.io/docdundee/frontend/navigation/components/auto_nav_node)
+            - [Render nav node](https://synw.github.io/docdundee/frontend/navigation/components/render_nav_node)
+         - [Composables](https://synw.github.io/docdundee/frontend/navigation/composables)
+            - [Use docloader](https://synw.github.io/docdundee/frontend/navigation/composables/use_docloader)
+            - [Use nav](https://synw.github.io/docdundee/frontend/navigation/composables/use_nav)
+     - [Renderers](https://synw.github.io/docdundee/frontend/renderers)
+        - [Dispatch route](https://synw.github.io/docdundee/frontend/renderers/dispatch_route)
+        - [Static code block](https://synw.github.io/docdundee/frontend/renderers/static_code_block)
+        - [Markdown](https://synw.github.io/docdundee/frontend/renderers/markdown)
+        - [Docstrings](https://synw.github.io/docdundee/frontend/renderers/docstrings)
+        - [Python](https://synw.github.io/docdundee/frontend/renderers/python)
+         - [Docstrings](https://synw.github.io/docdundee/frontend/renderers/docstrings)
+            - [Render docstring](https://synw.github.io/docdundee/frontend/renderers/docstrings/render_docstring)
+         - [Markdown](https://synw.github.io/docdundee/frontend/renderers/markdown)
+            - [Render md](https://synw.github.io/docdundee/frontend/renderers/markdown/render_md)
+         - [Python](https://synw.github.io/docdundee/frontend/renderers/python)
+            - [Dispatch route py](https://synw.github.io/docdundee/frontend/renderers/python/dispatch_route_py)
+            - [Render-py-docstring](https://synw.github.io/docdundee/frontend/renderers/python/render-py-docstring)
+ - [Python](https://synw.github.io/docdundee/python)
+     - [Get started](https://synw.github.io/docdundee/python/get_started)
+        - [Install](https://synw.github.io/docdundee/python/get_started/install)
+        - [Parse docstrings](https://synw.github.io/docdundee/python/get_started/parse_docstrings)
+     - [Api](https://synw.github.io/docdundee/python/api)
+     - [Types](https://synw.github.io/docdundee/python/types)

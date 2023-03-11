@@ -1,1 +1,0 @@
-import{d as n,o as s,f as l,u as e,H as o,p as t,n as p,l as r,m as u}from"./index-9005c521.js";const c=n({__name:"[...all]",setup(i){return(a,h)=>(s(),l(e(u),{hljs:e(o),py:e(t),nav:e(p),url:a.$route.path,"on-open":a.$router.push,"base-title":e(r)},null,8,["hljs","py","nav","url","on-open","base-title"]))}});export{c as default};

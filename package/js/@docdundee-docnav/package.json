@@ -1,11 +1,12 @@
 {
   "name": "@docdundee/docnav",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Build the navigation for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "license": "MIT",
   "scripts": {
-    "docnav": "nodejs bin/docnav.mjs"
+    "docnav": "nodejs bin/docnav.mjs",
+    "mapnav": "nodejs bin/mapnav.mjs"
   },
   "dependencies": {
     "directory-tree": "^3.5.1"
@@ -17,7 +18,8 @@
     "bin"
   ],
   "bin": {
-    "docnav": "bin/docnav.mjs"
+    "docnav": "bin/docnav.mjs",
+    "mapnav": "bin/mapnav.mjs"
   },
   "type": "module",
   "preferGlobal": true,

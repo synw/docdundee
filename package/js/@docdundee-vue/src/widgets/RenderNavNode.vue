@@ -11,7 +11,6 @@
           @click="onClick(node.url + '/' + ds.name)"></button>
       </div>
     </template>
-
   </div>
 </template>
 
