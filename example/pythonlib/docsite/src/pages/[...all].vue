@@ -6,5 +6,4 @@
 import { DispatchRoutePy } from '@docdundee/vue';
 import { py, nav } from '@/state';
 import { hljs } from '@/conf';
-import "@docdundee/vue/style.css";
 </script>
