@@ -1,6 +1,6 @@
 {
   "name": "@docdundee/vue",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Vuejs components for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "scripts": {
@@ -15,7 +15,7 @@
     "@docdundee/nav": "^0.0.9",
     "highlight.js": "^11.6.0",
     "markdown-it": "^13.0.1",
-    "vuepython": "^0.0.15"
+    "vuepython": "^0.0.16"
   },
   "peerDependencies": {
     "vue": "^3.2.31"
