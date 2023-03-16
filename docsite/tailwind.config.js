@@ -18,7 +18,7 @@ module.exports = {
   theme: {
     extend: {
       maxWidth: {
-        'prose': '100ch',
+        'prose': '52rem',
       },
       typography: ({ theme }) => ({
         DEFAULT: {

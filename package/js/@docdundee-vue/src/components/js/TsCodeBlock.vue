@@ -6,10 +6,10 @@
     <button class="border code-exec-btn btn neuro focus:ring-0" :class="!isExecuting ? 'cursor-pointer' : 'cursor-wait'"
       @click="runCode()">
       <template v-if="!isExecuting">
-        <app-icon name="play" class="inline-block text-xl txt-success"></app-icon>
+        <app-icon name="play" class="inline-block text-xl icon-success"></app-icon>
       </template>
       <template v-else>
-        <app-icon name="typescript" class="inline-block text-xl txt-danger"></app-icon>
+        <app-icon name="typescript" class="inline-block text-xl icon-danger"></app-icon>
       </template>
       &nbsp;Execute
     </button>
@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-import { transpile } from "typescript";
 import { ref } from 'vue';
 import { CodeEditor } from "vuecodit";
 import AppIcon from "./AppIcon.vue";
@@ -38,6 +37,10 @@ const props = defineProps({
   },
   hljs: {
     type: Object as () => typeof _hljs,
+    required: true
+  },
+  transpile: {
+    type: Function,
     required: true
   }
 });
@@ -53,7 +56,7 @@ function codeChange(e: string) {
 async function runCode() {
   // execute the code
   isExecuting.value = true;
-  const c = transpile(editedCode.value)
+  const c = props.transpile(editedCode.value)
   const res = await Object.getPrototypeOf(async function () { }).constructor(c)();
   //console.log("RES", res)
   result.value = res;

@@ -8,7 +8,7 @@
     <h2>loadFromRoutePath</h2>
     <p>Load some content from an url</p>
     <p>
-      <ts-code-block :hljs="hljs" :code="code1"></ts-code-block>
+      <ts-code-block :hljs="hljs" :code="code1" :transpile="transpile"></ts-code-block>
     </p>
     <h3>Params</h3>
     <ul>
@@ -19,8 +19,9 @@
 </template>
 
 <script setup lang="ts">
-import TsCodeBlock from '@/packages/TsCodeBlock.vue';
+import { transpile } from 'typescript';
 import { useDocloader, useNav } from "@docdundee/nav";
+import { TsCodeBlock } from '@docdundee/vue';
 import { hljs } from '@/conf';
 import { api, nav } from '@/state';
 

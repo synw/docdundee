@@ -9,9 +9,9 @@
     <p v-if="docstring.long_description" v-html="docstring.long_description"> </p>
     <template v-if="Object.keys(docstring.params).length > 0">
       <h3>Parameters</h3>
-      <ul class="space-y-2">
+      <ul class="params-list">
         <li v-for="param in Object.keys(docstring.params)">
-          <kbd class="mr-1 font-bold" v-html="param"></kbd> <span class="hljs-built_in"
+          <kbd class="param-name" v-html="param"></kbd> <span class="hljs-built_in"
             v-html="docstring.params[param].type"></span>:
           <span v-html="docstring.params[param].description"></span>
         </li>
@@ -35,7 +35,7 @@
       </div>
       <div class="mt-3" v-else>
         <h2>Example</h2>
-        <static-code-block :hljs="hljs" :lang="lang" class="static-code not-prose"
+        <static-code-block :hljs="hljs" :lang="lang" class="w-full static-code not-prose"
           :code="docstring.example.code"></static-code-block>
       </div>
     </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="mt-3" v-else>
           <h2>Example</h2>
-          <static-code-block :hljs="hljs" :lang="lang" class="static-code not-prose"
+          <static-code-block :hljs="hljs" :lang="lang" class="w-full static-code not-prose"
             :code="example.code"></static-code-block>
         </div>
       </div>

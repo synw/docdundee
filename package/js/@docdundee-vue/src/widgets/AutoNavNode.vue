@@ -1,7 +1,6 @@
 <template>
-  <div :class="`navnode-${level}`">
-    <button class="flex items-center w-full btn navnode-header"
-      :class="collapse ? ['navnode-closed'] : ['navnode-opened']" @click="onToggle()">
+  <div :class="`navnode navnode-${level}`">
+    <button class="navnode-header" @click="onToggle()" :class="collapse ? 'navheader-closed'! : 'navheader-opened'">
       <div>
         <svg v-if="collapse === true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256">
           <path fill="currentColor"
@@ -12,33 +11,29 @@
             d="M128 188a12.2 12.2 0 0 1-8.5-3.5l-80-80a12 12 0 0 1 17-17L128 159l71.5-71.5a12 12 0 0 1 17 17l-80 80a12.2 12.2 0 0 1-8.5 3.5Z" />
         </svg>
       </div>
-      <div class="ml-2">{{ node.title }}</div>
+      <button class="navnode-title" @click="() => collapse ? onOpen(node.url) : () => null">{{ node.title }}</button>
     </button>
     <div :class="collapse ? [
-      'slideup', 'navnode-closed'
+      'navnode-closed'
     ] : [
-      'slidedown', 'navnode-opened'
-    ]" class="duration-100 slide-y navnode-content">
-      <div>
-        <div v-if="(node.content ?? []).length > 0">
-          <div v-for="item in node.content" class="nav-item-hspace">
-            <button v-if="item.type != 'directory'" class="focus:ring-0 btn navnode-item navnode-md"
-              @click="onOpen(item.url)">{{ item.title }}</button>
-            <template v-else>
-              <AutoNavNode :on-open="onOpen" :node="findDirNode(node.children ?? [], item.name)" :level="level + 1"
-                :start-state="startState">
-              </AutoNavNode>
-            </template>
-
-          </div>
+      'navnode-opened'
+    ]" class="navnode-content">
+      <template v-if="(node.content ?? []).length > 0">
+        <div v-for="item in node.content" class="nav-item-hspace">
+          <button v-if="item.type != 'directory'" class="navnode-item navnode-md"
+            @click="onOpen(item.url)">{{ item.title }}</button>
+          <template v-else>
+            <AutoNavNode :on-open="onOpen" :node="findDirNode(node.children ?? [], item.name)" :level="level + 1"
+              :start-state="startState">
+            </AutoNavNode>
+          </template>
         </div>
-        <div v-if="(node.docstrings ?? []).length > 0">
-          <div v-for="docstring in node.docstrings" class="nav-item-hspace">
-            <button class="py-1 focus:ring-0 btn navnode-item navnode-docstring"
-              @click="onOpen(docstring.url)">{{ docstring.name }}</button>
-          </div>
+      </template>
+      <template v-if="(node.docstrings ?? []).length > 0">
+        <div v-for="docstring in node.docstrings" class="nav-item-hspace">
+          <button class="navnode-item navnode-docstring" @click="onOpen(docstring.url)">{{ docstring.name }}</button>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

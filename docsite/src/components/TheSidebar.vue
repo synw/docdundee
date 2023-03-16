@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isNavReady">
+  <div v-if="isNavReady" class="overflow-y-auto">
     <default-sidebar v-if="sidebar == 'default'"></default-sidebar>
     <python-sidebar v-else-if="sidebar == 'python'"></python-sidebar>
   </div>

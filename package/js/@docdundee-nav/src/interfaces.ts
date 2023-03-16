@@ -29,14 +29,18 @@ interface ParsedDocstring {
   }
 }
 
-interface DirNavItem {
+interface BaseNavItem {
   name: string;
   title: string;
   url: string;
   docpath: string;
 }
 
-interface NavItem extends DirNavItem {
+interface DirNavItem extends BaseNavItem {
+  has_md_index: boolean;
+}
+
+interface NavItem extends BaseNavItem {
   type: "markdown" | "component" | "directory"
 }
 
@@ -53,6 +57,8 @@ interface RouteDataPayload {
   hasDocstring: boolean;
   markdown: string;
   docstring: ParsedDocstring;
+  node: DirNavListing;
+  autoIndex: boolean;
 }
 
 export {

@@ -5,7 +5,7 @@
 
 <script setup lang="ts">
 import { DispatchRoutePy } from '@docdundee/vue';
-//import DispatchRoutePy from '@/packages/DispatchRoute.vue';
+//import DispatchRoutePy from '@/packages/python/DispatchRoutePy.vue';
 import { py, nav } from "@/state";
 import { hljs, libTitle } from "@/conf";
 </script>

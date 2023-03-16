@@ -8,7 +8,7 @@
     <h2>loadDocstrings</h2>
     <p>A function to load docstrings from a docstrings.json file referenced in the doc folder</p>
     <p>
-      <ts-code-block :hljs="hljs" :code="code1"></ts-code-block>
+      <ts-code-block :hljs="hljs" :code="code1" :transpile="transpile"></ts-code-block>
     </p>
     <h3>Params</h3>
     <ul>
@@ -19,7 +19,7 @@
     <h2>loadMarkdown</h2>
     <p>A function to load markdown content from a file referenced in the doc folder</p>
     <p>
-      <ts-code-block :hljs="hljs" :code="code2"></ts-code-block>
+      <ts-code-block :hljs="hljs" :code="code2" :transpile="transpile"></ts-code-block>
     </p>
     <h3>Params</h3>
     <ul>
@@ -30,9 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import TsCodeBlock from '@/packages/TsCodeBlock.vue';
-import { hljs } from '@/conf';
+import { transpile } from 'typescript';
 import { useDocloader } from "@docdundee/nav"
+import { TsCodeBlock } from '@docdundee/vue';
+import { hljs } from '@/conf';
 import { api } from '@/state';
 
 globalThis["useDocloader"] = useDocloader;

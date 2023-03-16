@@ -38,6 +38,10 @@ const props = defineProps({
   hljs: {
     type: Object as () => typeof _hljs,
     required: true
+  },
+  onRun: {
+    type: Function,
+    required: true
   }
 });
 
@@ -52,7 +56,7 @@ function codeChange(e: string) {
 async function runCode() {
   // execute the code
   isExecuting.value = true;
-  result.value = eval(editedCode.value);
+  result.value = props.onRun(editedCode.value);
   isExecuting.value = false;
 }
 </script>

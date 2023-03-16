@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="static-code">
     <pre><code v-html="parsedCode" style="white-space: pre"></code></pre>
   </div>
 </template>

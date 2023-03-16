@@ -73,20 +73,36 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
     const cleanRoute = "/" + _routePathArray.join("/")
     if (lastSegment == node.name) {
       // this is a directory url, fetch the markdown index
-      const indexMd = await docloader.loadMarkdown(cleanRoute + "/index.md");
-      return {
-        name: lastSegment,
-        title: node.title,
-        hasMarkdown: true,
-        hasDocstring: false,
-        markdown: indexMd,
-        docstring: {} as ParsedDocstring,
+      if (node.has_md_index) {
+        const data = await docloader.loadMarkdown(node.docpath + "/index.md");
+        return {
+          name: lastSegment,
+          title: node.title,
+          hasMarkdown: true,
+          hasDocstring: false,
+          markdown: data,
+          docstring: {} as ParsedDocstring,
+          node: node,
+          autoIndex: false,
+        }
+      } else {
+        return {
+          name: lastSegment,
+          title: node.title,
+          hasMarkdown: true,
+          hasDocstring: false,
+          markdown: "",
+          docstring: {} as ParsedDocstring,
+          node: node,
+          autoIndex: true,
+        }
       }
     }
     let hasMarkdown = false;
     let hasDocstring = false;
     let markdown = "";
     let title = node.title;
+    // markdown content
     if (node.content.length > 0) {
       let mdNode = node.content.find(n => n.name == lastSegment);
       if (mdNode) {
@@ -95,6 +111,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
         markdown = await docloader.loadMarkdown(mdNode.docpath);
       }
     }
+    //docstrings content
     let docstring = {} as ParsedDocstring;
     if (node.docstrings.length > 0) {
       const _docstring = await docloader.loadDocstrings(node.docpath);
@@ -111,6 +128,8 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
       hasDocstring: hasDocstring,
       markdown: markdown,
       docstring: docstring,
+      node: node,
+      autoIndex: false,
     }
   }
 

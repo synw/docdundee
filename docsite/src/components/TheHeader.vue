@@ -4,7 +4,7 @@
     <template #branding>
       <a @click="$router.push('/')">
         <div class="ml-5 text-2xl cursor-pointer">
-          <i-noto:crocodile class="text-3xl"></i-noto:crocodile>&nbsp;{{ libName }}
+          <i-noto:crocodile class="inline-block text-3xl"></i-noto:crocodile>&nbsp;{{ libName }}
         </div>
       </a>
     </template>

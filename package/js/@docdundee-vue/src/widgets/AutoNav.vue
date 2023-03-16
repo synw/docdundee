@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="autonav">
     <div v-for="node in nodes">
       <auto-nav-node :node="node" :start-state="startState" :on-open="onOpen"></auto-nav-node>
     </div>

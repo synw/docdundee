@@ -1,14 +1,13 @@
 <template>
-  <div>
+  <div class="flat-navnode">
     <template v-if="node.content.length > 0">
       <div v-for="doc in node.content">
-        <button class="px-1 text-left truncate cursor-pointer btn" v-html="doc.title" @click="onClick(doc.url)"></button>
+        <button v-if="doc.type != 'directory'" class="nn-title" v-html="doc.title" @click="onClick(doc.url)"></button>
       </div>
     </template>
     <template v-if="node.docstrings.length > 0">
       <div v-for="ds in node.docstrings">
-        <button class="px-1 truncate cursor-pointer btn" v-html="ds.title"
-          @click="onClick(node.url + '/' + ds.name)"></button>
+        <button class="nn-title" v-html="ds.title" @click="onClick(node.url + '/' + ds.name)"></button>
       </div>
     </template>
   </div>

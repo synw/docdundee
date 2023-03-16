@@ -4,8 +4,8 @@ import { useApi } from "restmix";
 import { User } from "@snowind/state";
 import { pipPackages, pyodidePackages, loadHljsTheme } from "@/conf";
 import { useNav, useDocloader } from "@docdundee/nav";
-//import { useNav } from '@/packages/nav/src/nav';
-//import { useDocloader } from '@/packages/nav/src/loader';
+//import { useNav } from '@/packages/nav';
+//import { useDocloader } from '@/packages/loader';
 
 const user = new User();
 const py = usePython();
@@ -18,7 +18,6 @@ const isNavReady = ref(false);
 nav.init().then(() => {
   isNavReady.value = true;
 })
-
 
 async function initPy() {
   await py.load(pyodidePackages, pipPackages)
