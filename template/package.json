@@ -9,7 +9,7 @@
     "wdoc": "yarn docnav"
   },
   "dependencies": {
-    "@docdundee/vue": "^0.0.13",
+    "@docdundee/vue": "^0.0.15",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",

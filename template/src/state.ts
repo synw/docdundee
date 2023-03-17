@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { usePython } from "usepython";
 import { useApi } from "restmix";
 import { User } from "@snowind/state";
-import { pipPackages, pyodidePackages, loadHljsTheme } from "@/conf";
+import { pipPackages, pyodidePackages, loadHljsTheme, initCode } from "@/conf";
 import { useNav, useDocloader } from "@docdundee/nav";
 
 const user = new User();
@@ -17,9 +17,8 @@ nav.init().then(() => {
   isNavReady.value = true;
 })
 
-
 async function initPy() {
-  await py.load(pyodidePackages, pipPackages)
+  await py.load(pyodidePackages, pipPackages, initCode)
 }
 
 function initState() {

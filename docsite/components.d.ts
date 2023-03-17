@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     DefaultSidebar: typeof import('./src/components/sidebars/DefaultSidebar.vue')['default']
     'IEva:arrowBackOutline': typeof import('~icons/eva/arrow-back-outline')['default']
+    'IFaBrands:github': typeof import('~icons/fa-brands/github')['default']
     'IFaSolid:moon': typeof import('~icons/fa-solid/moon')['default']
     'IFaSolid:sun': typeof import('~icons/fa-solid/sun')['default']
     'INoto:crocodile': typeof import('~icons/noto/crocodile')['default']

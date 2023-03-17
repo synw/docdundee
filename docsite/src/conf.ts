@@ -1,5 +1,6 @@
 const libName = "Docdundee";
 const libTitle = "Docdundee";
+const repoUrl = "https://github.com/synw/docdundee";
 
 const links: Array<{ href: string; name: string }> = [
   { href: "/frontend", name: "Frontend" },
@@ -36,4 +37,4 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('html', xml);
 
 
-export { libName, libTitle, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }
+export { libName, repoUrl, libTitle, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }

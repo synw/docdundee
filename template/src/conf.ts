@@ -30,5 +30,18 @@ hljs.registerLanguage('python', python);
 //hljs.registerLanguage('bash', bash);
 //hljs.registerLanguage('html', xml);
 
+// some Python code to run after install
+const initCode: string | undefined = undefined;
 
-export { libName, libTitle, repoUrl, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }
+export {
+  libName,
+  libTitle,
+  repoUrl,
+  pipPackages,
+  examplesExtension,
+  pyodidePackages,
+  links,
+  hljs,
+  initCode,
+  loadHljsTheme
+}
