@@ -1,4 +1,4 @@
-from docdundee.docparser import (
+from .docparser import (
     parse_docstrings,
     parse_functions,
     write_docstrings,
@@ -6,7 +6,7 @@ from docdundee.docparser import (
 
 
 def parse_funcs():
-    alt = parse_functions("docdundee.docparser")
+    alt = parse_functions("docdundee.docparser", "public")
     doc = parse_docstrings(alt)
     # print(doc)
     write_docstrings("../../docsite/public/doc/python/api/docstrings.json", doc, 4)

@@ -1,10 +1,10 @@
 {
-  "name": "docdundee_template",
+  "name": "docdundee_example",
   "version": "0.0.4",
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && rm -rf ../docs/* && mv ./dist/* ../docs && cd ../docs && ln -s index.html 404.html",
+    "build": "vite build && cd ../dist && ln -s index.html 404.html",
     "preview": "vite build && vite preview",
     "wdoc": "yarn docnav"
   },

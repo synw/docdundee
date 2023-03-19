@@ -1,23 +1,24 @@
-from typing import Dict, List, TypedDict
+from typing import Dict, List, Literal, TypedDict
 from docstring_parser import Docstring
 
 
 class DocstringsDict(TypedDict):
     """A named code block docstrings dict
 
-    .. code-block:: python
+    Refer to the <a href="https://rr-.github.io/docstring_parser/docstring_parser.Docstring.html">Docstring</a> documentation from <a href="https://github.com/rr-/docstring_parser/tree/master">docstring_parser</a> library
 
-      from docdundee.docparser import parse_functions
-      from docdundee.interfaces import DocstringsDict
+    Args:
+        funcdef (str): the code definition block
+        docstring (Docstring): the parsed docstring object
 
-      docstrings: DocstringsDict = parse_functions("docdundee.docparser")
-      str(docstrings)
+    Example:
+        ::
 
+        from docdundee.docparser import parse_functions
+        from docdundee.interfaces import DocstringsDict
 
-    :param funcdef: the code definition block
-    :type funcdef: str
-    :param docstring: the parsed docstring object
-    :type docstring: Docstring
+        docstrings: DocstringsDict = parse_functions("docdundee.docparser")
+        str(docstrings)
     """
 
     funcdef: str
@@ -25,17 +26,22 @@ class DocstringsDict(TypedDict):
 
 
 class FileSourcesDict(TypedDict):
-    """A files sources dict
+    """A dict representing a file's source
 
-    :param source: the source code
-    :type source: str
+    Args:
+        source (str): the source code
     """
 
     source: str
 
 
 class CodeBlockRaises(TypedDict):
-    """An exception raises parameter"""
+    """An exception raised by a code block description
+
+    Args:
+        description (str): the description of the exception
+        type (str): the type of the exception
+    """
 
     description: str
     type: str
@@ -44,17 +50,23 @@ class CodeBlockRaises(TypedDict):
 class CodeBlockParam(TypedDict):
     """A parameter in a code block, like a function
 
-    .. code-block:: python
+    Args:
+        description (str): the description of the code block
+        type (str): type of the code block: "function" or "class"
+        default: (str | None): the default value of the parameter. Default to `None`
 
-      # noexec
-      from docdundee.interfaces import CodeBlockParam
+    Example:
+        ::
 
-      params: CodeBlockParam = {}
-      params["myparam"] = {
-          description: "the param description",
-          type: "bool",
-          default: False
-      }
+        # noexec
+        from docdundee.interfaces import CodeBlockParam
+
+        params: CodeBlockParam = {}
+        params["myparam"] = {
+            description: "the param description",
+            type: "bool",
+            default: False
+        }
     """
 
     description: str
@@ -65,33 +77,52 @@ class CodeBlockParam(TypedDict):
 class ExampleParam(TypedDict):
     """An example in a code block
 
-    :param code: the code
-    :type code: str
-    :param is_executable: can be executed
-    :type is_executable: bool
+    Args:
+        code (str): the source code of the example
+        description (str): the description of the example
+        is_executable (bool): is the example executable
+
+    Example:
+        ::
+
+        from docdundee.interfaces import ExampleParam
+
+        example = ExampleParam(
+            code = 'print("hello")',
+            description = "the example description",
+            is_executable = True,
+        )
+        print(example)
     """
 
     code: str
     is_executable: bool
+    description: str
 
 
 class ParsedDocstring(TypedDict):
     """A parsed docstring representation
 
-    :param funcdef: the function or class definition
-    :type funcdef: str
-    :param description: the docstring short description
-    :type description: str
-    :param long_description: the docstring long description
-    :type description: str
-    :param example: the example embeded in the docstring long description
-    :type example: str
-    :param params: the function or class parameters
-    :type params: Dict[str, CodeBlockParam]
-    :param raises: a list of potential exceptions
-    :type raises: List[CodeBlockRaises]
-    :param returns: the optional return value description
-    :type returns: Dict[str, str] | None
+    Args:
+        funcdef (str): the function or class definition
+        description (str): the docstring short description
+        long_description: the docstring long description
+        example: the example embeded in the docstring long description
+        params (Dict[str, CodeBlockParam]): the function or class parameters
+        raises (List[CodeBlockRaises]): a list of exceptions descriptions raised by the code block
+        returns (Dict[str, str] | None): the optional return value description
+
+    Example:
+        Get a parsed docstring::
+            from typing import Dict
+            import json
+            from docdundee.docparser import parse_class, parse_docstrings
+            from docdundee.interfaces import DocstringsDict, ParsedDocstring
+
+            parsed_methods: DocstringsDict = parse_class("datetime", "date")
+            docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)
+            docstring: ParsedDocstring = docs[list(docs.keys())[0]]
+            f"<pre>{json.dumps(docstring, indent=4)}</pre>"
     """
 
     funcdef: str
@@ -101,3 +132,6 @@ class ParsedDocstring(TypedDict):
     params: Dict[str, CodeBlockParam]
     raises: List[CodeBlockRaises]
     returns: Dict[str, str] | None
+
+
+NodeParsingMode = Literal["all", "public", "init"]

@@ -5,6 +5,7 @@ import json
 import ast
 import inspect
 from importlib import import_module
+from docstring_parser.common import DocstringExample
 
 from docutils.core import publish_parts
 from docstring_parser import parse
@@ -14,10 +15,13 @@ from docdundee.interfaces import (
     ParsedDocstring,
     DocstringsDict,
     FileSourcesDict,
+    NodeParsingMode,
 )
 
 
-def parse_class(mod: str, cls: str, private=False, verbose=False) -> DocstringsDict:
+def parse_class(
+    mod: str, cls: str, mode: NodeParsingMode = "all", verbose=False
+) -> DocstringsDict:
     """Parse a class to a dictionnary of docstrings
 
     All the methods of the class will be parsed
@@ -35,8 +39,10 @@ def parse_class(mod: str, cls: str, private=False, verbose=False) -> DocstringsD
     :type mod: str
     :param cls: class name
     :type cls: str
-    :param private: parse private function that start with _, defaults to False
-    :type private: bool
+    :param mode: parsing mode: "private" will parse not parse private
+    functions, "all" will parse all and "init" will parse only __init__ and non
+    private functions, defaults to "all"
+    :type mode: NodeParsingMode
     :return: a dict of methods
     :rtype: DocstringsDict
     """
@@ -45,14 +51,15 @@ def parse_class(mod: str, cls: str, private=False, verbose=False) -> DocstringsD
     _cls = _mod.body[0]
     if not isinstance(_cls, ast.ClassDef):
         raise ArgumentError("Node is not a class")
-    return _parse_nodes(source, _cls.body, private=private, verbose=verbose)  # type: ignore
+    return _parse_nodes(_cls.body, mode=mode, verbose=verbose)
 
 
-def parse_functions(mod: str, private=False, verbose=False) -> DocstringsDict:
+def parse_functions(
+    mod: str, mode: NodeParsingMode = "all", verbose=False
+) -> DocstringsDict:
     """Parse a module's functions to a methods dict
 
-    All the functions in the file will be parsed
-    except the ones that start with and underscore.
+    All the functions in the file will be parsed.
     The docstrings are returned in a dict
 
     .. code-block:: python
@@ -65,14 +72,15 @@ def parse_functions(mod: str, private=False, verbose=False) -> DocstringsDict:
 
     :param mod: module import path
     :type mod: str
-    :param private: parse private function starting with _, defaults to False
-    :type private: bool
+    :param mode: parsing mode: "private" will parse not parse private
+    functions, "all" will parse all and "init" will parse only __init__ and non
+    private functions, defaults to "all"
     :return: a dict of methods
     :rtype: DocstringsDict
     """
     source = inspect.getsource(import_module(mod))
     _mod = ast.parse(source)
-    return _parse_nodes(source, _mod.body, private=private, verbose=verbose)  # type: ignore
+    return _parse_nodes(_mod.body, mode=mode, verbose=verbose)
 
 
 def get_func_sources(file: str) -> FileSourcesDict:
@@ -172,21 +180,51 @@ def parse_docstrings(
                 rt = _to_html(rt, parse_rst)
             r["name"] = rn
             r["type"] = rt
-        # print("EX", k, method["docstring"].examples)
-        desc, example, is_executable = _parse_long_description(
+        _example: ExampleParam | None = None
+        if len(method["docstring"].examples) > 0:
+            rawex: DocstringExample = method["docstring"].examples[0]
+            # print("EX desc", rawex.description or "no desc", "EX code", rawex.snippet)
+            ex_desc = ""
+            ex_code = ""
+            if rawex.snippet:
+                ex_desc = rawex.description or ""
+                ex_code = rawex.snippet
+            else:
+                if rawex.description:
+                    if "::\n\n" in rawex.description:
+                        s = rawex.description.split("::\n\n")
+                        ex_desc = s[0]
+                        ex_code = s[1]
+                    else:
+                        ex_desc = ""
+                        ex_code = rawex.description
+            if ex_code:
+                _is_executable, _parsed_example = _is_example_executable(
+                    ex_code, exec_examples
+                )
+                _example = ExampleParam(
+                    code=_parsed_example.strip(),
+                    is_executable=_is_executable,
+                    description=ex_desc.strip(),
+                )
+            else:
+                print(f"Example {k} has no code, passing")
+            # print("EX", _example)
+        desc, _rst_example, _is_rst_example_executable = _parse_long_description(
             method["docstring"].long_description, exec_examples
         )
+        if _example is None:
+            if _rst_example is not None:
+                _example = ExampleParam(
+                    code=_rst_example,
+                    is_executable=_is_rst_example_executable,
+                    description="",
+                )
         if desc is not None:
             desc = _to_html(desc, parse_rst)
         shortdesc = method["docstring"].short_description
         if shortdesc is not None:
             shortdesc = _to_html(shortdesc, parse_rst)
-        _example: ExampleParam | None = None
-        if example is not None:
-            _example = {
-                "code": example,
-                "is_executable": is_executable,
-            }
         docs[k] = {
             "funcdef": method["funcdef"],
             "description": shortdesc,
@@ -240,7 +278,7 @@ def _to_html(txt: str, parse_rst: bool) -> str:
 
 
 def _parse_nodes(
-    source: str, nodes: List[ast.AST], private=False, verbose=False
+    nodes: List[ast.stmt], mode: NodeParsingMode, verbose=False
 ) -> DocstringsDict:
     i = 0
     methods: DocstringsDict = {}  # type: ignore
@@ -250,9 +288,13 @@ def _parse_nodes(
             or isinstance(node, ast.AsyncFunctionDef)
             or isinstance(node, ast.ClassDef)
         ):
-            if private is False:
+            if mode != "all":
                 if node.name.startswith("_"):
-                    continue
+                    if mode == "init":
+                        if node.name != "__init__":
+                            continue
+                    else:
+                        continue
             nodedef = ""
             if not isinstance(node, ast.ClassDef):
                 if isinstance(node, ast.AsyncFunctionDef):
@@ -286,6 +328,17 @@ def _parse_nodes(
     return methods
 
 
+def _is_example_executable(ex: str, exec_examples: bool) -> Tuple[bool, str]:
+    execute = exec_examples
+    if ex.startswith("# exec"):
+        execute = True
+        ex = ex.replace("# exec\n", "")
+    elif ex.startswith("# noexec"):
+        execute = False
+        ex = ex.replace("# noexec\n", "")
+    return execute, ex
+
+
 def _parse_long_description(
     desc: str | None, exec_examples: bool
 ) -> Tuple[str | None, str | None, bool]:
@@ -300,11 +353,5 @@ def _parse_long_description(
     for line in _exp.split("\n"):
         _lines.append(line.replace("  ", "", 1))
     _ex = "\n".join(_lines)
-    execute = exec_examples
-    if _ex.startswith("# exec"):
-        execute = True
-        _ex = _ex.replace("# exec\n", "")
-    elif _ex.startswith("# noexec"):
-        execute = False
-        _ex = _ex.replace("# noexec\n", "")
-    return (_desc, _ex, execute)
+    execute, ex = _is_example_executable(_ex, exec_examples)
+    return (_desc.strip(), ex.strip(), execute)

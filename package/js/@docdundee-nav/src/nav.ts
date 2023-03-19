@@ -69,8 +69,6 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
     const _routePathArray = _routePathAsArray(routePath)
     const node = _findNodeFromRoutePathArray(_routePathArray);
     const lastSegment = _routePathArray.slice(-1)[0];
-    //const _routePathWithoutLastSegment = _routePathArray.slice(0, -1).join("/");
-    const cleanRoute = "/" + _routePathArray.join("/")
     if (lastSegment == node.name) {
       // this is a directory url, fetch the markdown index
       if (node.has_md_index) {
@@ -89,7 +87,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
         return {
           name: lastSegment,
           title: node.title,
-          hasMarkdown: true,
+          hasMarkdown: false,
           hasDocstring: false,
           markdown: "",
           docstring: {} as ParsedDocstring,

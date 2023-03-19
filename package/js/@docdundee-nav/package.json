@@ -1,6 +1,6 @@
 {
   "name": "@docdundee/nav",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Navigation composables for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "scripts": {
