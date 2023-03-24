@@ -11,17 +11,17 @@ def parse_code():
     print("Processing pandas DataFrame")
     ds = parse_class("pandas.core.frame", "DataFrame", "init")
     doc = parse_docstrings(ds)
-    write_docstrings("./docsite/public/doc/3.dataframe/docstrings.json", doc, 4)
+    write_docstrings("./docsite/public/doc/dataframe/docstrings.json", doc, 4)
     # pandas
     print("Processing requests")
     ds2 = parse_functions("requests.api", "init")
     doc2 = parse_docstrings(ds2, True)
-    write_docstrings("./docsite/public/doc/2.requests/docstrings.json", doc2, 4)
+    write_docstrings("./docsite/public/doc/requests/docstrings.json", doc2, 4)
     # my lib
     print("Processing mylib")
     ds3 = parse_functions("mylib.utils")
     doc3 = parse_docstrings(ds3, exec_examples=True)
-    write_docstrings("./docsite/public/doc/1.mylib/docstrings.json", doc3, 4)
+    write_docstrings("./docsite/public/doc/mylib/docstrings.json", doc3, 4)
     print("done")
 
 

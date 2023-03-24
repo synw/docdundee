@@ -18,6 +18,9 @@ kbd
   @apply px-2 py-1 font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
 .static-code:not(.raw)
   @apply p-3 bg-gray-100 dark:bg-black dark:text-neutral-200 rounded-md overflow-x-auto border border-gray-200 dark:border-neutral-800
+.hljs-built_in
+  & a, a:visited
+    color: #b75501 !important
 // nav
 .nav-item-hspace
   @apply ml-8
@@ -59,7 +62,7 @@ kbd
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
     transition-duration: 300ms
   & .navnode-item
-    @apply focus:ring-0 btn
+    @apply focus:ring-0 btn truncate
   & .navnode-content
     @apply flex flex-col
 .autonav
@@ -68,12 +71,8 @@ kbd
   & .nn-title
     @apply px-1 text-left truncate cursor-pointer btn
 .autoindex
-  @apply max-w-[72rem]
-  & .icontent
-    @apply grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+  @apply w-max
   & .inode
-    @apply p-3 border rounded-md bord-light lighter
-  & .iauto
     @apply p-3 border rounded-md bord-light lighter
 // docstrings
 .docstring
@@ -82,6 +81,8 @@ kbd
   & .param-name
     @apply mr-1 font-bold
 // generic
+.igrid
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 m-auto
 .mt-3
   margin-top: 0.75rem
 .mt-5

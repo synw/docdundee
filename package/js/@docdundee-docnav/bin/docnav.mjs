@@ -3,10 +3,13 @@ import { parseDirTree, saveNav } from "./lib.mjs";
 
 (async () => {
   const args = process.argv.slice(2);
-  //console.log("Args", args);
-  let baseDir = args.length > 0 ? args[0] : (process.cwd() + "/public/doc");
-  //parseDir(baseDir);
-  const nav = parseDirTree(baseDir);
-  //console.log("NAV", JSON.stringify(nav, null, "  "));
+  let baseDir = process.cwd() + "/public/doc";
+  let parseTypes = false;
+  if (args.length > 0) {
+    if (args[0] == "-t") {
+      parseTypes = true
+    }
+  }
+  const nav = parseDirTree(baseDir, parseTypes);
   saveNav(baseDir, nav)
 })();

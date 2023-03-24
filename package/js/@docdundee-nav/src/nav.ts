@@ -69,7 +69,7 @@ const useNav = (docloader: ReturnType<typeof useDocloader>, api: ReturnType<type
     const _routePathArray = _routePathAsArray(routePath)
     const node = _findNodeFromRoutePathArray(_routePathArray);
     const lastSegment = _routePathArray.slice(-1)[0];
-    if (lastSegment == node.name) {
+    if ((lastSegment == node.name) || lastSegment == "") {
       // this is a directory url, fetch the markdown index
       if (node.has_md_index) {
         const data = await docloader.loadMarkdown(node.docpath + "/index.md");

@@ -1,10 +1,10 @@
 <template>
   <div class="autoindex">
-    <div class="icontent">
+    <div class="icontent igrid">
       <render-nav-node v-if="renderNodeContent" :node="node" :on-open="onOpen" class="inode"></render-nav-node>
       <auto-nav-node v-if="node.docstrings.length > 0" :node="node" :on-open="onOpen" start-state="all"
         class="inode"></auto-nav-node>
-      <div v-for="child in node.children" class="iauto">
+      <div v-for="child in node.children" class="inode">
         <auto-nav-node :node="child" :on-open="onOpen" start-state="all"></auto-nav-node>
       </div>
     </div>

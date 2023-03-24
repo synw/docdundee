@@ -91,20 +91,56 @@ function _readFilesInDir(dir, url, docpath) {
   return { content, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex }
 }
 
-function listDocstrings(dir, url) {
+function linkType(data, typename, typelink) {
+  const regex = new RegExp(`(?<!<\\/a>|'\\)")(\\b${typename}\\b)`, 'g');
+  const replacement = `<a href="javascript:openLink(\'${typelink}\')">${typename}</a>`;
+  return data.replace(regex, replacement);
+}
+
+function _parseType(data, types, lang) {
+  if (lang == "python") {
+    if (["str", "int", "float", "bool"].includes(data)) {
+      return data
+    }
+  } else if (["javascript", "typescript"].includes(lang)) {
+    if (["string", "number", "boolean"].includes(data)) {
+      return data
+    }
+  }
+  for (const typename in types) {
+    data = linkType(data, typename, types[typename])
+  }
+  return data
+}
+
+function processDocstrings(dir, url, hasTypes, types, lang, parseTypes) {
   const rawdata = fs.readFileSync(dir + '/docstrings.json');
   const data = JSON.parse(rawdata);
-  const dsnames = Object.keys(data)
-  const ds = [];
+  const dsnames = Object.keys(data);
+  const dsl = [];
   dsnames.forEach((d) => {
-    ds.push({
+    dsl.push({
       name: d,
       title: _getTitle(d),
       url: `${url}/${d}`,
     });
-    // check examples
+    if (parseTypes && hasTypes) {
+      //console.log("PARAMS", data[d].params)
+      for (const [name, content] of Object.entries(data[d].params)) {
+        //console.log("N", name, "D", content)
+        //console.log("------- Param", name, "-", content.type)
+        data[d].params[name].type = _parseType(content.type, types, lang);
+      }
+      if (data[d].returns) {
+        data[d].returns.type = _parseType(data[d].returns.type, types, lang)
+      }
+    }
   });
-  return ds
+  if (hasTypes) {
+    fs.writeFileSync(dir + "/docstrings.json", JSON.stringify(data), { encoding: 'utf8', flag: 'w' })
+    console.log("Updated", dir + "/docstrings.json", "with html types")
+  }
+  return dsl
 }
 
 function _parseExample(ex) {
@@ -169,7 +205,7 @@ function updateDocstringsWithExtraExamples(dirpath) {
   // open docstrings file and update with the examples
   const data = fs.readFileSync(dirpath + "/docstrings.json");
   const ds = JSON.parse(data);
-  //console.log("DS", ds)
+  // console.log("DS", ds)
   for (const ex of examples) {
     //console.log("e", ex.name, ds[ex.name]);
     ds[ex.name]["extra_examples"] = [{
@@ -181,7 +217,7 @@ function updateDocstringsWithExtraExamples(dirpath) {
   console.log("Updated", dirpath + "/docstrings.json", "with extra examples")
 }
 
-function parseDir(dirpath, url, docpath) {
+function parseDir(dirpath, url, docpath, hasTypes, types, lang, parseTypes) {
   console.log("Parsing dir", dirpath, url);
   let { content, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex } = _readFilesInDir(dirpath, url, docpath);
   let data = {
@@ -190,7 +226,7 @@ function parseDir(dirpath, url, docpath) {
     hasMdIndex: hasMdIndex,
   }
   if (hasDocstrings) {
-    data.docstrings = listDocstrings(dirpath, url)
+    data.docstrings = processDocstrings(dirpath, url, hasTypes, types, lang, parseTypes)
     // check extra examples
     if (hasExamples) {
       updateDocstringsWithExtraExamples(dirpath)
@@ -202,6 +238,33 @@ function parseDir(dirpath, url, docpath) {
   return data
 }
 
+function reorderFirstLevel(dirnav) {
+  const children = [];
+  for (const elem of dirnav.content) {
+    if (elem.type == "directory") {
+      const dir = dirnav.children.find((d) => d.name == elem.name)
+      children.push(dir)
+    }
+  }
+  dirnav.children = children;
+  return dirnav
+}
+
+function getTypeUrls(dir) {
+  let data = {};
+  let _hasTypes = false;
+  try {
+    const rawdata = fs.readFileSync(dir + '/type_urls.json', 'utf-8');
+    _hasTypes = true;
+    data = JSON.parse(rawdata)
+  } catch (e) { throw e }
+  return {
+    hasTypes: _hasTypes,
+    types: data.urls,
+    lang: data.lang,
+  }
+}
+
 function saveNav(dirpath, data) {
   const filename = dirpath + "/nav.json";
   fs.writeFileSync(filename, JSON.stringify(data), { encoding: 'utf8', flag: 'w' });
@@ -211,13 +274,18 @@ function saveNav(dirpath, data) {
 const onParseDirectory = (
   item,
   basePath,
+  hasTypes,
+  types,
+  lang,
+  parseTypes,
 ) => {
   if (item.type == "directory") {
+    //console.log(item.name);
     item.name = _unumName(item.name);
     item.title = _getTitle(item.name);
     const docpath = item.path.replace(basePath, "");
     const url = _unumNameUrl(docpath);
-    const dirData = parseDir(item.path, url, docpath);
+    const dirData = parseDir(item.path, url, docpath, hasTypes, types, lang, parseTypes);
     item.content = dirData.content;
     item.docstrings = dirData.docstrings;
     item.url = url;
@@ -228,18 +296,29 @@ const onParseDirectory = (
   delete item.type
 };
 
-function parseDirTree(basePath) {
+function parseDirTree(basePath, parseTypes) {
+  let hasTypes = false;
+  let types = {};
+  let lang = "";
+  if (parseTypes) {
+    const obj = getTypeUrls(basePath);
+    hasTypes = obj.hasTypes;
+    types = obj.types;
+    lang = obj.lang;
+  }
+  //console.log("Type urls", hasTypes, types)
   console.log("Parsing dir", basePath);
-  return dirTree(
+  const dt = dirTree(
     basePath,
     {
       extensions: /\.()$/,
       attributes: ["type"],
       exclude: /(md|ex)$/,
     },
-    (item, path) => onParseDirectory(item, basePath),
-    (item, path) => onParseDirectory(item, basePath)
+    (item, path) => onParseDirectory(item, basePath, hasTypes, types, lang, parseTypes),
+    (item, path) => onParseDirectory(item, basePath, hasTypes, types, lang, parseTypes)
   );
+  return reorderFirstLevel(dt)
 }
 
 export { saveNav, parseDirTree }

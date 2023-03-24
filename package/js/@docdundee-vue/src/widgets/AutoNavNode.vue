@@ -11,7 +11,7 @@
             d="M128 188a12.2 12.2 0 0 1-8.5-3.5l-80-80a12 12 0 0 1 17-17L128 159l71.5-71.5a12 12 0 0 1 17 17l-80 80a12.2 12.2 0 0 1-8.5 3.5Z" />
         </svg>
       </div>
-      <button class="navnode-title" @click="() => collapse ? onOpen(node.url) : () => null">{{ node.title }}</button>
+      <button class="navnode-title" @click="() => onOpen(node.url)">{{ node.title }}</button>
     </button>
     <div :class="collapse ? [
       'navnode-closed'
