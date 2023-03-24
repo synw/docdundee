@@ -13,9 +13,12 @@ function parseNode(navdata, run, baseUrl) {
     const link = `[${navdata.title}](${baseUrl + navdata.url})`;
     console.log(sp, "-", link);
   }
+  //const dirs = [];
   for (const line of navdata.content) {
     const link = `[${line.title}](${baseUrl + line.url})`;
-    console.log(sp + "    -", link)
+    if (line.type !== "directory") {
+      console.log(sp + "    -", link);
+    }
   }
   for (const node of navdata.children) {
     parseNode(node, (run + 1), baseUrl)
@@ -25,10 +28,11 @@ function parseNode(navdata, run, baseUrl) {
 
 
 function createMdMap(basePath, baseUrl) {
+  console.log(`<details>\n<summary>:books: Read the <a href="${baseUrl}">documentation</a></summary>\n`);
   const rawdata = fs.readFileSync(basePath + '/nav.json');
   const navdata = JSON.parse(rawdata);
   parseNode(navdata, 1, baseUrl)
-  //return navdata
+  console.log("\n</details>")
 }
 
 export { createMdMap }
