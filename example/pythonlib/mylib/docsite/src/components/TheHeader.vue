@@ -4,13 +4,13 @@
     <template #branding>
       <a @click="$router.push('/')">
         <div class="ml-5 text-2xl cursor-pointer">
-          {{ libName }}
+          {{ libTitle }}
         </div>
       </a>
     </template>
     <template #mobile-branding>
       <a class="ml-3 text-2xl" @click="$router.push('/')">
-        {{ libName }}
+        {{ libTitle }}
       </a>
     </template>
     <template #mobile-back>
@@ -19,10 +19,13 @@
       </div>
     </template>
     <template #menu>
-      <div class="flex flex-row items-center justify-end h-full space-x-1">
+      <div class="flex flex-row items-center justify-end h-full">
         <button v-for="link in links" class="border-none btn" @click="closeMenu(); $router.push(link.href)"
           v-html="link.name"></button>
         <py-status :py="py"></py-status>
+        <a :href="repoUrl" class="btn">
+          <i-fa-brands:github class="text-2xl" @click=""></i-fa-brands:github>
+        </a>
         <div class="px-5 text-lg cursor-pointer txt-lighter dark:txt-light" @click="toggleDarkMode()">
           <i-fa-solid:moon v-if="!user.isDarkMode.value"></i-fa-solid:moon>
           <i-fa-solid:sun v-else></i-fa-solid:sun>
@@ -47,7 +50,7 @@ import { ref, computed } from "vue";
 import { SwHeader, SwMobileMenu } from "@snowind/header";
 import { PyStatus } from "vuepython"
 import { user, py } from "@/state";
-import { libName } from "@/conf";
+import { libTitle, repoUrl } from "@/conf";
 import { useRouter } from "vue-router";
 
 defineProps({
@@ -59,7 +62,7 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  libName: {
+  libTitle: {
     type: String,
     required: true,
   },

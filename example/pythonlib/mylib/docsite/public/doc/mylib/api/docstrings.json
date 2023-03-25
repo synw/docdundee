@@ -2,9 +2,9 @@
     "increment": {
         "funcdef": "def increment(\n\tnum: int\n) -> int",
         "description": "Utility function to increment a number",
-        "long_description": "",
+        "long_description": null,
         "example": {
-            "code": "from mylib.utils import increment\n\na = 1\nb = increment(a)\nassert(b == 2)\nb",
+            "code": "from mylib.utils import increment\n\nn = increment(3)\nassert n == 4\nprint(f\"n value is {n}\")",
             "is_executable": true,
             "description": ""
         },

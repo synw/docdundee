@@ -1,20 +1,23 @@
 def increment(num: int) -> int:
     """Utility function to increment a number
 
-    .. code-block:: python
+    Args:
+        num (int): a number
 
-      from mylib.utils import increment
+    Raises:
+        ValueError: if the number is not an integer
 
-      a = 1
-      b = increment(a)
-      assert(b == 2)
-      b
+    Returns:
+        int: the incremented number
 
-    :param num: a number
-    :type num: int
-    :raises ValueError: if the number is not an integer
-    :return: the incremented number
-    :rtype: int
+    Example:
+        ::
+
+        from mylib.utils import increment
+
+        n = increment(3)
+        assert n == 4
+        print(f"n value is {n}")
     """
     if not isinstance(num, int):
         raise ValueError(f"{num} is not an integer")

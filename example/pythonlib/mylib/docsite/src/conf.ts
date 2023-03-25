@@ -1,4 +1,6 @@
-const libName = "Example Doc";
+const libName = "example";
+const libTitle = "Example";
+const repoUrl = "https://github.com/synw/docdundee/example/pythonlib/mylib";
 
 const links: Array<{ href: string; name: string }> = [
   { href: "/mylib", name: "My lib" },
@@ -31,5 +33,18 @@ hljs.registerLanguage('python', python);
 //hljs.registerLanguage('bash', bash);
 //hljs.registerLanguage('html', xml);
 
+// some Python code to run after install
+const initCode: string | undefined = undefined;
 
-export { libName, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }
+export {
+  libName,
+  libTitle,
+  repoUrl,
+  pipPackages,
+  examplesExtension,
+  pyodidePackages,
+  links,
+  hljs,
+  initCode,
+  loadHljsTheme
+}

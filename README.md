@@ -6,8 +6,10 @@ Compose documentation websites in Vuejs. Features:
  - **Docstrings**: parse python docstrings and generate api doc
  - **Interactive** executable examples for Python, Typescript and Javascript
 
+## Documentation
+
 <details>
-<summary>:books: Read the <a href="https://synw.github.io/docdundee/">documentation</a></summary>
+<summary>:books: Read the <a href="https://synw.github.io/docdundee">documentation</a></summary>
 
  - [Frontend](https://synw.github.io/docdundee/frontend)
      - [Get started](https://synw.github.io/docdundee/frontend/get_started)
@@ -16,6 +18,7 @@ Compose documentation websites in Vuejs. Features:
         - [Configure and run](https://synw.github.io/docdundee/frontend/get_started/configure_and_run)
         - [Markdown](https://synw.github.io/docdundee/frontend/get_started/markdown)
         - [Build](https://synw.github.io/docdundee/frontend/get_started/build)
+     - [Interfaces](https://synw.github.io/docdundee/frontend/interfaces)
      - [Navigation](https://synw.github.io/docdundee/frontend/navigation)
         - [The nav tree](https://synw.github.io/docdundee/frontend/navigation/the_nav_tree)
         - [Routing](https://synw.github.io/docdundee/frontend/navigation/routing)
@@ -50,8 +53,19 @@ Compose documentation websites in Vuejs. Features:
             - [In docstring](https://synw.github.io/docdundee/python/get_started/examples/in_docstring)
             - [As file](https://synw.github.io/docdundee/python/get_started/examples/as_file)
      - [Types](https://synw.github.io/docdundee/python/types)
+ - [Case studies](https://synw.github.io/docdundee/case_studies)
+     - [Basics](https://synw.github.io/docdundee/case_studies/basics)
+        - [Simple markdown](https://synw.github.io/docdundee/case_studies/basics/simple_markdown)
+        - [Python docstrings](https://synw.github.io/docdundee/case_studies/basics/python_docstrings)
 
 </details>
+
+### Case studies
+
+- [Simple markdown](https://synw.github.io/docdundee/case_studies/basics/simple_markdown): create a
+documentation site with only markdown
+- [Python docstrings](https://synw.github.io/docdundee/case_studies/basics/python_docstrings): create a
+documentation site from Python docstrings
 
 ## Packages
 

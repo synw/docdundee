@@ -36,4 +36,6 @@ onBeforeMount(() => initState());
   @apply overflow-y-auto
 .main-w
   width: calc(100vw - 16rem)
+code:not([class]):not([style])
+  @apply secondary py-1 px-2 rounded-md font-semibold
 </style>

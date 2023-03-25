@@ -21,7 +21,7 @@ def parse_code():
     print("Processing mylib")
     ds3 = parse_functions("mylib.utils")
     doc3 = parse_docstrings(ds3, exec_examples=True)
-    write_docstrings("./docsite/public/doc/mylib/docstrings.json", doc3, 4)
+    write_docstrings("./docsite/public/doc/mylib/api/docstrings.json", doc3, 4)
     print("done")
 
 
