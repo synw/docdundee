@@ -1,0 +1,25 @@
+{
+  "name": "@docdundee/tsdoc",
+  "version": "0.0.1",
+  "description": "Parse Typescript docstrings for Docdundee",
+  "repository": "https://github.com/synw/docdundee",
+  "license": "MIT",
+  "keywords": [
+    "documentation"
+  ],
+  "files": [
+    "src"
+  ],
+  "main": "./src/main.mjs",
+  "module": "./src/main.mjs",
+  "exports": {
+    ".": {
+      "import": "./src/main.mjs"
+    }
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
