@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && cd ./dist && ln -s index.html 404.html",
-    "preview": "vite build && vite preview",
+    "preview": "vite preview",
     "wdoc": "nodejs ./node_modules/@docdundee/docnav/bin/docnav.mjs",
     "tdoc": "nodejs ./node_modules/@docdundee/docnav/bin/docnav.mjs -t",
     "docmap": "nodejs ./node_modules/@docdundee/docnav/bin/navmap.mjs"
