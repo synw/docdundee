@@ -114,6 +114,7 @@ class ParsedDocstring(TypedDict):
 
     Example:
         Get a parsed docstring::
+
             from typing import Dict
             import json
             from docdundee.docparser import parse_class, parse_docstrings

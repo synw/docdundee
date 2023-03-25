@@ -1,6 +1,6 @@
 {
   "name": "@docdundee/vue",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Vuejs components for Docdundee",
   "repository": "https://github.com/synw/docdundee",
   "scripts": {

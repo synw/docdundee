@@ -12,7 +12,8 @@
       <ul class="params-list">
         <li v-for="param in Object.keys(docstring.params)">
           <kbd class="param-name" v-html="param"></kbd> <span class="hljs-built_in"
-            v-html="docstring.params[param].type"></span>:
+            v-html="docstring.params[param].type"></span><template v-if="docstring.params[param].description">:
+          </template>
           <span v-html="docstring.params[param].description"></span>
         </li>
       </ul>
@@ -87,8 +88,12 @@ const props = defineProps({
 const parsedCode = ref("");
 
 function load() {
-  parsedCode.value = props.hljs.highlight(props.docstring.funcdef, { language: props.lang }).value;
-  //console.log(JSON.stringify(props.docstring, null, "  "))
+  try {
+    parsedCode.value = props.hljs.highlight(props.docstring.funcdef, { language: props.lang }).value;
+    //console.log(JSON.stringify(props.docstring, null, "  "))
+  } catch (e) {
+    console.warn("Parsing error", e)
+  }
 }
 
 watchEffect(() => load())

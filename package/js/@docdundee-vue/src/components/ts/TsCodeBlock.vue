@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { CodeEditor } from "vuecodit";
-import AppIcon from "./AppIcon.vue";
+import AppIcon from "../AppIcon.vue";
 import "vuecodit/style.css";
 import _hljs from 'highlight.js/lib/core';
 
@@ -58,8 +58,9 @@ async function runCode() {
   isExecuting.value = true;
   const c = props.transpile(editedCode.value)
   const res = await Object.getPrototypeOf(async function () { }).constructor(c)();
-  //console.log("RES", res)
-  result.value = res;
+  if (res) {
+    result.value = res;
+  }
   isExecuting.value = false;
 }
 </script>

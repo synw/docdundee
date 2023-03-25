@@ -26,13 +26,17 @@
       <li><kbd>filepath</kbd> <span class="hljs-built_in">string</span> the path to the file to
         get the content from</li>
     </ul>
+    <h2>Type</h2>
+    <p>
+      <static-code-block class="not-prose" :hljs="hljs" :code="tcode" lang="typescript"></static-code-block>
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { transpile } from 'typescript';
 import { useDocloader } from "@docdundee/nav"
-import { TsCodeBlock } from '@docdundee/vue';
+import { TsCodeBlock, StaticCodeBlock } from '@docdundee/vue';
 import { hljs } from '@/conf';
 import { api } from '@/state';
 
@@ -43,13 +47,26 @@ const code1 = `//import { ParsedDocstring, useDocloader } from "@docdundee/nav";
 
 const docloader = useDocloader(api);
 
-const docstrings: Record<string, ParsedDocstring> = await docloader.loadDocstrings('/python/2.api');
+const docstrings: Record<string, ParsedDocstring> = await docloader.loadDocstrings(
+  '/python/api'
+);
 return '<pre>'+JSON.stringify(docstrings, null, "  ")+'</pre>'`;
 
 const code2 = `//import { useDocloader } from "@docdundee/nav"
 
 const docloader = useDocloader(api);
 
-const md: string = await docloader.loadMarkdown('/frontend/1.get_started/1.install.md');
+const md: string = await docloader.loadMarkdown(
+  '/frontend/get_started/1.install.md'
+);
 return '<pre>'+md+'</pre>'`;
+
+const tcode = `declare const useDocloader: (api: ReturnType<typeof useApi>) => {
+    loadDocstrings: (
+      routePath: string | null | undefined
+    ) => Promise<Record<string, ParsedDocstring>>;
+    loadMarkdown: (
+      filepath: string
+    ) => Promise<string>;
+};`
 </script>

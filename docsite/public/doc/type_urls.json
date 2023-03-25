@@ -1,0 +1,15 @@
+{
+  "lang": "python",
+  "urls": {
+    "ParsedDocstring": "/frontend/interfaces/ParsedDocstring",
+    "CodeBlockParam": "/frontend/interfaces/CodeBlockParam",
+    "CodeBlockRaises": "/frontend/interfaces/CodeBlockRaises",
+    "DirNavItem": "/frontend/interfaces/DirNavItem",
+    "DirNavListing": "/frontend/interfaces/DirNavListing",
+    "ExampleParam": "/frontend/interfaces/ExampleParam",
+    "NavItem": "/frontend/interfaces/NavItem",
+    "RouteDataPayload": "/frontend/interfaces/RouteDataPayload",
+    "HttpResponse": "https://docs.djangoproject.com/en/4.1/ref/request-response/#httpresponse-objects",
+    "HttpRequest": "https://docs.djangoproject.com/en/4.1/ref/request-response/#httprequest-objects"
+  }
+}

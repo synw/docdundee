@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { CodeEditor } from "vuecodit";
-import AppIcon from "./AppIcon.vue";
+import AppIcon from "../AppIcon.vue";
 import "vuecodit/style.css";
 import _hljs from 'highlight.js/lib/core';
 

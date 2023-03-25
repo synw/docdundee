@@ -107,8 +107,10 @@ function _parseType(data, types, lang) {
       return data
     }
   }
-  for (const typename in types) {
-    data = linkType(data, typename, types[typename])
+  if (data) {
+    for (const typename in types) {
+      data = linkType(data, typename, types[typename])
+    }
   }
   return data
 }

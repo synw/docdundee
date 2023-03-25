@@ -34,5 +34,13 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ]
+  ],
+  "typedocOptions": {
+    "name": "@docdundee/nav documentation",
+    "readme": "none",
+    "entryPoints": [
+      "src/main.ts"
+    ],
+    "out": "autodoc"
+  }
 }
