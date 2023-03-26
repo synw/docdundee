@@ -1,9 +1,9 @@
 <template>
   <the-header :lib-name="libName" :links="links"></the-header>
-  <div class="absolute p-5 pb-16 top-16 md:ml-64 main-w main-h">
+  <div class="absolute p-5 pb-16 top-16 md:ml-72 main-w main-h">
     <router-view></router-view>
   </div>
-  <the-sidebar class="fixed left-0 hidden w-64 p-3 overflow-y-auto top-16 sm:block secondary main-h"></the-sidebar>
+  <the-sidebar class="fixed left-0 hidden p-3 overflow-y-auto w-72 top-16 sm:block secondary main-h"></the-sidebar>
   <!-- main-css></main-css -->
 </template>
 
@@ -35,7 +35,7 @@ onBeforeMount(() => initState());
   height: calc(100vh - 4rem)
   @apply overflow-y-auto
 .main-w
-  width: calc(100vw - 16rem)
+  width: calc(100vw - 18rem)
 code:not([class]):not([style])
   @apply secondary py-1 px-2 rounded-md font-semibold
 </style>

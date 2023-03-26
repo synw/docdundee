@@ -1,4 +1,4 @@
-import{t as a}from"./typescript-f40a959d.js";import{d as i,o as p,c as d,a as t,b as s,u as e,H as o,M as n,e as m}from"./index-e9ed42a5.js";const u={class:"prosed"},b=t("h1",null,"Typescript code block",-1),_=t("p",null,"An editable and executable Typescript code block is available. In a template:",-1),h=t("p",null,"In a script setup tag:",-1),y=t("h2",null,"Rendering",-1),j={class:"not-prose"},x=i({__name:"ts_code_block",setup(f){const r=`<template>
+import{t as a}from"./typescript-f40a959d.js";import{d as i,o as p,c as d,a as t,b as s,u as e,H as o,M as n,e as m}from"./index-e2c6cad5.js";const u={class:"prosed"},b=t("h1",null,"Typescript code block",-1),_=t("p",null,"An editable and executable Typescript code block is available. In a template:",-1),h=t("p",null,"In a script setup tag:",-1),y=t("h2",null,"Rendering",-1),j={class:"not-prose"},x=i({__name:"ts_code_block",setup(f){const r=`<template>
   <ts-code-block :code="code" :transpile="transpile" :hljs="hljs">
   </ts-code-block>
 </template>`,l=`import { transpile } from "typescript";

@@ -11,7 +11,7 @@
     "docmap": "nodejs ./node_modules/@docdundee/docnav/bin/navmap.mjs"
   },
   "dependencies": {
-    "@docdundee/vue": "^0.0.19",
+    "@docdundee/vue": "^0.0.20",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",

@@ -1,5 +1,6 @@
 import AutoNavNode from "./widgets/AutoNavNode.vue";
 import AutoNav from "./widgets/AutoNav.vue";
+import AutoNavChildren from "./widgets/AutoNavChildren.vue";
 import AutoIndex from "./widgets/AutoIndex.vue";
 import RenderNavNode from "./widgets/RenderNavNode.vue";
 import RenderMd from "./components/markdown/RenderMd.vue";
@@ -15,6 +16,7 @@ import MainCss from "./components/MainCss.vue";
 
 export {
   AutoNav,
+  AutoNavChildren,
   AutoNavNode,
   AutoIndex,
   RenderNavNode,
