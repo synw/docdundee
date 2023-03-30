@@ -171,15 +171,15 @@ def parse_docstrings(
             raises.append({"description": ex.description, "type": ex.type_name})
         r = None
         if method["docstring"].returns is not None:
-            r = {"name": "", "type": ""}
-            rn = method["docstring"].returns.return_name
+            r = {"description": "", "type": ""}
+            rn = method["docstring"].returns.description
             if rn is not None:
                 rn = _to_html(rn, parse_rst)
             rt = method["docstring"].returns.type_name
             if rt is not None:
                 rt = _to_html(rt, parse_rst)
-            r["name"] = rn
             r["type"] = rt
+            r["description"] = rn
         _example: ExampleParam | None = None
         if len(method["docstring"].examples) > 0:
             rawex: DocstringExample = method["docstring"].examples[0]
@@ -226,6 +226,7 @@ def parse_docstrings(
         if shortdesc is not None:
             shortdesc = _to_html(shortdesc, parse_rst)
         docs[k] = {
+            "lang": "python",
             "funcdef": method["funcdef"],
             "description": shortdesc,
             "long_description": desc,
@@ -269,7 +270,7 @@ def write_docstrings(
 
 def _to_html(txt: str, parse_rst: bool) -> str:
     if not parse_rst:
-        return txt.replace("\n", "<br />")
+        return txt.replace("\n\n", "<br /><br />")
     return publish_parts(
         txt,
         settings_overrides={"output_encoding": "unicode"},

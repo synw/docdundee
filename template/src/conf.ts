@@ -25,10 +25,12 @@ import python from 'highlight.js/lib/languages/python';
 //import bash from 'highlight.js/lib/languages/bash';
 //import typescript from 'highlight.js/lib/languages/typescript';
 //import xml from 'highlight.js/lib/languages/xml';
+//import json from 'highlight.js/lib/languages/json';
 hljs.registerLanguage('python', python);
 //hljs.registerLanguage('typescript', typescript);
 //hljs.registerLanguage('bash', bash);
 //hljs.registerLanguage('html', xml);
+//hljs.registerLanguage('json', json);
 
 // some Python code to run after install
 const initCode: string | undefined = undefined;

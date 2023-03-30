@@ -29,10 +29,12 @@ import bash from 'highlight.js/lib/languages/bash';
 import typescript from 'highlight.js/lib/languages/typescript';
 import xml from 'highlight.js/lib/languages/xml';
 import yaml from 'highlight.js/lib/languages/yaml';
+import json from 'highlight.js/lib/languages/json';
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('html', xml);
 hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('json', json);
 
 export { libName, repoUrl, libTitle, pipPackages, examplesExtension, pyodidePackages, links, hljs, loadHljsTheme }

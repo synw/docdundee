@@ -14,6 +14,7 @@ def parse_funcs():
     inter = parse_functions("docdundee.interfaces")
     doc = parse_docstrings(inter, exec_examples=True)
     write_docstrings("../../docsite/public/doc/python/types/docstrings.json", doc, 4)
+    print("ok")
 
 
 def main():

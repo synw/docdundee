@@ -6,12 +6,12 @@
     "dev": "vite",
     "build": "vite build && cd ./dist && ln -s index.html 404.html",
     "preview": "vite preview",
-    "wdoc": "nodejs ./node_modules/@docdundee/docnav/bin/docnav.mjs",
-    "tdoc": "nodejs ./node_modules/@docdundee/docnav/bin/docnav.mjs -t",
-    "docmap": "nodejs ./node_modules/@docdundee/docnav/bin/navmap.mjs"
+    "wdoc": "node ./node_modules/@docdundee/docnav/bin/docnav.mjs",
+    "tdoc": "node ./node_modules/@docdundee/docnav/bin/docnav.mjs -t",
+    "docmap": "node ./node_modules/@docdundee/docnav/bin/navmap.mjs"
   },
   "dependencies": {
-    "@docdundee/vue": "^0.0.20",
+    "@docdundee/vue": "^0.0.21",
     "@snowind/header": "^0.0.8",
     "@snowind/state": "0.0.3",
     "highlight.js": "^11.6.0",
@@ -22,7 +22,7 @@
     "vuepython": "^0.0.17"
   },
   "devDependencies": {
-    "@docdundee/docnav": "^0.0.13",
+    "@docdundee/docnav": "^0.0.15",
     "@iconify/json": "^2.1.26",
     "@snowind/plugin": "0.4.0",
     "@tailwindcss/forms": "^0.5.0",

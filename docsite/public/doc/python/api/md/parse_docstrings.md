@@ -1,1 +1,1 @@
-See also: the <a href="javascript:openLink('/python_types/ParsedDocstring')">ParsedDocstring</a> type
+See also: the <a href="javascript:openLink('/python/types/ParsedDocstring')">ParsedDocstring</a> type

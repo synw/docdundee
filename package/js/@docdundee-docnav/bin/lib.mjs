@@ -92,8 +92,8 @@ function _readFilesInDir(dir, url, docpath) {
 }
 
 function linkType(data, typename, typelink) {
-  const regex = new RegExp(`(?<!<\\/a>|'\\)")(\\b${typename}\\b)`, 'g');
-  const replacement = `<a href="javascript:openLink(\'${typelink}\')">${typename}</a>`;
+  const regex = new RegExp(`(?<!\\b</a>|/\\b)\\b${typename}\\b`, 'g');
+  const replacement = `<a href="javascript:openLink('${typelink}')">${typename}</a>`;
   return data.replace(regex, replacement);
 }
 
@@ -115,7 +115,7 @@ function _parseType(data, types, lang) {
   return data
 }
 
-function processDocstrings(dir, url, hasTypes, types, lang, parseTypes) {
+function processDocstrings(dir, url, hasTypes, types, parseTypes) {
   const rawdata = fs.readFileSync(dir + '/docstrings.json');
   const data = JSON.parse(rawdata);
   const dsnames = Object.keys(data);
@@ -127,14 +127,22 @@ function processDocstrings(dir, url, hasTypes, types, lang, parseTypes) {
       url: `${url}/${d}`,
     });
     if (parseTypes && hasTypes) {
+      const ds = data[d];
+      const langs = Object.keys(types);
       //console.log("PARAMS", data[d].params)
       for (const [name, content] of Object.entries(data[d].params)) {
         //console.log("N", name, "D", content)
         //console.log("------- Param", name, "-", content.type)
-        data[d].params[name].type = _parseType(content.type, types, lang);
+        if (langs.includes(ds.lang)) {
+          const lt = types[ds.lang];
+          data[d].params[name].type = _parseType(content.type, lt, ds.lang);
+        }
       }
       if (data[d].returns) {
-        data[d].returns.type = _parseType(data[d].returns.type, types, lang)
+        if (langs.includes(ds.lang)) {
+          const lt = types[ds.lang];
+          data[d].returns.type = _parseType(data[d].returns.type, lt, ds.lang)
+        }
       }
     }
   });
@@ -219,7 +227,7 @@ function updateDocstringsWithExtraExamples(dirpath) {
   console.log("Updated", dirpath + "/docstrings.json", "with extra examples")
 }
 
-function parseDir(dirpath, url, docpath, hasTypes, types, lang, parseTypes) {
+function parseDir(dirpath, url, docpath, hasTypes, types, parseTypes) {
   console.log("Parsing dir", dirpath, url);
   let { content, hasDocstrings, hasExamples, hasExtraMd, hasMdIndex } = _readFilesInDir(dirpath, url, docpath);
   let data = {
@@ -228,7 +236,7 @@ function parseDir(dirpath, url, docpath, hasTypes, types, lang, parseTypes) {
     hasMdIndex: hasMdIndex,
   }
   if (hasDocstrings) {
-    data.docstrings = processDocstrings(dirpath, url, hasTypes, types, lang, parseTypes)
+    data.docstrings = processDocstrings(dirpath, url, hasTypes, types, parseTypes)
     // check extra examples
     if (hasExamples) {
       updateDocstringsWithExtraExamples(dirpath)
@@ -262,8 +270,7 @@ function getTypeUrls(dir) {
   } catch (e) { throw e }
   return {
     hasTypes: _hasTypes,
-    types: data.urls,
-    lang: data.lang,
+    types: data,
   }
 }
 
@@ -278,7 +285,6 @@ const onParseDirectory = (
   basePath,
   hasTypes,
   types,
-  lang,
   parseTypes,
 ) => {
   if (item.type == "directory") {
@@ -287,7 +293,7 @@ const onParseDirectory = (
     item.title = _getTitle(item.name);
     const docpath = item.path.replace(basePath, "");
     const url = _unumNameUrl(docpath);
-    const dirData = parseDir(item.path, url, docpath, hasTypes, types, lang, parseTypes);
+    const dirData = parseDir(item.path, url, docpath, hasTypes, types, parseTypes);
     item.content = dirData.content;
     item.docstrings = dirData.docstrings;
     item.url = url;
@@ -301,12 +307,10 @@ const onParseDirectory = (
 function parseDirTree(basePath, parseTypes) {
   let hasTypes = false;
   let types = {};
-  let lang = "";
   if (parseTypes) {
     const obj = getTypeUrls(basePath);
     hasTypes = obj.hasTypes;
     types = obj.types;
-    lang = obj.lang;
   }
   //console.log("Type urls", hasTypes, types)
   console.log("Parsing dir", basePath);
@@ -317,8 +321,8 @@ function parseDirTree(basePath, parseTypes) {
       attributes: ["type"],
       exclude: /(md|ex)$/,
     },
-    (item, path) => onParseDirectory(item, basePath, hasTypes, types, lang, parseTypes),
-    (item, path) => onParseDirectory(item, basePath, hasTypes, types, lang, parseTypes)
+    (item, path) => onParseDirectory(item, basePath, hasTypes, types, parseTypes),
+    (item, path) => onParseDirectory(item, basePath, hasTypes, types, parseTypes)
   );
   return reorderFirstLevel(dt)
 }

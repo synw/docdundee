@@ -6,6 +6,7 @@ import RenderNavNode from "./widgets/RenderNavNode.vue";
 import RenderMd from "./components/markdown/RenderMd.vue";
 import DispatchRoute from "./components/DispatchRoute.vue";
 import DispatchRoutePy from "./components/python/DispatchRoutePy.vue";
+import DispatchRouteTs from "./components/ts/DispatchRouteTs.vue";
 import RenderDocstring from "./components/RenderDocstring.vue";
 import RenderPyDocstring from "./components/python/RenderPyDocstring.vue";
 import RenderTsDocstring from "./components/ts/RenderTsDocstring.vue";
@@ -23,6 +24,7 @@ export {
   RenderMd,
   DispatchRoute,
   DispatchRoutePy,
+  DispatchRouteTs,
   RenderDocstring,
   RenderPyDocstring,
   RenderTsDocstring,

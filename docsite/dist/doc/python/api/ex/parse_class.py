@@ -10,4 +10,4 @@ Parse the datetime date methods
 # try replacing date by tzinfo
 parsed_methods: DocstringsDict = parse_class("datetime", "date")
 docs: Dict[str, ParsedDocstring] = parse_docstrings(parsed_methods)
-f"<pre>{json.dumps(docs, indent=4)}</pre>"
+print(json.dumps(docs, indent=4))

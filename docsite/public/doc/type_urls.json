@@ -1,6 +1,5 @@
 {
-  "lang": "typescript",
-  "urls": {
+  "typescript": {
     "ParsedDocstring": "/frontend/interfaces/ParsedDocstring",
     "CodeBlockParam": "/frontend/interfaces/CodeBlockParam",
     "CodeBlockRaises": "/frontend/interfaces/CodeBlockRaises",
@@ -9,5 +8,9 @@
     "ExampleParam": "/frontend/interfaces/ExampleParam",
     "NavItem": "/frontend/interfaces/NavItem",
     "RouteDataPayload": "/frontend/interfaces/RouteDataPayload"
+  },
+  "python": {
+    "ParsedDocstring": "/python/types/ParsedDocstring",
+    "DocstringsDict": "/python/types/DocstringsDict"
   }
 }
