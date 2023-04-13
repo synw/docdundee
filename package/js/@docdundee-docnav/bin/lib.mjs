@@ -267,7 +267,7 @@ function getTypeUrls(dir) {
     const rawdata = fs.readFileSync(dir + '/type_urls.json', 'utf-8');
     _hasTypes = true;
     data = JSON.parse(rawdata)
-  } catch (e) { throw e }
+  } catch (e) { }
   return {
     hasTypes: _hasTypes,
     types: data,
