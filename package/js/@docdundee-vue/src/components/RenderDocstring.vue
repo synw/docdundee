@@ -20,8 +20,8 @@
     </template>
     <template v-if="docstring?.returns?.type">
       <h3>Returns</h3>
-      <p class="flex flex-row space-x-1">
-      <div class="hljs-built_in" v-html="docstring.returns.type"></div>
+      <p class="flex flex-row">
+      <div class="mr-1 hljs-built_in" v-html="docstring.returns.type"></div>
       <div v-html="docstring.returns.description"></div>
       </p>
     </template>

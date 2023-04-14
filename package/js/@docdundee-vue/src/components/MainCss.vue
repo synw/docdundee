@@ -83,6 +83,8 @@ kbd
 // generic
 .igrid
     @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 m-auto
+.mr-1
+  margin-right: 0.25rem
 .mt-3
   margin-top: 0.75rem
 .mt-5

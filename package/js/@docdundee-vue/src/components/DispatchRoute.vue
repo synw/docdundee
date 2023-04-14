@@ -1,6 +1,14 @@
 <template>
   <div v-if="isReady">
-    <slot name="docstring" :data="page.data"></slot>
+    <slot name="docstring" :data="page.data">
+      <render-docstring lang="python" :hljs="hljs" v-if="page.data.hasDocstring === true" class="w-full"
+        :docstring="page.data.docstring" :title="page.data.name">
+        <template v-if="page.data.docstring.extra_md?.header">
+          <render-md :hljs="hljs" :source="page.data.docstring.extra_md.header"
+            :class="page.data.hasDocstring ? 'mb-3' : ''"></render-md>
+        </template>
+      </render-docstring>
+    </slot>
     <render-md :hljs="hljs" v-if="page.data.docstring?.extra_md" :source="page.data.docstring.extra_md.footer"
       :class="page.data.hasDocstring ? 'mt-5' : ''"></render-md>
     <render-md :hljs="hljs" v-if="page.data.hasMarkdown" :source="page.data.markdown"></render-md>
@@ -21,6 +29,7 @@ import _hljs from 'highlight.js/lib/core';
 import { RouteDataPayload, useNav } from '@docdundee/nav';
 import RenderMd from './markdown/RenderMd.vue';
 import AutoIndex from '../widgets/AutoIndex.vue';
+import RenderDocstring from './RenderDocstring.vue';
 
 const props = defineProps({
   nav: {

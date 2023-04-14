@@ -248,16 +248,17 @@ function parseDir(dirpath, url, docpath, hasTypes, types, parseTypes) {
   return data
 }
 
-function reorderFirstLevel(dirnav) {
+function reorderChildren(navnode) {
   const children = [];
-  for (const elem of dirnav.content) {
+  //console.log("Reorder", navnode.name, navnode.children.length);
+  for (const elem of navnode.content) {
     if (elem.type == "directory") {
-      const dir = dirnav.children.find((d) => d.name == elem.name)
+      const dir = navnode.children.find((d) => d.name == elem.name)
       children.push(dir)
     }
   }
-  dirnav.children = children;
-  return dirnav
+  navnode.children = children;
+  return navnode
 }
 
 function getTypeUrls(dir) {
@@ -300,6 +301,11 @@ const onParseDirectory = (
     item.has_md_index = dirData.hasMdIndex;
   }
   item.docpath = item.path.replace(basePath, "");
+  if ("children" in item) {
+    if (item.children.length > 1) {
+      item = reorderChildren(item)
+    }
+  }
   delete item.path
   delete item.type
 };
@@ -324,7 +330,8 @@ function parseDirTree(basePath, parseTypes) {
     (item, path) => onParseDirectory(item, basePath, hasTypes, types, parseTypes),
     (item, path) => onParseDirectory(item, basePath, hasTypes, types, parseTypes)
   );
-  return reorderFirstLevel(dt)
+  return dt
+  //return reorderFirstLevel(dt)
 }
 
 export { saveNav, parseDirTree }
