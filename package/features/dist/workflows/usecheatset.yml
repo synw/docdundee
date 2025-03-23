@@ -1,0 +1,4 @@
+title: "Ask a question about an AI generated cheatset from a markdown file"
+steps:
+  - action: read_file
+  - task: readcheatset

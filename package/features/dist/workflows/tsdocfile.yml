@@ -1,0 +1,5 @@
+title: "Check documentation and fix"
+steps:
+  - action: read_file
+  - action: tsdoc-checkfix
+  

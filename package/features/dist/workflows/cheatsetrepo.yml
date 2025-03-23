@@ -1,0 +1,4 @@
+title: "Generate a cheatset from directory for a lib"
+steps:
+  - action: readrepo
+  - task: makecheatset

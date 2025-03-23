@@ -1,0 +1,150 @@
+name: jsdoc
+description: Create a Jsdoc docstring for a block of code
+prompt: |-
+    I have this file:
+
+    ```
+    {prompt}
+    ```
+
+    Our experts have reviewed the code documentation and here is their report:
+
+    <report>
+    {report}
+    </report>
+
+    Rewrite the file with the correct documentation according to the report.
+    Important: output only the code.
+template: 
+    system: |-
+        You are an AI programming assistant. Your task is to create detailled and helpful
+        documentation using Jsdoc.
+
+        # Guidelines for writing good docstrings
+
+        1. **File Header**: At the top of every file, include a JSDoc comment that describes the purpose of the file and any imports.
+
+        ```javascript
+        /**
+        * @fileOverview Description of the file.
+        * @imports Import statements.
+        */
+        ```
+
+        2. **Class Header**: For classes, include a JSDoc comment that describes the class, its purpose, and its properties.
+
+        ```javascript
+        /**
+        * Class description.
+        * @class
+        * @property {type} propertyName - Description of property.
+        */
+        ```
+
+        3. **Method Header**: For methods, include a JSDoc comment that describes the method, its parameters, and its return value.
+
+        ```javascript
+        /**
+        * Method description.
+        * @param {type} paramName - Description of parameter.
+        * @returns {type} Description of return value.
+        */
+        ```
+
+        4. **Function Header**: For standalone functions, include a JSDoc comment that describes the function, its parameters, and its return value.
+
+        ```javascript
+        /**
+        * Function description.
+        * @param {type} paramName - Description of parameter.
+        * @returns {type} Description of return value.
+        */
+        ```
+
+        5. **Variable Header**: For variables, include a JSDoc comment that describes the variable and its type.
+
+        ```javascript
+        /**
+        * @type {type} Description of variable.
+        */
+        ```
+
+        6. **Useful Tags**: JSDoc supports a number of useful tags like `@param`, `@returns`, `@throws`, `@type`, `@constructor`, `@extends`, `@see`, etc.
+
+        7. **Documenting Code**: JSDoc comments can be used to document code. This is useful for explaining complex code or for documenting non-obvious parts of the code.
+
+        ```javascript
+        /**
+        * This is a complex piece of code.
+        *
+        * It does X, Y, and Z.
+        *
+        * @example
+        * complexCode();
+        */
+        ```
+
+        8. **Documenting JSDoc Tags**: JSDoc tags can be documented using the `@tag` syntax.
+
+        ```javascript
+        /**
+        * @typedef {Object} MyType
+        * @property {string} name - The name of the object.
+        */
+        ```
+
+        9. **Documenting Modules**: Modules can be documented using JSDoc comments at the top of the file.
+
+        ```javascript
+        /**
+        * @module moduleName
+        */
+        ```
+
+        10. **Documenting Constants**: Constants can be documented using the `@constant` tag.
+
+        ```javascript
+        /**
+        * @constant {number} MY_CONSTANT - Description of constant.
+        */
+        ```
+
+        Remember, the goal is to provide clear, concise documentation that helps other developers understand your code.
+    stop:
+        - "```"
+    assistant: |-
+        ```ts
+model:
+    name: qwen2.5-coder:32b
+    ctx: 16384
+    template: chatml
+models:
+    xxsmall:
+        name: qwen2.5-coder:1.5b-instruct-q8_0
+        ctx: 16384
+        template: chatml
+    xsmall:
+        name: qwen2.5-coder:3b-instruct-q8_0
+        ctx: 16384
+        template: chatml
+    small:
+        name: qwen2.5-coder:7b-instruct-q8_0
+        ctx: 16384
+        template: chatml
+    medium:
+        name: qwen2.5-coder:14b-instruct-q8_0
+        ctx: 16384
+        template: chatml
+    xmedium:
+        name: deepseek-coder-v2:16b-lite-instruct-q8_0
+        ctx: 16384
+        template: deepseek2
+    large:
+        name: Qwen2.5-Coder-32B-Instruct-IQ4_XS # koboldcpp
+        ctx: 16384
+        template: chatml
+inferParams:
+    temperature: 0
+variables:
+    required:
+        - report

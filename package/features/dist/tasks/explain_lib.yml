@@ -1,0 +1,17 @@
+name: explain_lib
+description: explain lib
+prompt: |-
+    I found a program with this code:
+
+    ```
+    {prompt}
+    ```
+
+    Please explain how I can use it
+model:
+    name: DeepSeek-Coder-V2-Lite-Instruct-Q8_0
+    ctx: 16384
+    template: deepseek2
+inferParams:
+    min_p: 0.05
+    temperature: 0.1

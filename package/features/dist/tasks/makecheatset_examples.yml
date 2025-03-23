@@ -1,0 +1,35 @@
+name: make_cheatset
+description: Create a cheatset for a library from code and doc
+prompt: |-
+    Read the input documents to create a rich, informative documentation set of examples. Your task
+    is to provide a complete set of code examples from this documentation: be sure to provide examples
+    for each part of the api. Provide output samples if relevant.
+      
+    The library is called {name} with this code and documentation:
+
+    ```
+    {prompt}
+    ```
+
+    Important: output only the code. {instructions}
+
+template:
+    system: |-
+        You are a technical programing documentation AI writer.
+    assistant: |-
+        Here is the cheatset:
+model:
+    name: qwen2.5-coder:7b-instruct-q8_0
+    ctx: 65536
+    template: chatml
+inferParams:
+    top_p: 1
+    top_k: 1
+    min_p: 0.05
+    temperature: 0.2
+    max_tokens: 16384
+variables:
+    required:
+        - name
+    optional:
+        - instructions

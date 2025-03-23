@@ -1,0 +1,40 @@
+name: make_cheatset
+description: Create a cheatset for a library from code and doc
+prompt: |-
+    Read the input documents to create a rich, informative documentation cheatset. Retain 
+    as much techinical details as possible like data structures, types and methods. Remember to
+    always include short code examples to show how to use it. The target audience is an AI: try to
+    compress the information as much as you can.
+
+    Goal: another language model reading your cheatset should have a good understanding of 
+    how the library works. To analyze the provided codebase break down the structure and functionality of 
+    the modules and components. Think carefuly before writing your final cheatset. 
+      
+    I have a library called {name} with this code and documentation:
+
+    ```
+    {prompt}
+    ```
+
+    Important: output only the cheatset, avoid commenting. {instructions}
+
+template:
+    system: |-
+        You are a technical programing documentation AI writer.
+    assistant: |-
+        Here is the cheatset:
+model:
+    name: deepseek-coder-v2:16b-lite-instruct-q8_0
+    ctx: 65536
+    template: deepseek2
+inferParams:
+    top_p: 1
+    top_k: 1
+    min_p: 0.05
+    temperature: 0.2
+    max_tokens: 16384
+variables:
+    required:
+        - name
+    optional:
+        - instructions

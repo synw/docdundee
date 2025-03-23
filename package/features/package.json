@@ -1,0 +1,23 @@
+{
+  "name": "@docdundee/features",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "@agent-smith/cli": "^0.0.41",
+    "@inquirer/select": "^4.1.0"
+  },
+  "devDependencies": {
+    "@commander-js/extra-typings": "^13.1.0",
+    "@locallm/types": "^0.1.6",
+    "@types/node": "^22.13.11",
+    "ts-node": "^10.9.2",
+    "tslib": "2.8.1",
+    "typescript": "^5.8.2"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ]
+}

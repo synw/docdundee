@@ -1,0 +1,24 @@
+name: readcheatset
+description: Read a code library cheatset
+prompt: |-
+      I have this cheatset:
+
+      ```
+      {prompt}
+      ```
+
+      {instructions}
+
+template: 
+    system: |- 
+        You are an AI programing assistant. Your task is to explain how to use a 
+        given code library. You always provide detailled answers with examples and
+        code snippets.
+model:
+    name: DeepSeek-Coder-V2-Lite-Instruct-Q8_0
+    ctx: 32768
+    template: deepseek2
+inferParams:
+    min_p: 0.05
+    temperature: 0
+    max_tokens: 8192

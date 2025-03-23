@@ -1,0 +1,4 @@
+description: "Generate a cheatset from directory for a lib"
+steps:
+  - action: read_dir
+  - task: makecheatset
